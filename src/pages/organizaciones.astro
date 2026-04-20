@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const orgs = [
+  {
+    id: 'eds',
+    name: 'Estrellas del Sur',
+    location: 'Córdoba, Andalucía',
+    founded: '2019',
+    color: 'var(--color-eds)',
+    colorRgb: '13,148,136',
+    flag: '🌟',
+    description:
+      'Asociación juvenil con sede en Córdoba que lleva desde 2019 promoviendo la movilidad europea entre jóvenes del sur de España. Fue la impulsora de la creación de la Federación Estrellas de Europa en 2024.',
+    activities: [
+      'Intercambios juveniles Erasmus+',
+      'Voluntariado del Cuerpo Europeo de Solidaridad (ESC)',
+      'Formaciones de líderes juveniles',
+      'Proyectos de participación ciudadana',
+    ],
+    website: 'https://estrellasdelsur.eu',
+    email: 'hola@estrellasdelsur.eu',
+  },
+  {
+    id: 'ema',
+    name: 'Estrella Magec',
+    location: 'Islas Canarias',
+    founded: '2022',
+    color: 'var(--color-ema)',
+    colorRgb: '22,163,74',
+    flag: '🌺',
+    description:
+      'Organización canaria que trabaja por la inclusión y la participación activa de jóvenes en proyectos europeos, con especial atención a colectivos con menos oportunidades.',
+    activities: [
+      'Inclusión juvenil',
+      'Proyectos Erasmus+ KA1 y KA2',
+      'Educación no formal',
+      'Cooperación internacional',
+    ],
+    website: null,
+    email: null,
+  },
+  {
+    id: 'mur',
+    name: 'Murcia Debate',
+    location: 'Murcia',
+    founded: '2021',
+    color: 'var(--color-mur)',
+    colorRgb: '124,58,237',
+    flag: '🎤',
+    description:
+      'Asociación murciana que utiliza el debate y la argumentación como herramientas de educación no formal para desarrollar el pensamiento crítico y la participación cívica entre jóvenes.',
+    activities: [
+      'Torneos de debate',
+      'Formación en oratoria',
+      'Proyectos europeos de participación',
+      'Ciudadanía activa',
+    ],
+    website: null,
+    email: null,
+  },
+];
+---
+
+<BaseLayout title="Organizaciones" description="Conoce las tres organizaciones miembro de la Federación Estrellas de Europa.">
+
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Organizaciones miembro
+      </span>
+      <h1 class="fade-in fade-in-delay-1">Las asociaciones que forman la federación</h1>
+      <p class="fade-in fade-in-delay-2">
+        Tres entidades de distintas regiones de España, unidas por el compromiso con
+        la juventud y los valores europeos.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="orgs-list">
+        {orgs.map((org, i) => (
+          <article class={`org-detail fade-in`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}`}>
+            <div class="org-detail-side">
+              <div class="org-detail-flag">{org.flag}</div>
+              <span class="org-detail-badge">{org.id.toUpperCase()}</span>
+              <p class="org-detail-founded">Fundada en {org.founded}</p>
+              <p class="org-detail-loc">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                {org.location}
+              </p>
+              {org.website && (
+                <a href={org.website} target="_blank" rel="noopener" class="org-detail-link">
+                  Visitar web ↗
+                </a>
+              )}
+              {org.email && (
+                <a href={`mailto:${org.email}`} class="org-detail-link">
+                  {org.email}
+                </a>
+              )}
+            </div>
+
+            <div class="org-detail-main">
+              <h2 class="org-detail-name">{org.name}</h2>
+              <p class="org-detail-desc">{org.description}</p>
+
+              <h3 class="org-detail-activities-title">Actividades principales</h3>
+              <ul class="org-detail-activities">
+                {org.activities.map(act => (
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                    {act}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="join-section section-sm">
+    <div class="container join-inner">
+      <div class="join-text fade-in">
+        <h2>¿Tu asociación quiere ser miembro?</h2>
+        <p>
+          La federación está abierta a nuevas organizaciones que trabajen con jóvenes
+          y compartan los valores de movilidad, inclusión y aprendizaje no formal.
+        </p>
+      </div>
+      <a href={`${base}/contacto/`} class="btn btn-eu btn-lg fade-in fade-in-delay-1">
+        Contáctanos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.orgs-list { display: flex; flex-direction: column; gap: 2.5rem; }
+.org-detail {
+  display: grid; grid-template-columns: 220px 1fr;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(10,22,40,.07);
+  border-left: 4px solid var(--org-color);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow .25s;
+}
+.org-detail:hover { box-shadow: var(--shadow-lg); }
+.org-detail-side {
+  background: linear-gradient(180deg, rgba(var(--org-rgb),.08) 0%, rgba(var(--org-rgb),.03) 100%);
+  padding: 2rem 1.5rem;
+  border-right: 1px solid rgba(10,22,40,.06);
+  display: flex; flex-direction: column; gap: .6rem;
+}
+.org-detail-flag { font-size: 3rem; margin-bottom: .25rem; }
+.org-detail-badge {
+  display: inline-block; padding: .25rem .8rem;
+  border-radius: var(--radius-full);
+  background: var(--org-color); color: #fff;
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+  width: fit-content;
+}
+.org-detail-founded { font-size: .82rem; color: var(--gray-500); }
+.org-detail-loc {
+  display: flex; align-items: center; gap: .3rem;
+  font-size: .85rem; color: var(--gray-600);
+}
+.org-detail-link {
+  font-size: .85rem; color: var(--org-color);
+  font-weight: 500; text-decoration: none;
+}
+.org-detail-link:hover { text-decoration: underline; }
+.org-detail-main { padding: 2rem 2.5rem; }
+.org-detail-name { font-size: 1.5rem; color: var(--navy); margin-bottom: .75rem; }
+.org-detail-desc { color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; }
+.org-detail-activities-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .82rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--gray-400); margin-bottom: .75rem;
+}
+.org-detail-activities { display: flex; flex-direction: column; gap: .5rem; }
+.org-detail-activities li {
+  display: flex; align-items: center; gap: .5rem;
+  font-size: .92rem; color: var(--gray-600);
+}
+.org-detail-activities svg { color: var(--org-color); flex-shrink: 0; }
+
+.join-section { background: var(--cream-dark); }
+.join-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.join-text h2 { font-size: 1.6rem; color: var(--navy); margin-bottom: .5rem; }
+.join-text p { color: var(--gray-600); max-width: 500px; }
+
+@media (max-width: 720px) {
+  .org-detail { grid-template-columns: 1fr; }
+  .org-detail-side { border-right: none; border-bottom: 1px solid rgba(10,22,40,.06); }
+  .org-detail-main { padding: 1.5rem; }
+}
+</style>

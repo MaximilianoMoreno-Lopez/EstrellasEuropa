@@ -1,0 +1,128 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: `${base}/`,                   label: 'Inicio' },
+  { href: `${base}/organizaciones/`,    label: 'Organizaciones' },
+  { href: `${base}/sobre-nosotros/`,    label: 'Sobre Nosotros' },
+  { href: `${base}/contacto/`,          label: 'Contacto' },
+];
+
+function isActive(href: string) {
+  if (href === `${base}/`) return pathname === `${base}/` || pathname === base || pathname === `${base}` + '/';
+  return pathname.startsWith(href);
+}
+---
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a href={`${base}/`} class="nav-logo" aria-label="Inicio">
+      <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="64" height="64" rx="12" fill="#003399"/>
+        <g transform="translate(32,32)">
+          {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => (
+            <polygon
+              points="0,-14 1.6,-5 6,-5 2.8,-2 4.2,6 0,2 -4.2,6 -2.8,-2 -6,-5 -1.6,-5"
+              fill="#ffcc00"
+              transform={`rotate(${deg}) translate(0,-10) scale(0.7)`}
+            />
+          ))}
+        </g>
+      </svg>
+      <span class="logo-text">
+        <span class="logo-main">Estrellas de Europa</span>
+        <span class="logo-sub">Federación</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="nav-links">
+      {navLinks.map(link => (
+        <a href={link.href} class={`nav-link ${isActive(link.href) ? 'active' : ''}`}>
+          {link.label}
+        </a>
+      ))}
+      <a href={`${base}/contacto/`} class="btn btn-eu btn-sm">Contactar</a>
+    </nav>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<style>
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,51,153,.1);
+  transition: box-shadow .3s;
+}
+.navbar.scrolled { box-shadow: 0 2px 20px rgba(0,51,153,.1); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: .75rem;
+  text-decoration: none;
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-main {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem; font-weight: 700; color: var(--eu-blue);
+}
+.logo-sub {
+  font-size: .68rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gray-500);
+}
+.nav-links {
+  display: flex; align-items: center; gap: .25rem;
+}
+.nav-link {
+  padding: .45rem .9rem; border-radius: var(--radius-sm);
+  font-size: .9rem; font-weight: 500; color: var(--gray-600);
+  text-decoration: none; transition: color .2s, background .2s;
+}
+.nav-link:hover  { color: var(--eu-blue); background: rgba(0,51,153,.06); }
+.nav-link.active { color: var(--eu-blue); font-weight: 600; }
+.btn-sm { padding: .45rem 1.1rem; font-size: .88rem; }
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px;
+  padding: .4rem; background: none; border: none; cursor: pointer;
+}
+.nav-toggle span {
+  display: block; width: 22px; height: 2px;
+  background: var(--navy); border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none; flex-direction: column; align-items: stretch;
+    position: absolute; top: 68px; left: 0; right: 0;
+    background: #fff; border-bottom: 1px solid var(--gray-200);
+    padding: 1rem 1.5rem; gap: .25rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-link { padding: .6rem .5rem; }
+  .btn-sm { margin-top: .5rem; text-align: center; justify-content: center; }
+}
+</style>
+
+<script>
+const toggle = document.getElementById('nav-toggle');
+const links  = document.getElementById('nav-links');
+const navbar = document.querySelector('.navbar');
+
+toggle?.addEventListener('click', () => {
+  const open = links?.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', String(open));
+});
+
+window.addEventListener('scroll', () => {
+  navbar?.classList.toggle('scrolled', window.scrollY > 20);
+});
+</script>

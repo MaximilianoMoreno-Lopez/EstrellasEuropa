@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import MisionSection from '../components/MisionSection.astro';
+import MemberOrgs from '../components/MemberOrgs.astro';
+import Organigrama from '../components/Organigrama.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="Inicio" description="Federación Estrellas de Europa — uniendo asociaciones juveniles de España a través de Erasmus+.">
+  <Hero />
+  <MisionSection />
+  <MemberOrgs />
+  <Organigrama />
+
+  <!-- CTA Strip -->
+  <section class="cta-strip">
+    <div class="container cta-inner">
+      <div class="cta-text fade-in">
+        <h2>¿Tu asociación quiere unirse?</h2>
+        <p>Si compartes los valores europeos y trabajas con jóvenes, contáctanos para explorar una posible adhesión a la federación.</p>
+      </div>
+      <div class="cta-actions fade-in fade-in-delay-1">
+        <a href={`${base}/contacto/`} class="btn btn-gold btn-lg">Ponerse en contacto</a>
+        <a href={`${base}/sobre-nosotros/`} class="btn btn-outline-white btn-lg">Saber más</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.cta-strip {
+  background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
+  padding: 5rem 0;
+}
+.cta-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 3rem; flex-wrap: wrap;
+}
+.cta-text h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #fff; margin-bottom: .75rem;
+}
+.cta-text p { color: rgba(255,255,255,.7); max-width: 460px; line-height: 1.65; }
+.cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  .cta-inner { flex-direction: column; }
+}
+</style>

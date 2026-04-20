@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Organigrama from '../components/Organigrama.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const values = [
+  { icon: '🌐', title: 'Europeísmo', desc: 'Creemos en el proyecto europeo como marco de convivencia y oportunidades para la juventud.' },
+  { icon: '🎓', title: 'Aprendizaje no formal', desc: 'La educación fuera del aula es tan valiosa como la académica. Aprendemos haciendo y compartiendo.' },
+  { icon: '🤝', title: 'Solidaridad', desc: 'Nos apoyamos mutuamente entre organizaciones para multiplicar el impacto de nuestras acciones.' },
+  { icon: '🌈', title: 'Inclusión', desc: 'Trabajamos para que todos los jóvenes, independientemente de su origen, tengan acceso a la movilidad europea.' },
+  { icon: '🌱', title: 'Sostenibilidad', desc: 'Integramos la dimensión ambiental en nuestros proyectos y metodologías.' },
+  { icon: '💡', title: 'Innovación', desc: 'Buscamos nuevas formas de conectar a jóvenes con Europa y entre ellos.' },
+];
+
+const milestones = [
+  { year: '2024', title: 'Fundación de la federación', desc: 'Tres asociaciones de Córdoba, Canarias y Murcia firman el acta fundacional de la Federación Estrellas de Europa en Madrid.' },
+  { year: '2024', title: 'Inscripción registral', desc: 'La federación obtiene su NIF G75822320 y queda inscrita en el Registro Nacional de Asociaciones.' },
+  { year: '2025', title: 'Primer proyecto conjunto', desc: 'Las tres organizaciones coordinan su primera candidatura conjunta a una subvención Erasmus+ KA2.' },
+];
+---
+
+<BaseLayout title="Sobre Nosotros" description="Conoce la historia, misión y equipo de la Federación Estrellas de Europa.">
+
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Sobre nosotros</span>
+      <h1 class="fade-in fade-in-delay-1">Quiénes somos</h1>
+      <p class="fade-in fade-in-delay-2">
+        La Federación Estrellas de Europa es una entidad sin ánimo de lucro que agrupa
+        a asociaciones juveniles españolas comprometidas con los valores europeos.
+      </p>
+    </div>
+  </div>
+
+  <!-- Historia -->
+  <section class="section">
+    <div class="container">
+      <div class="historia-grid">
+        <div class="fade-in">
+          <span class="section-label">Nuestra historia</span>
+          <h2 class="section-title">Nació de la necesidad de ir más lejos</h2>
+          <div class="divider"></div>
+          <p style="color: var(--gray-600); line-height: 1.75; margin-bottom: 1rem;">
+            La Federación Estrellas de Europa fue fundada en 2024 con la convicción de que
+            las asociaciones juveniles son más poderosas cuando trabajan juntas. Impulsada por
+            Estrellas del Sur (Córdoba), se unieron pronto Estrella Magec (Canarias) y Murcia Debate
+            para conformar una red de primer nivel.
+          </p>
+          <p style="color: var(--gray-600); line-height: 1.75; margin-bottom: 1.5rem;">
+            Nuestra sede social se encuentra en Madrid — un punto de encuentro simbólico para
+            organizaciones del norte, sur y las islas — desde donde coordinamos candidaturas conjuntas,
+            intercambios de metodología y proyectos Erasmus+ de mayor envergadura.
+          </p>
+          <div class="facts-row">
+            <div class="fact">
+              <span class="fact-n">2024</span>
+              <span class="fact-l">Año de fundación</span>
+            </div>
+            <div class="fact">
+              <span class="fact-n">3</span>
+              <span class="fact-l">CCAA representadas</span>
+            </div>
+            <div class="fact">
+              <span class="fact-n">Madrid</span>
+              <span class="fact-l">Sede social</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="milestones fade-in fade-in-delay-1">
+          <h3 class="milestones-title">Hitos</h3>
+          {milestones.map(m => (
+            <div class="milestone">
+              <span class="milestone-year">{m.year}</span>
+              <div class="milestone-body">
+                <strong>{m.title}</strong>
+                <p>{m.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section values-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Valores</span>
+        <h2 class="section-title">Lo que nos guía</h2>
+      </div>
+      <div class="values-grid">
+        {values.map((v, i) => (
+          <div class={`value-card fade-in fade-in-delay-${(i % 3) + 1}`}>
+            <span class="value-icon">{v.icon}</span>
+            <h4>{v.title}</h4>
+            <p>{v.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Organigrama (reusable component) -->
+  <Organigrama />
+
+  <!-- Datos legales -->
+  <section class="section-sm legal-section">
+    <div class="container">
+      <div class="legal-card fade-in">
+        <h3>Datos identificativos</h3>
+        <dl class="legal-dl">
+          <dt>Denominación</dt><dd>Federación Estrellas de Europa</dd>
+          <dt>NIF</dt><dd>G75822320</dd>
+          <dt>Domicilio social</dt><dd>C.C. Los Azahares, Planta Alta 3A, 28039 Madrid</dd>
+          <dt>Email</dt><dd><a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a></dd>
+          <dt>Año de constitución</dt><dd>2024</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.historia-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: start;
+}
+.facts-row { display: flex; gap: 2rem; flex-wrap: wrap; }
+.fact { display: flex; flex-direction: column; gap: .2rem; }
+.fact-n {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem; font-weight: 700; color: var(--eu-blue);
+}
+.fact-l { font-size: .8rem; color: var(--gray-500); }
+.milestones-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .8rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gray-400); margin-bottom: 1.25rem;
+}
+.milestone {
+  display: flex; gap: 1.25rem;
+  padding-bottom: 1.5rem;
+  border-left: 2px solid var(--gray-200);
+  padding-left: 1.25rem;
+  position: relative;
+}
+.milestone::before {
+  content: ''; position: absolute; left: -5px; top: 4px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--eu-blue);
+}
+.milestone-year {
+  font-size: .78rem; font-weight: 700; color: var(--eu-blue);
+  background: rgba(0,51,153,.08); padding: .2rem .6rem;
+  border-radius: var(--radius-full); white-space: nowrap; height: fit-content;
+}
+.milestone-body strong { display: block; font-size: .95rem; color: var(--navy); margin-bottom: .25rem; }
+.milestone-body p { font-size: .85rem; color: var(--gray-600); line-height: 1.6; }
+
+.values-section { background: var(--cream-dark); }
+.section-header { margin-bottom: 2.5rem; }
+.values-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.value-card {
+  background: #fff; padding: 1.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(10,22,40,.06);
+  box-shadow: var(--shadow-card);
+  transition: transform .2s;
+}
+.value-card:hover { transform: translateY(-4px); }
+.value-icon { font-size: 2rem; display: block; margin-bottom: .75rem; }
+.value-card h4 { font-size: 1.05rem; color: var(--navy); margin-bottom: .5rem; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+.value-card p { font-size: .88rem; color: var(--gray-600); line-height: 1.65; }
+
+.legal-section { background: #fff; }
+.legal-card {
+  background: var(--cream); border-radius: var(--radius-md);
+  padding: 2rem 2.5rem; border: 1px solid var(--cream-dark);
+  max-width: 620px;
+}
+.legal-card h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 1.25rem; }
+.legal-dl { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1.5rem; }
+dt { font-size: .82rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .06em; align-self: center; }
+dd { font-size: .92rem; color: var(--navy); }
+dd a { color: var(--eu-blue); text-decoration: none; }
+dd a:hover { text-decoration: underline; }
+
+@media (max-width: 860px) {
+  .historia-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .values-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .values-grid { grid-template-columns: 1fr; }
+  .legal-card { padding: 1.5rem; }
+}
+</style>

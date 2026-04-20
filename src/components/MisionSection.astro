@@ -1,0 +1,85 @@
+---
+const pillars = [
+  {
+    icon: '🌍',
+    title: 'Movilidad europea',
+    desc: 'Facilitamos intercambios, voluntariados y formaciones en el marco del programa Erasmus+ para jóvenes de toda España.',
+    color: 'var(--eu-blue)',
+    rgb: '0,51,153',
+  },
+  {
+    icon: '📚',
+    title: 'Aprendizaje no formal',
+    desc: 'Creemos en el poder de la educación fuera del aula: dinámicas grupales, trabajo por proyectos y experiencias transformadoras.',
+    color: 'var(--teal)',
+    rgb: '13,148,136',
+  },
+  {
+    icon: '🤝',
+    title: 'Valores europeos',
+    desc: 'Promovemos la ciudadanía activa, la inclusión y la diversidad como pilares de una Europa unida.',
+    color: 'var(--gold)',
+    rgb: '245,158,11',
+  },
+];
+---
+
+<section class="section mision-section">
+  <div class="container">
+    <div class="mision-grid">
+      <div class="mision-text fade-in">
+        <span class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          Nuestra misión
+        </span>
+        <h2 class="section-title">Impulsamos oportunidades para la juventud española en Europa</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+          Estrellas de Europa nació en 2024 con el objetivo de aunar fuerzas entre asociaciones
+          juveniles de diferentes regiones para ampliar el alcance e impacto de los proyectos europeos.
+        </p>
+        <p class="section-subtitle" style="margin-top: 1rem;">
+          A través de la federación, las organizaciones miembro acceden a financiación conjunta,
+          comparten metodologías y garantizan mayor calidad en cada proyecto Erasmus+.
+        </p>
+      </div>
+
+      <div class="pillars fade-in fade-in-delay-1">
+        {pillars.map(p => (
+          <div class="pillar" style={`--p-color: ${p.color}; --p-rgb: ${p.rgb}`}>
+            <span class="pillar-icon">{p.icon}</span>
+            <div>
+              <h4 class="pillar-title">{p.title}</h4>
+              <p class="pillar-desc">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.mision-section { background: #fff; }
+.mision-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: center;
+}
+.pillars { display: flex; flex-direction: column; gap: 1.5rem; }
+.pillar {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: rgba(var(--p-rgb), .05);
+  border-left: 3px solid var(--p-color);
+  transition: transform .2s;
+}
+.pillar:hover { transform: translateX(4px); }
+.pillar-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: .1rem; }
+.pillar-title { font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: .35rem; font-family: 'DM Sans', sans-serif; }
+.pillar-desc { font-size: .88rem; color: var(--gray-600); line-height: 1.65; }
+
+@media (max-width: 860px) {
+  .mision-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+</style>

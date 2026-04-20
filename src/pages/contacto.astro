@@ -1,0 +1,238 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contacto" description="Contacta con la Federación Estrellas de Europa.">
+
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Contacto</span>
+      <h1 class="fade-in fade-in-delay-1">Hablemos</h1>
+      <p class="fade-in fade-in-delay-2">
+        ¿Tienes preguntas sobre la federación, quieres colaborar o tu asociación
+        está interesada en unirse? Estamos aquí.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info fade-in">
+          <h2>Información de contacto</h2>
+
+          <div class="info-cards">
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </div>
+              <div>
+                <h4>Sede social</h4>
+                <p>C.C. Los Azahares, Planta Alta 3A<br />28039 Madrid, España</p>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div class="info-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <div>
+                <h4>NIF</h4>
+                <p>G75822320</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="orgs-contact">
+            <h3>Contacto por organización</h3>
+            <div class="org-contact-list">
+              <div class="org-contact" style="--c: var(--color-eds)">
+                <span class="org-dot"></span>
+                <div>
+                  <strong>Estrellas del Sur</strong>
+                  <a href="mailto:hola@estrellasdelsur.eu">hola@estrellasdelsur.eu</a>
+                </div>
+              </div>
+              <div class="org-contact" style="--c: var(--color-ema)">
+                <span class="org-dot"></span>
+                <div>
+                  <strong>Estrella Magec</strong>
+                  <span class="coming">Contacto próximamente</span>
+                </div>
+              </div>
+              <div class="org-contact" style="--c: var(--color-mur)">
+                <span class="org-dot"></span>
+                <div>
+                  <strong>Murcia Debate</strong>
+                  <span class="coming">Contacto próximamente</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="contact-form-wrap fade-in fade-in-delay-1">
+          <div class="card form-card">
+            <h2>Envíanos un mensaje</h2>
+            <p class="form-subtitle">Te responderemos en un plazo de 48 horas hábiles.</p>
+
+            <form class="contact-form" id="contact-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Nombre *</label>
+                  <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="org">Organización (opcional)</label>
+                <input type="text" id="org" name="org" placeholder="Nombre de tu asociación" />
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Asunto *</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Selecciona un motivo</option>
+                  <option value="adhesion">Adhesión a la federación</option>
+                  <option value="colaboracion">Colaboración puntual</option>
+                  <option value="erasmus">Proyectos Erasmus+</option>
+                  <option value="prensa">Prensa / comunicación</option>
+                  <option value="otro">Otro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Mensaje *</label>
+                <textarea id="message" name="message" rows="5" required placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-eu btn-lg form-submit">
+                Enviar mensaje
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+
+              <p class="form-note">
+                Al enviar este formulario, tus datos serán tratados únicamente para gestionar tu consulta.
+              </p>
+            </form>
+
+            <div class="form-success" id="form-success" hidden>
+              <div class="success-icon">✉️</div>
+              <h3>¡Mensaje enviado!</h3>
+              <p>Hemos recibido tu mensaje. Te responderemos pronto.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr;
+  gap: 4rem; align-items: start;
+}
+.contact-info h2, .contact-form-wrap h2 {
+  font-size: 1.5rem; color: var(--navy); margin-bottom: .35rem;
+}
+.info-cards { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0 2rem; }
+.info-card {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: #fff; border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+}
+.info-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: rgba(0,51,153,.08); border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--eu-blue);
+}
+.info-card h4 { font-family: 'DM Sans', sans-serif; font-size: .82rem; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); margin-bottom: .25rem; }
+.info-card a, .info-card p { font-size: .95rem; color: var(--navy); line-height: 1.6; text-decoration: none; }
+.info-card a:hover { color: var(--eu-blue); text-decoration: underline; }
+.orgs-contact h3 { font-size: 1rem; color: var(--navy); margin-bottom: 1rem; }
+.org-contact-list { display: flex; flex-direction: column; gap: .75rem; }
+.org-contact {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .75rem 1rem; border-radius: var(--radius-sm);
+  background: var(--cream); border-left: 3px solid var(--c);
+}
+.org-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+.org-contact strong { display: block; font-size: .9rem; color: var(--navy); margin-bottom: .1rem; }
+.org-contact a { font-size: .85rem; color: var(--c); text-decoration: none; }
+.org-contact a:hover { text-decoration: underline; }
+.coming { font-size: .82rem; color: var(--gray-400); font-style: italic; }
+
+.form-card { padding: 2.5rem; }
+.form-subtitle { color: var(--gray-500); font-size: .9rem; margin-bottom: 2rem; }
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: .4rem; }
+.form-group label { font-size: .85rem; font-weight: 500; color: var(--navy); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: .65rem .9rem;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif; font-size: .95rem;
+  color: var(--navy); background: #fff;
+  transition: border-color .2s, box-shadow .2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--eu-blue);
+  box-shadow: 0 0 0 3px rgba(0,51,153,.12);
+}
+.form-submit { width: 100%; justify-content: center; margin-top: .5rem; }
+.form-note { font-size: .78rem; color: var(--gray-400); text-align: center; }
+
+.form-success { text-align: center; padding: 2rem; }
+.success-icon { font-size: 3rem; margin-bottom: 1rem; }
+.form-success h3 { color: var(--navy); margin-bottom: .5rem; }
+.form-success p { color: var(--gray-600); }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 560px) {
+  .form-card { padding: 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+
+<script>
+const form = document.getElementById('contact-form') as HTMLFormElement;
+const successBox = document.getElementById('form-success')!;
+
+form?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  // In production, replace with a real form handler (Formspree, Netlify Forms, etc.)
+  form.hidden = true;
+  successBox.hidden = false;
+});
+</script>

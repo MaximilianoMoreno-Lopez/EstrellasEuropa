@@ -1,0 +1,167 @@
+---
+const team = [
+  {
+    name: 'Maximiliano Moreno López',
+    role: 'Presidente',
+    org: 'Estrellas del Sur',
+    orgColor: 'var(--color-eds)',
+    initials: 'MM',
+    level: 'top',
+  },
+  {
+    name: 'Pablo Sánchez Ruiz',
+    role: 'Vicepresidente',
+    org: 'Estrellas del Sur',
+    orgColor: 'var(--color-eds)',
+    initials: 'PS',
+    level: 'mid',
+  },
+  {
+    name: 'Alejandro Artiles',
+    role: 'Gestión de proyectos',
+    org: 'Estrella Magec',
+    orgColor: 'var(--color-ema)',
+    initials: 'AA',
+    level: 'base',
+  },
+  {
+    name: 'Nacho Fenollar',
+    role: 'Participación juvenil',
+    org: 'Murcia Debate',
+    orgColor: 'var(--color-mur)',
+    initials: 'NF',
+    level: 'base',
+  },
+];
+---
+
+<section class="section-sm organigrama" id="equipo">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Junta Directiva
+      </span>
+      <h2 class="section-title">Equipo de la federación</h2>
+      <p class="section-subtitle">
+        La federación está gobernada por representantes de las organizaciones miembro,
+        garantizando una visión plural e integrada.
+      </p>
+    </div>
+
+    <div class="org-chart fade-in">
+      <!-- President -->
+      <div class="chart-level chart-top">
+        {team.filter(m => m.level === 'top').map(m => (
+          <div class="chart-card chart-card--top" style={`--member-color: ${m.orgColor}`}>
+            <div class="chart-avatar">{m.initials}</div>
+            <div class="chart-info">
+              <strong>{m.name}</strong>
+              <span class="chart-role">{m.role}</span>
+              <span class="chart-org" style={`color: ${m.orgColor}`}>{m.org}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="chart-connector chart-connector--v"></div>
+
+      <!-- VP -->
+      <div class="chart-level chart-mid">
+        {team.filter(m => m.level === 'mid').map(m => (
+          <div class="chart-card" style={`--member-color: ${m.orgColor}`}>
+            <div class="chart-avatar">{m.initials}</div>
+            <div class="chart-info">
+              <strong>{m.name}</strong>
+              <span class="chart-role">{m.role}</span>
+              <span class="chart-org" style={`color: ${m.orgColor}`}>{m.org}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="chart-connector chart-connector--h">
+        <div class="h-line"></div>
+        <div class="v-lines">
+          {team.filter(m => m.level === 'base').map(() => <div class="v-line"></div>)}
+        </div>
+      </div>
+
+      <!-- Base team -->
+      <div class="chart-level chart-base">
+        {team.filter(m => m.level === 'base').map(m => (
+          <div class="chart-card" style={`--member-color: ${m.orgColor}`}>
+            <div class="chart-avatar">{m.initials}</div>
+            <div class="chart-info">
+              <strong>{m.name}</strong>
+              <span class="chart-role">{m.role}</span>
+              <span class="chart-org" style={`color: ${m.orgColor}`}>{m.org}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.organigrama { background: var(--cream-dark); }
+.section-header { max-width: 560px; margin-bottom: 3rem; }
+
+.org-chart {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+.chart-level {
+  display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.chart-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(10,22,40,.07);
+  border-top: 3px solid var(--member-color);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  min-width: 240px; max-width: 300px;
+  transition: transform .2s, box-shadow .2s;
+}
+.chart-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.chart-card--top {
+  min-width: 280px;
+  background: linear-gradient(135deg, #fff 70%, rgba(13,148,136,.04));
+}
+.chart-avatar {
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--member-color);
+  color: #fff; font-weight: 700; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.chart-info { display: flex; flex-direction: column; gap: .15rem; }
+.chart-info strong { font-size: .95rem; color: var(--navy); }
+.chart-role { font-size: .8rem; color: var(--gray-500); }
+.chart-org { font-size: .75rem; font-weight: 500; }
+
+/* Connectors */
+.chart-connector--v {
+  width: 2px; height: 32px;
+  background: var(--gray-200);
+}
+.chart-connector--h {
+  width: 100%; max-width: 420px;
+  display: flex; flex-direction: column; align-items: center; margin-bottom: 0;
+}
+.h-line { width: 60%; height: 2px; background: var(--gray-200); margin-bottom: 0; }
+.v-lines {
+  display: flex; justify-content: space-around;
+  width: 60%; padding-bottom: 0;
+}
+.v-line { width: 2px; height: 32px; background: var(--gray-200); }
+
+@media (max-width: 640px) {
+  .chart-card { min-width: 100%; max-width: 100%; }
+  .chart-connector--h { display: none; }
+  .chart-connector--v { display: none; }
+  .chart-level { gap: 1rem; }
+}
+</style>

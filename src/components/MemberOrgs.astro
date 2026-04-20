@@ -1,0 +1,178 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const orgs = [
+  {
+    id: 'eds',
+    name: 'Estrellas del Sur',
+    location: 'Córdoba, Andalucía',
+    color: 'var(--color-eds)',
+    colorRgb: '13,148,136',
+    flag: '🌟',
+    description:
+      'Asociación juvenil cordobesa promotora de la movilidad Erasmus+ y el aprendizaje no formal. Sede fundadora de la federación.',
+    tags: ['Intercambios juveniles', 'Voluntariado ESC', 'Formación'],
+    website: 'https://estrellasdelsur.eu',
+  },
+  {
+    id: 'ema',
+    name: 'Estrella Magec',
+    location: 'Islas Canarias',
+    color: 'var(--color-ema)',
+    colorRgb: '22,163,74',
+    flag: '🌺',
+    description:
+      'Asociación canaria dedicada a la inclusión juvenil y la participación activa en proyectos europeos de educación no formal.',
+    tags: ['Inclusión juvenil', 'Erasmus+', 'Educación no formal'],
+    website: null,
+  },
+  {
+    id: 'mur',
+    name: 'Murcia Debate',
+    location: 'Murcia',
+    color: 'var(--color-mur)',
+    colorRgb: '124,58,237',
+    flag: '🎤',
+    description:
+      'Organización murciana que impulsa el pensamiento crítico y la participación juvenil a través del debate y proyectos europeos.',
+    tags: ['Debate', 'Pensamiento crítico', 'Participación juvenil'],
+    website: null,
+  },
+];
+---
+
+<section class="section member-orgs" id="organizaciones">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="section-label">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Nuestras organizaciones
+      </span>
+      <h2 class="section-title">Tres asociaciones, un mismo compromiso</h2>
+      <p class="section-subtitle">
+        La federación une a entidades de distintas regiones de España que comparten
+        la visión de una Europa más accesible y participativa para la juventud.
+      </p>
+    </div>
+
+    <div class="orgs-grid">
+      {orgs.map((org, i) => (
+        <article class={`org-card fade-in fade-in-delay-${i + 1}`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}`}>
+          <div class="org-card-top">
+            <span class="org-flag">{org.flag}</span>
+            <div class="org-id-badge">{org.id.toUpperCase()}</div>
+          </div>
+
+          <div class="org-card-body">
+            <h3 class="org-name">{org.name}</h3>
+            <p class="org-location">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              {org.location}
+            </p>
+            <p class="org-desc">{org.description}</p>
+
+            <div class="org-tags">
+              {org.tags.map(tag => (
+                <span class="org-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="org-card-footer">
+            {org.website ? (
+              <a href={org.website} target="_blank" rel="noopener" class="org-link">
+                Visitar web
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            ) : (
+              <span class="org-coming">Próximamente online</span>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="orgs-cta fade-in">
+      <a href={`${base}/organizaciones/`} class="btn btn-outline">
+        Ver todas las organizaciones
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+.member-orgs { background: var(--cream); }
+.section-header { max-width: 560px; margin-bottom: 3rem; }
+.orgs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+.org-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(10,22,40,.07);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.org-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(var(--org-rgb), .18), var(--shadow-card);
+}
+.org-card-top {
+  background: linear-gradient(135deg, rgba(var(--org-rgb),.12) 0%, rgba(var(--org-rgb),.06) 100%);
+  border-bottom: 3px solid var(--org-color);
+  padding: 1.75rem 1.5rem 1.25rem;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.org-flag { font-size: 2.5rem; }
+.org-id-badge {
+  font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+  padding: .25rem .65rem; border-radius: var(--radius-full);
+  background: var(--org-color); color: #fff;
+}
+.org-card-body { padding: 1.25rem 1.5rem; flex: 1; }
+.org-name {
+  font-size: 1.2rem; color: var(--navy); margin-bottom: .35rem;
+}
+.org-location {
+  display: flex; align-items: center; gap: .3rem;
+  font-size: .82rem; color: var(--gray-500); margin-bottom: .9rem;
+}
+.org-desc {
+  font-size: .9rem; color: var(--gray-600); line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.org-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+.org-tag {
+  font-size: .72rem; font-weight: 500;
+  padding: .2rem .7rem; border-radius: var(--radius-full);
+  background: rgba(var(--org-rgb),.1); color: var(--org-color);
+  border: 1px solid rgba(var(--org-rgb),.2);
+}
+.org-card-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--gray-100);
+}
+.org-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .88rem; font-weight: 500; color: var(--org-color);
+  text-decoration: none; transition: gap .2s;
+}
+.org-link:hover { gap: .7rem; }
+.org-coming {
+  font-size: .82rem; color: var(--gray-400); font-style: italic;
+}
+.orgs-cta { text-align: center; }
+
+@media (max-width: 900px) {
+  .orgs-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .orgs-grid { grid-template-columns: 1fr; }
+}
+</style>
