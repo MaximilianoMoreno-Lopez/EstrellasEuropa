@@ -2,39 +2,33 @@
 
 /* ─── Design Tokens ─────────────────────────────────── */
 :root {
-  /* Identidad principal — azul europeo */
-  --eu-blue:     #003399;
-  --eu-blue-mid: #0047cc;
-  --eu-gold:     #ffcc00;
+  /* Paleta cálida / orgánica — diferente de EdS navy */
+  --sand:        #f3ecdd;
+  --sand-dark:   #e8dfc8;
+  --sand-deeper: #d7cdb4;
+  --parchment:   #fdf9f3;
+  --ink:         #2a1f0e;
+  --ink-soft:    #5c4a30;
+  --ink-mute:    #8a7660;
+  --line:        #c8bda4;
 
-  /* Compartidos con Estrellas del Sur */
-  --navy:        #0a1628;
-  --navy-light:  #0f2244;
-  --teal:        #0d9488;
-  --teal-light:  #14b8a6;
-  --teal-dim:    rgba(13,148,136,.12);
-  --gold:        #f59e0b;
-  --gold-light:  #fbbf24;
-  --cream:       #fafaf7;
-  --cream-dark:  #f0f0ea;
-  --white:       #ffffff;
-  --gray-100:    #f3f4f6;
-  --gray-200:    #e5e7eb;
-  --gray-400:    #9ca3af;
-  --gray-500:    #6b7280;
-  --gray-600:    #4b5563;
+  /* Colores del logo — los 5 triángulos de la estrella */
+  --c-sur:    #c44e2a;   /* terracota — Estrellas del Sur */
+  --c-magec:  #d9a727;   /* ámbar — Estrella Magec       */
+  --c-murcia: #6b3a8a;   /* violeta — Murcia Debate      */
+  --c-green:  #3d7848;   /* verde                        */
+  --c-blue:   #2b52a8;   /* azul europeo suave           */
 
-  /* Colores por organización miembro */
-  --color-eds:   #0d9488;   /* Estrellas del Sur — teal */
-  --color-ema:   #16a34a;   /* Estrella Magec — verde */
-  --color-mur:   #7c3aed;   /* Murcia Debate — morado */
+  /* EU */
+  --eu-blue:  #003399;
+  --eu-gold:  #ffcc00;
 
   --radius-sm:   6px;
   --radius-md:   12px;
   --radius-lg:   20px;
   --radius-full: 999px;
-  --shadow-card: 0 2px 8px rgba(10,22,40,.06), 0 8px 24px rgba(10,22,40,.06);
-  --shadow-lg:   0 10px 30px rgba(0,0,0,.12), 0 4px 12px rgba(0,0,0,.08);
+  --shadow-card: 0 2px 8px rgba(42,31,14,.06), 0 6px 20px rgba(42,31,14,.06);
+  --shadow-lg:   0 12px 36px rgba(42,31,14,.14), 0 4px 12px rgba(42,31,14,.08);
 }
 
 /* ─── Reset ─────────────────────────────────────────── */
@@ -48,8 +42,8 @@ ul, ol { list-style: none; }
 /* ─── Base ───────────────────────────────────────────── */
 body {
   font-family: 'DM Sans', system-ui, sans-serif;
-  background-color: var(--cream);
-  color: var(--navy);
+  background-color: var(--sand);
+  color: var(--ink);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -67,21 +61,22 @@ h1, h2, h3, h4 {
 /* ─── Typography ─────────────────────────────────────── */
 .section-label {
   display: inline-flex; align-items: center; gap: .45rem;
-  font-size: .8rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--teal); margin-bottom: .75rem;
+  font-size: .78rem; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--c-sur); margin-bottom: .75rem;
 }
-.section-title   { font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--navy); margin-bottom: 1rem; }
-.section-subtitle { font-size: 1.05rem; color: var(--gray-600); max-width: 580px; line-height: 1.7; }
+.section-title   { font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--ink); margin-bottom: 1rem; }
+.section-subtitle { font-size: 1.05rem; color: var(--ink-soft); max-width: 580px; line-height: 1.7; }
 
 /* ─── Badges ─────────────────────────────────────────── */
 .badge {
   display: inline-flex; align-items: center; gap: .35rem;
-  padding: .3rem .8rem; border-radius: var(--radius-full);
+  padding: .3rem .9rem; border-radius: var(--radius-full);
   font-size: .78rem; font-weight: 500; white-space: nowrap;
 }
-.badge-teal   { background: var(--teal-dim);             color: var(--teal);   border: 1px solid rgba(13,148,136,.25); }
-.badge-eu     { background: rgba(0,51,153,.1);            color: var(--eu-blue); border: 1px solid rgba(0,51,153,.2);  }
-.badge-white  { background: rgba(255,255,255,.15);         color: #fff;          border: 1px solid rgba(255,255,255,.3); }
+.badge-warm  { background: rgba(196,78,42,.1);  color: var(--c-sur);   border: 1px solid rgba(196,78,42,.2); }
+.badge-eu    { background: rgba(0,51,153,.1);   color: var(--eu-blue); border: 1px solid rgba(0,51,153,.2);  }
+.badge-white { background: rgba(255,255,255,.2); color: #fff;          border: 1px solid rgba(255,255,255,.35); }
+.badge-amber { background: rgba(217,167,39,.12); color: #8a6010;       border: 1px solid rgba(217,167,39,.3); }
 
 /* ─── Buttons ────────────────────────────────────────── */
 .btn {
@@ -91,28 +86,30 @@ h1, h2, h3, h4 {
   text-decoration: none; border: none; cursor: pointer;
   transition: all .25s ease; white-space: nowrap;
 }
-.btn-primary { background: var(--teal); color: #fff; }
-.btn-primary:hover { background: var(--teal-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(13,148,136,.35); }
+.btn-primary { background: var(--c-sur); color: #fff; }
+.btn-primary:hover { background: #a83e20; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,78,42,.35); }
+.btn-amber { background: var(--c-magec); color: var(--ink); font-weight: 600; }
+.btn-amber:hover { background: #c29220; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(217,167,39,.35); }
 .btn-eu { background: var(--eu-blue); color: #fff; }
-.btn-eu:hover { background: var(--eu-blue-mid); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,51,153,.35); }
-.btn-gold { background: var(--gold); color: var(--navy); font-weight: 600; }
-.btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,158,11,.35); }
+.btn-eu:hover { background: #0047cc; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,51,153,.3); }
+.btn-outline { background: transparent; color: var(--c-sur); border: 1.5px solid var(--c-sur); }
+.btn-outline:hover { background: var(--c-sur); color: #fff; }
+.btn-outline-ink { background: transparent; color: var(--ink); border: 1.5px solid rgba(42,31,14,.3); }
+.btn-outline-ink:hover { background: var(--ink); color: var(--sand); }
 .btn-outline-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.45); }
-.btn-outline-white:hover { background: rgba(255,255,255,.1); border-color: #fff; }
-.btn-outline { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
-.btn-outline:hover { background: var(--teal); color: #fff; }
+.btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: #fff; }
 .btn-lg { padding: .85rem 2rem; font-size: 1rem; }
 
 /* ─── Cards ──────────────────────────────────────────── */
 .card {
-  background: #fff; border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card); border: 1px solid rgba(10,22,40,.07);
+  background: var(--parchment); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card); border: 1px solid rgba(42,31,14,.08);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
 /* ─── Divider ────────────────────────────────────────── */
-.divider { width: 3rem; height: 3px; background: linear-gradient(90deg, var(--eu-blue), var(--eu-gold)); border-radius: var(--radius-full); margin-bottom: 1.5rem; }
+.divider { width: 3rem; height: 3px; background: linear-gradient(90deg, var(--c-sur), var(--c-magec)); border-radius: var(--radius-full); margin-bottom: 1.5rem; }
 
 /* ─── Scroll Animations ──────────────────────────────── */
 .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
@@ -123,16 +120,16 @@ h1, h2, h3, h4 {
 
 /* ─── Page Hero ──────────────────────────────────────── */
 .page-hero {
-  background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 50%, #0a2070 100%);
+  background: linear-gradient(150deg, #1a0f00 0%, #2d1a06 50%, #1a1200 100%);
   padding: 9rem 0 5rem; position: relative; overflow: hidden;
 }
 .page-hero::after {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(255,204,0,.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(196,78,42,.12) 0%, transparent 65%);
   pointer-events: none;
 }
 .page-hero-content { position: relative; z-index: 1; }
 .page-hero h1 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-.page-hero p  { color: rgba(255,255,255,.75); font-size: 1.1rem; max-width: 540px; }
+.page-hero p  { color: rgba(255,255,255,.7); font-size: 1.1rem; max-width: 540px; }
 
 @media (max-width: 768px) { .section { padding: 3.5rem 0; } }

@@ -10,7 +10,7 @@ const navLinks = [
 ];
 
 function isActive(href: string) {
-  if (href === `${base}/`) return pathname === `${base}/` || pathname === base || pathname === `${base}` + '/';
+  if (href === `${base}/`) return pathname === `${base}/` || pathname === base || pathname === `${base}/`;
   return pathname.startsWith(href);
 }
 ---
@@ -18,18 +18,7 @@ function isActive(href: string) {
 <header class="navbar">
   <div class="container nav-inner">
     <a href={`${base}/`} class="nav-logo" aria-label="Inicio">
-      <svg width="36" height="36" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="64" height="64" rx="12" fill="#003399"/>
-        <g transform="translate(32,32)">
-          {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => (
-            <polygon
-              points="0,-14 1.6,-5 6,-5 2.8,-2 4.2,6 0,2 -4.2,6 -2.8,-2 -6,-5 -1.6,-5"
-              fill="#ffcc00"
-              transform={`rotate(${deg}) translate(0,-10) scale(0.7)`}
-            />
-          ))}
-        </g>
-      </svg>
+      <img src={`${base}/logo.jpg`} alt="Estrellas de Europa" class="nav-logo-img" />
       <span class="logo-text">
         <span class="logo-main">Estrellas de Europa</span>
         <span class="logo-sub">Federación</span>
@@ -42,7 +31,7 @@ function isActive(href: string) {
           {link.label}
         </a>
       ))}
-      <a href={`${base}/contacto/`} class="btn btn-eu btn-sm">Contactar</a>
+      <a href={`${base}/contacto/`} class="btn btn-primary btn-sm">Contactar</a>
     </nav>
 
     <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
@@ -54,12 +43,12 @@ function isActive(href: string) {
 <style>
 .navbar {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(255,255,255,.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(0,51,153,.1);
+  background: rgba(253,249,243,.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(42,31,14,.08);
   transition: box-shadow .3s;
 }
-.navbar.scrolled { box-shadow: 0 2px 20px rgba(0,51,153,.1); }
+.navbar.scrolled { box-shadow: 0 2px 20px rgba(42,31,14,.1); }
 .nav-inner {
   display: flex; align-items: center; justify-content: space-between;
   height: 68px;
@@ -68,25 +57,27 @@ function isActive(href: string) {
   display: flex; align-items: center; gap: .75rem;
   text-decoration: none;
 }
+.nav-logo-img {
+  width: 40px; height: 40px;
+  object-fit: contain;
+}
 .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
 .logo-main {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1rem; font-weight: 700; color: var(--eu-blue);
+  font-size: .98rem; font-weight: 700; color: var(--ink);
 }
 .logo-sub {
-  font-size: .68rem; font-weight: 500; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--gray-500);
+  font-size: .67rem; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink-mute);
 }
-.nav-links {
-  display: flex; align-items: center; gap: .25rem;
-}
+.nav-links { display: flex; align-items: center; gap: .25rem; }
 .nav-link {
   padding: .45rem .9rem; border-radius: var(--radius-sm);
-  font-size: .9rem; font-weight: 500; color: var(--gray-600);
+  font-size: .9rem; font-weight: 500; color: var(--ink-soft);
   text-decoration: none; transition: color .2s, background .2s;
 }
-.nav-link:hover  { color: var(--eu-blue); background: rgba(0,51,153,.06); }
-.nav-link.active { color: var(--eu-blue); font-weight: 600; }
+.nav-link:hover  { color: var(--c-sur); background: rgba(196,78,42,.07); }
+.nav-link.active { color: var(--c-sur); font-weight: 600; }
 .btn-sm { padding: .45rem 1.1rem; font-size: .88rem; }
 .nav-toggle {
   display: none; flex-direction: column; gap: 5px;
@@ -94,7 +85,7 @@ function isActive(href: string) {
 }
 .nav-toggle span {
   display: block; width: 22px; height: 2px;
-  background: var(--navy); border-radius: 2px;
+  background: var(--ink); border-radius: 2px;
   transition: transform .3s, opacity .3s;
 }
 
@@ -103,8 +94,9 @@ function isActive(href: string) {
   .nav-links {
     display: none; flex-direction: column; align-items: stretch;
     position: absolute; top: 68px; left: 0; right: 0;
-    background: #fff; border-bottom: 1px solid var(--gray-200);
+    background: var(--parchment); border-bottom: 1px solid var(--sand-dark);
     padding: 1rem 1.5rem; gap: .25rem;
+    box-shadow: 0 8px 24px rgba(42,31,14,.1);
   }
   .nav-links.open { display: flex; }
   .nav-link { padding: .6rem .5rem; }
@@ -116,12 +108,10 @@ function isActive(href: string) {
 const toggle = document.getElementById('nav-toggle');
 const links  = document.getElementById('nav-links');
 const navbar = document.querySelector('.navbar');
-
 toggle?.addEventListener('click', () => {
   const open = links?.classList.toggle('open');
   toggle.setAttribute('aria-expanded', String(open));
 });
-
 window.addEventListener('scroll', () => {
   navbar?.classList.toggle('scrolled', window.scrollY > 20);
 });

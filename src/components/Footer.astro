@@ -9,18 +9,7 @@ const year = new Date().getFullYear();
 
       <div class="footer-brand">
         <a href={`${base}/`} class="footer-logo">
-          <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="64" height="64" rx="12" fill="#003399"/>
-            <g transform="translate(32,32)">
-              {[0,30,60,90,120,150,180,210,240,270,300,330].map(deg => (
-                <polygon
-                  points="0,-14 1.6,-5 6,-5 2.8,-2 4.2,6 0,2 -4.2,6 -2.8,-2 -6,-5 -1.6,-5"
-                  fill="#ffcc00"
-                  transform={`rotate(${deg}) translate(0,-10) scale(0.7)`}
-                />
-              ))}
-            </g>
-          </svg>
+          <img src={`${base}/logo.jpg`} alt="Estrellas de Europa" width="36" height="36" />
           <span>Estrellas de Europa</span>
         </a>
         <p class="footer-desc">
@@ -34,13 +23,13 @@ const year = new Date().getFullYear();
         <h4>Organización</h4>
         <ul>
           <li><a href={`${base}/sobre-nosotros/`}>Sobre Nosotros</a></li>
-          <li><a href={`${base}/organizaciones/`}>Organizaciones Miembro</a></li>
+          <li><a href={`${base}/organizaciones/`}>Organizaciones miembro</a></li>
           <li><a href={`${base}/contacto/`}>Contacto</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h4>Organizaciones</h4>
+        <h4>Miembros</h4>
         <ul>
           <li><a href="https://estrellasdelsur.eu" target="_blank" rel="noopener">Estrellas del Sur</a></li>
           <li>Estrella Magec</li>
@@ -51,15 +40,8 @@ const year = new Date().getFullYear();
       <div class="footer-col">
         <h4>Contacto</h4>
         <ul>
-          <li>
-            <a href="mailto:federacion@estrellasdelsur.eu">
-              federacion@estrellasdelsur.eu
-            </a>
-          </li>
-          <li class="footer-address">
-            C.C. Los Azahares, Planta Alta 3A<br />
-            28039 Madrid
-          </li>
+          <li><a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a></li>
+          <li class="footer-addr">C.C. Los Azahares, Planta Alta 3A<br />28039 Madrid</li>
         </ul>
       </div>
 
@@ -67,67 +49,52 @@ const year = new Date().getFullYear();
 
     <div class="footer-bottom">
       <p>&copy; {year} Federación Estrellas de Europa. Todos los derechos reservados.</p>
-      <div class="eu-funded">
-        <svg width="20" height="20" viewBox="0 0 64 64"><rect width="64" height="64" rx="8" fill="#003399"/><g transform="translate(32,32)">{[0,30,60,90,120,150,180,210,240,270,300,330].map(d => <polygon points="0,-14 1.6,-5 6,-5 2.8,-2 4.2,6 0,2 -4.2,6 -2.8,-2 -6,-5 -1.6,-5" fill="#ffcc00" transform={`rotate(${d}) translate(0,-10) scale(0.7)`}/>)}</g></svg>
-        <span>Proyectos cofinanciados por la Unión Europea vía Erasmus+</span>
-      </div>
+      <span class="eu-tag">Proyectos cofinanciados por la UE · Erasmus+</span>
     </div>
   </div>
 </footer>
 
 <style>
 .footer {
-  background: var(--navy);
-  color: rgba(255,255,255,.75);
+  background: var(--ink);
+  color: rgba(243,236,221,.6);
   padding: 4rem 0 2rem;
-  margin-top: 0;
 }
 .footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.4fr;
-  gap: 3rem;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(243,236,221,.08);
 }
 .footer-logo {
-  display: flex; align-items: center; gap: .6rem;
-  text-decoration: none; color: #fff;
+  display: flex; align-items: center; gap: .7rem;
+  text-decoration: none; color: var(--sand);
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1rem; font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 1rem; font-weight: 700; margin-bottom: 1rem;
 }
-.footer-desc {
-  font-size: .88rem; line-height: 1.7;
-  color: rgba(255,255,255,.6); margin-bottom: .5rem;
-}
-.footer-nif { font-size: .78rem; color: rgba(255,255,255,.35); }
+.footer-logo img { border-radius: 4px; }
+.footer-desc { font-size: .88rem; line-height: 1.7; color: rgba(243,236,221,.5); margin-bottom: .5rem; }
+.footer-nif  { font-size: .76rem; color: rgba(243,236,221,.25); }
 .footer-col h4 {
-  font-family: 'DM Sans', sans-serif;
-  font-size: .78rem; font-weight: 600;
+  font-family: 'DM Sans', sans-serif; font-size: .76rem; font-weight: 600;
   letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,.4); margin-bottom: 1rem;
+  color: rgba(243,236,221,.3); margin-bottom: 1rem;
 }
 .footer-col ul { display: flex; flex-direction: column; gap: .55rem; }
 .footer-col a {
-  font-size: .9rem; color: rgba(255,255,255,.65);
+  font-size: .9rem; color: rgba(243,236,221,.55);
   text-decoration: none; transition: color .2s;
 }
-.footer-col a:hover { color: var(--eu-gold); }
-.footer-col li:not(:has(a)) { font-size: .9rem; color: rgba(255,255,255,.5); }
-.footer-address { font-size: .85rem !important; line-height: 1.6; color: rgba(255,255,255,.5); }
+.footer-col a:hover { color: var(--c-magec); }
+.footer-col li:not(:has(a)) { font-size: .88rem; color: rgba(243,236,221,.35); }
+.footer-addr { font-size: .84rem !important; line-height: 1.6; color: rgba(243,236,221,.4); }
 .footer-bottom {
   display: flex; align-items: center; justify-content: space-between;
   padding-top: 1.5rem; gap: 1rem; flex-wrap: wrap;
 }
-.footer-bottom p { font-size: .82rem; color: rgba(255,255,255,.35); }
-.eu-funded {
-  display: flex; align-items: center; gap: .5rem;
-  font-size: .78rem; color: rgba(255,255,255,.4);
-}
+.footer-bottom p { font-size: .8rem; color: rgba(243,236,221,.28); }
+.eu-tag { font-size: .76rem; color: rgba(243,236,221,.28); }
 
-@media (max-width: 900px) {
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
-}
+@media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 @media (max-width: 560px) {
   .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
