@@ -2,7 +2,7 @@
 
 Sitio web de **Estrellas de Europa**, federación española de asociaciones juveniles unidas por los valores europeos, la movilidad internacional y la participación activa.
 
-**Web:** [maximilianomoreno-lopez.github.io/EstrellasEuropa](https://maximilianomoreno-lopez.github.io/EstrellasEuropa)
+**Web:** [estrellaseuropa.eu](https://estrellaseuropa.eu)
 
 ---
 
@@ -100,12 +100,14 @@ El despliegue es automático via GitHub Actions al hacer push a `main`.
 
 1. GitHub Actions ejecuta `npm run build`
 2. El directorio `dist/` se publica en GitHub Pages
-3. Accesible en `https://maximilianomoreno-lopez.github.io/EstrellasEuropa`
+3. El dominio `estrellaseuropa.eu` apunta a GitHub Pages via DNS (Cloudflare)
 
 ### Configuración en GitHub
 
 En **Settings → Pages**:
 - Source: `GitHub Actions`
+- Custom domain: `estrellaseuropa.eu`
+- Enforce HTTPS: ✅
 
 ---
 
