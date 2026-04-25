@@ -1,0 +1,58 @@
+---
+const stats = [
+  { n: '3',    label: 'Organizaciones miembro' },
+  { n: '3',    label: 'Comunidades autónomas' },
+  { n: 'KA153', label: 'Subvención Erasmus+ concedida' },
+  { n: '2024',  label: 'Año de fundación' },
+];
+---
+
+<div class="stats-bar">
+  <div class="container stats-inner">
+    {stats.map((s, i) => (
+      <>
+        <div class="stat-item fade-in" style={`transition-delay:${i * 0.08}s`}>
+          <span class="stat-n">{s.n}</span>
+          <span class="stat-l">{s.label}</span>
+        </div>
+        {i < stats.length - 1 && <div class="stat-sep" aria-hidden="true"></div>}
+      </>
+    ))}
+  </div>
+</div>
+
+<style>
+.stats-bar {
+  background: var(--parchment);
+  border-bottom: 1px solid var(--sand-dark);
+  padding: 2rem 0;
+}
+.stats-inner {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; flex-wrap: wrap;
+}
+.stat-item {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .2rem; padding: .75rem 2.5rem; text-align: center;
+}
+.stat-n {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem; font-weight: 700; color: var(--c-sur);
+  line-height: 1;
+}
+.stat-l {
+  font-size: .78rem; font-weight: 500; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--ink-mute);
+}
+.stat-sep {
+  width: 1px; height: 2.5rem;
+  background: var(--sand-dark);
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .stats-inner { gap: 0; }
+  .stat-item { padding: .6rem 1.25rem; }
+  .stat-sep { display: none; }
+  .stat-n { font-size: 1.5rem; }
+}
+</style>

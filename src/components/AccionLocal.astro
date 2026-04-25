@@ -1,0 +1,90 @@
+---
+const acciones = [
+  {
+    icon: '🏫',
+    title: 'Talleres en centros educativos',
+    desc: 'Llevamos la movilidad europea a institutos y centros de formación profesional, acercando Erasmus+ a jóvenes que nunca han oído hablar de él.',
+    color: '#c44e2a',
+  },
+  {
+    icon: '📢',
+    title: 'Sesiones informativas',
+    desc: 'Organizamos charlas y eventos locales para explicar las oportunidades de financiación europea disponibles para asociaciones y jóvenes.',
+    color: '#d9a727',
+  },
+  {
+    icon: '🤝',
+    title: 'Red de asociaciones',
+    desc: 'Conectamos organizaciones locales entre sí y con la red europea, facilitando colaboraciones y proyectos conjuntos de mayor alcance.',
+    color: '#2b52a8',
+  },
+];
+---
+
+<section class="section accion-section">
+  <div class="container">
+    <div class="accion-grid">
+      <div class="accion-text fade-in">
+        <span class="section-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Acción local
+        </span>
+        <h2 class="section-title">Europa empieza en tu barrio</h2>
+        <div class="divider"></div>
+        <p class="accion-body">
+          No solo enviamos jóvenes a Europa — también trabajamos en nuestras comunidades para que
+          más personas conozcan y aprovechen las oportunidades que ofrece la Unión Europea.
+        </p>
+        <p class="accion-body">
+          Desde Córdoba, Canarias y Murcia, nuestras organizaciones miembro desarrollan
+          actividades de sensibilización, formación y participación que tienen impacto directo
+          en el territorio.
+        </p>
+      </div>
+
+      <div class="accion-cards fade-in fade-in-delay-1">
+        {acciones.map(a => (
+          <div class="accion-card" style={`--ac: ${a.color}`}>
+            <span class="accion-icon">{a.icon}</span>
+            <div>
+              <h4 class="accion-title">{a.title}</h4>
+              <p class="accion-desc">{a.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.accion-section { background: var(--parchment); }
+.accion-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.accion-body {
+  font-size: 1rem; color: var(--ink-soft); line-height: 1.75;
+  margin-bottom: 1.1rem;
+}
+.accion-cards { display: flex; flex-direction: column; gap: 1.1rem; }
+.accion-card {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-md);
+  background: var(--sand);
+  border-left: 3px solid var(--ac);
+  transition: transform .2s;
+}
+.accion-card:hover { transform: translateX(5px); }
+.accion-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: .1rem; }
+.accion-title {
+  font-size: .98rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .3rem; font-family: 'DM Sans', sans-serif;
+}
+.accion-desc { font-size: .87rem; color: var(--ink-soft); line-height: 1.65; }
+
+@media (max-width: 860px) {
+  .accion-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+</style>

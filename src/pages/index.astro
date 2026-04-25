@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import Stats from '../components/Stats.astro';
 import MisionSection from '../components/MisionSection.astro';
+import ProyectosSection from '../components/ProyectosSection.astro';
+import AccionLocal from '../components/AccionLocal.astro';
 import MemberOrgs from '../components/MemberOrgs.astro';
 import Organigrama from '../components/Organigrama.astro';
 
@@ -14,7 +17,7 @@ const jsonLd = {
   "url": "https://estrellaseuropa.eu",
   "logo": "https://estrellaseuropa.eu/logo.jpg",
   "email": "federacion@estrellasdelsur.eu",
-  "foundingDate": "2023",
+  "foundingDate": "2024",
   "description": "Federación de asociaciones juveniles españolas unidas por los valores europeos, la movilidad internacional y la participación activa.",
   "address": {
     "@type": "PostalAddress",
@@ -41,7 +44,10 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <Hero />
+  <Stats />
   <MisionSection />
+  <ProyectosSection />
+  <AccionLocal />
   <MemberOrgs />
   <Organigrama />
 
@@ -53,7 +59,7 @@ const jsonLd = {
         <p>Si compartes los valores europeos y trabajas con jóvenes, contáctanos para explorar una posible adhesión a la federación.</p>
       </div>
       <div class="cta-actions fade-in fade-in-delay-1">
-        <a href={`${base}/contacto/`} class="btn btn-gold btn-lg">Ponerse en contacto</a>
+        <a href={`${base}/contacto/`} class="btn btn-amber btn-lg">Ponerse en contacto</a>
         <a href={`${base}/sobre-nosotros/`} class="btn btn-outline-white btn-lg">Saber más</a>
       </div>
     </div>
