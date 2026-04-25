@@ -15,7 +15,7 @@ const {
   title,
   description = 'Federación de asociaciones juveniles españolas unidas por los valores europeos. Erasmus+, movilidad internacional y participación activa.',
   ogTitle,
-  ogImage = '/EstrellasEuropa/og-image.png',
+  ogImage = '/og-image.png',
   jsonLd,
 } = Astro.props;
 
@@ -27,7 +27,7 @@ const pageTitle = title === 'Inicio'
 
 const socialTitle = ogTitle ?? (title === 'Inicio' ? 'Estrellas de Europa' : pageTitle);
 
-const siteURL = 'https://maximilianomoreno-lopez.github.io/EstrellasEuropa';
+const siteURL = 'https://estrellaseuropa.eu';
 const canonicalURL = new URL(Astro.url.pathname, siteURL);
 const ogImageURL = `${siteURL}${ogImage}`;
 ---
