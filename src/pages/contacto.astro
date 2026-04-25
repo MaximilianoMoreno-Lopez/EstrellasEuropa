@@ -2,7 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Contacto" description="Contacta con la Federación Estrellas de Europa.">
+<BaseLayout
+  title="Contacto — Únete o Colabora"
+  description="Contacta con la Federación Estrellas de Europa. ¿Tu asociación quiere unirse o colaborar? Escríbenos: federacion@estrellasdelsur.eu"
+>
 
   <div class="page-hero">
     <div class="container page-hero-content">
@@ -69,14 +72,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 <span class="org-dot"></span>
                 <div>
                   <strong>Estrella Magec</strong>
-                  <span class="coming">Contacto próximamente</span>
+                  <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>
                 </div>
               </div>
               <div class="org-contact" style="--c: var(--color-mur)">
                 <span class="org-dot"></span>
                 <div>
                   <strong>Murcia Debate</strong>
-                  <span class="coming">Contacto próximamente</span>
+                  <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>
                 </div>
               </div>
             </div>
@@ -89,7 +92,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <h2>Envíanos un mensaje</h2>
             <p class="form-subtitle">Te responderemos en un plazo de 48 horas hábiles.</p>
 
-            <form class="contact-form" id="contact-form" novalidate>
+            <!-- Formspree: create free account at formspree.io and replace YOUR_FORM_ID -->
+            <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
               <div class="form-row">
                 <div class="form-group">
                   <label for="name">Nombre *</label>
@@ -228,11 +232,32 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <script>
 const form = document.getElementById('contact-form') as HTMLFormElement;
 const successBox = document.getElementById('form-success')!;
+const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-form?.addEventListener('submit', (e) => {
+form?.addEventListener('submit', async (e) => {
   e.preventDefault();
-  // In production, replace with a real form handler (Formspree, Netlify Forms, etc.)
-  form.hidden = true;
-  successBox.hidden = false;
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Enviando…';
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+
+    if (res.ok) {
+      form.hidden = true;
+      successBox.hidden = false;
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar mensaje';
+      alert('Ha habido un error al enviar. Por favor escríbenos directamente a federacion@estrellasdelsur.eu');
+    }
+  } catch {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Enviar mensaje';
+    alert('Sin conexión. Por favor escríbenos directamente a federacion@estrellasdelsur.eu');
+  }
 });
 </script>

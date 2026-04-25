@@ -6,9 +6,40 @@ import MemberOrgs from '../components/MemberOrgs.astro';
 import Organigrama from '../components/Organigrama.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Estrellas de Europa",
+  "url": "https://maximilianomoreno-lopez.github.io/EstrellasEuropa",
+  "logo": "https://maximilianomoreno-lopez.github.io/EstrellasEuropa/logo.jpg",
+  "email": "federacion@estrellasdelsur.eu",
+  "foundingDate": "2023",
+  "description": "Federación de asociaciones juveniles españolas unidas por los valores europeos, la movilidad internacional y la participación activa.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "C.C. Los Azahares, Planta Alta 3A",
+    "postalCode": "28039",
+    "addressLocality": "Madrid",
+    "addressCountry": "ES"
+  },
+  "legalName": "Federación Estrellas de Europa",
+  "taxID": "G75822320",
+  "areaServed": "España",
+  "knowsAbout": ["Erasmus+", "movilidad juvenil", "voluntariado europeo", "asociaciones juveniles", "educación no formal"],
+  "member": [
+    { "@type": "Organization", "name": "Estrellas del Sur", "url": "https://estrellasdelsur.eu" },
+    { "@type": "Organization", "name": "Estrella Magec" },
+    { "@type": "Organization", "name": "Murcia Debate" }
+  ]
+};
 ---
 
-<BaseLayout title="Inicio" description="Federación Estrellas de Europa — uniendo asociaciones juveniles de España a través de Erasmus+.">
+<BaseLayout
+  title="Inicio"
+  description="Federación española de asociaciones juveniles unidas por los valores europeos. Impulsamos la movilidad Erasmus+, el voluntariado y la participación activa de la juventud."
+  jsonLd={jsonLd}
+>
   <Hero />
   <MisionSection />
   <MemberOrgs />
