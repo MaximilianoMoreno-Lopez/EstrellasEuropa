@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const beneficios = [
+  { icon: '💶', title: 'Financiación conjunta', desc: 'Acceso a candidaturas Erasmus+ y CES presentadas en red, con más opciones de ser aprobadas.' },
+  { icon: '🤝', title: 'Red de organizaciones', desc: 'Conexión con entidades juveniles de toda España y con socios europeos de confianza.' },
+  { icon: '📚', title: 'Metodologías compartidas', desc: 'Intercambio de buenas prácticas, plantillas y aprendizajes entre organizaciones miembro.' },
+  { icon: '🎓', title: 'Formación', desc: 'Acceso a movilidades de formación (KA153) para vuestro equipo de trabajadores de juventud.' },
+  { icon: '📣', title: 'Visibilidad', desc: 'Presencia en la web de la federación y difusión conjunta de vuestros proyectos.' },
+  { icon: '🌍', title: 'Dimensión europea', desc: 'Mayor alcance e impacto para vuestras iniciativas locales dentro del proyecto europeo.' },
+];
+
+const requisitos = [
+  'Ser una asociación juvenil sin ánimo de lucro legalmente constituida.',
+  'Trabajar con personas jóvenes en vuestro territorio.',
+  'Compartir los valores europeos: inclusión, participación y aprendizaje no formal.',
+  'Tener voluntad de cooperar y aportar a una red común.',
+];
+
+const pasos = [
+  { n: '1', title: 'Primer contacto', desc: 'Nos escribes y nos cuentas quiénes sois y qué hacéis.' },
+  { n: '2', title: 'Nos conocemos', desc: 'Una conversación para ver encaje de valores, objetivos y formas de trabajo.' },
+  { n: '3', title: 'Propuesta de adhesión', desc: 'Preparamos juntos la documentación necesaria para la incorporación.' },
+  { n: '4', title: 'Aprobación', desc: 'La Asamblea General ratifica la adhesión y damos la bienvenida a la nueva organización.' },
+];
+---
+
+<BaseLayout
+  title="Únete a la federación"
+  description="¿Tu asociación juvenil quiere formar parte de Estrellas de Europa? Descubre los beneficios, requisitos y el proceso de adhesión a la federación."
+>
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Adhesión</span>
+      <h1 class="fade-in fade-in-delay-1">Súmate a Estrellas de Europa</h1>
+      <p class="fade-in fade-in-delay-2">
+        Si tu asociación trabaja con jóvenes y cree en el proyecto europeo,
+        juntos podemos llegar más lejos.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="center-head fade-in">
+        <span class="section-label" style="justify-content:center">Por qué unirse</span>
+        <h2 class="section-title">Lo que ganáis al formar parte</h2>
+        <div class="divider" style="margin-inline:auto"></div>
+      </div>
+      <div class="benefits-grid">
+        {beneficios.map((b, i) => (
+          <div class={`benefit-card fade-in fade-in-delay-${(i % 3) + 1}`}>
+            <span class="benefit-icon">{b.icon}</span>
+            <h3>{b.title}</h3>
+            <p>{b.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section req-section">
+    <div class="container req-grid">
+      <div class="fade-in">
+        <span class="section-label">Requisitos</span>
+        <h2 class="section-title">¿Encajáis en la federación?</h2>
+        <div class="divider"></div>
+        <ul class="req-list">
+          {requisitos.map((r) => (
+            <li>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              {r}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="steps fade-in fade-in-delay-1">
+        <h3 class="steps-title">El proceso, paso a paso</h3>
+        {pasos.map((p) => (
+          <div class="step">
+            <span class="step-n">{p.n}</span>
+            <div>
+              <strong>{p.title}</strong>
+              <p>{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="unete-cta">
+    <div class="container cta-inner fade-in">
+      <h2>¿Damos el primer paso?</h2>
+      <p>Escríbenos y empezamos a hablar. Sin compromiso.</p>
+      <a href="mailto:federacion@estrellasdelsur.eu?subject=Adhesión a Estrellas de Europa" class="btn btn-amber btn-lg">
+        Escribir a la federación
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .center-head { text-align: center; margin-bottom: 2.5rem; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .benefit-card {
+    background: var(--parchment); border: 1px solid rgba(42,31,14,.08);
+    border-radius: var(--radius-lg); padding: 1.75rem;
+    box-shadow: var(--shadow-card); transition: transform .2s, box-shadow .2s;
+  }
+  .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .benefit-icon { font-size: 1.9rem; display: block; margin-bottom: .75rem; }
+  .benefit-card h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: .4rem; font-family: 'DM Sans Variable', sans-serif; font-weight: 600; }
+  .benefit-card p { font-size: .88rem; color: var(--ink-soft); line-height: 1.6; }
+
+  .req-section { background: var(--parchment); }
+  .req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .req-list { display: flex; flex-direction: column; gap: .85rem; margin-top: .5rem; }
+  .req-list li { display: flex; align-items: flex-start; gap: .6rem; font-size: 1rem; color: var(--ink-soft); line-height: 1.5; }
+  .req-list svg { color: var(--c-green); flex-shrink: 0; margin-top: .15rem; }
+
+  .steps-title {
+    font-family: 'DM Sans Variable', sans-serif; font-size: .8rem; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 1.5rem;
+  }
+  .step { display: flex; gap: 1rem; padding-bottom: 1.5rem; position: relative; padding-left: .25rem; }
+  .step:not(:last-child)::after {
+    content: ''; position: absolute; left: 16px; top: 36px; bottom: 4px;
+    width: 2px; background: var(--sand-deeper);
+  }
+  .step-n {
+    width: 34px; height: 34px; flex-shrink: 0; border-radius: 50%;
+    background: var(--c-sur); color: #fff; font-weight: 700; font-size: .95rem;
+    display: flex; align-items: center; justify-content: center; z-index: 1;
+  }
+  .step strong { display: block; color: var(--ink); margin-bottom: .2rem; }
+  .step p { font-size: .9rem; color: var(--ink-soft); line-height: 1.6; }
+
+  .unete-cta {
+    background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
+    padding: 4.5rem 0; text-align: center;
+  }
+  .unete-cta .cta-inner { max-width: 560px; margin: 0 auto; }
+  .unete-cta h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: .6rem; }
+  .unete-cta p { color: rgba(255,255,255,.75); margin-bottom: 1.75rem; }
+
+  @media (max-width: 860px) {
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+    .req-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 560px) { .benefits-grid { grid-template-columns: 1fr; } }
+</style>

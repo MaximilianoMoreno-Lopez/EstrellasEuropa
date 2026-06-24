@@ -97,10 +97,16 @@ npm run preview
 
 | Ruta | Descripción |
 |---|---|
-| `/` | Home: hero, misión, organizaciones miembro, CTA adhesión |
-| `/sobre-nosotros/` | Historia, valores, organigrama, NIF y sede social |
+| `/` | Home: hero, cifras, misión, proyectos, acción local, organizaciones, actualidad, organigrama |
 | `/organizaciones/` | Detalle de Estrellas del Sur, Estrella Magec y Murcia Debate |
+| `/proyectos/` | Proyectos europeos (KA153, NEST) y acciones Erasmus+ |
+| `/actualidad/` | Noticias de la federación (colección de contenido) + `/actualidad/[slug]/` |
+| `/sobre-nosotros/` | Historia, valores, organigrama, NIF y sede social |
+| `/transparencia/` | Portal de transparencia: documentación, junta directiva, datos |
+| `/unete/` | Adhesión: beneficios, requisitos y proceso para nuevas organizaciones |
+| `/privacidad/` | Política de privacidad (RGPD/LOPDGDD) |
 | `/contacto/` | Email de la federación y contacto por organización |
+| `/404` | Página de error con estilo |
 
 ---
 
