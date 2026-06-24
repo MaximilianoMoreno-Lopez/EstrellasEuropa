@@ -4,13 +4,17 @@ import '@fontsource-variable/playfair-display';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import EUBanner from '../components/EUBanner.astro';
 
 interface Props {
   title: string;
   description?: string;
   ogTitle?: string;
   ogImage?: string;
+  ogType?: string;
+  publishedTime?: string;
   jsonLd?: object;
+  breadcrumbs?: { name: string; url: string }[];
 }
 
 const {
@@ -18,7 +22,10 @@ const {
   description = 'Federación de asociaciones juveniles españolas unidas por los valores europeos. Erasmus+, movilidad internacional y participación activa.',
   ogTitle,
   ogImage = '/og-image.png',
+  ogType = 'website',
+  publishedTime,
   jsonLd,
+  breadcrumbs,
 } = Astro.props;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -32,6 +39,20 @@ const socialTitle = ogTitle ?? (title === 'Inicio' ? 'Estrellas de Europa' : pag
 const siteURL = 'https://estrellaseuropa.eu';
 const canonicalURL = new URL(Astro.url.pathname, siteURL);
 const ogImageURL = `${siteURL}${ogImage}`;
+
+// BreadcrumbList JSON-LD (cuando la página aporta migas)
+const breadcrumbJsonLd = breadcrumbs && breadcrumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((b, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: b.name,
+        item: `${siteURL}${b.url}`,
+      })),
+    }
+  : null;
 ---
 <!doctype html>
 <html lang="es">
@@ -48,7 +69,7 @@ const ogImageURL = `${siteURL}${ogImage}`;
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
   <!-- Open Graph -->
-  <meta property="og:type"         content="website" />
+  <meta property="og:type"         content={ogType} />
   <meta property="og:url"          content={canonicalURL} />
   <meta property="og:title"        content={socialTitle} />
   <meta property="og:description"  content={description} />
@@ -57,6 +78,7 @@ const ogImageURL = `${siteURL}${ogImage}`;
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name"    content="Estrellas de Europa" />
   <meta property="og:locale"       content="es_ES" />
+  {publishedTime && <meta property="article:published_time" content={publishedTime} />}
 
   <!-- Twitter / X -->
   <meta name="twitter:card"        content="summary_large_image" />
@@ -66,6 +88,7 @@ const ogImageURL = `${siteURL}${ogImage}`;
 
   <!-- JSON-LD -->
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  {breadcrumbJsonLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />}
 
   <!-- Favicon e iconos -->
   <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
@@ -81,6 +104,7 @@ const ogImageURL = `${siteURL}${ogImage}`;
   <main id="main">
     <slot />
   </main>
+  <EUBanner />
   <Footer />
 
   <script>

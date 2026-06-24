@@ -1,0 +1,197 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('noticias');
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+const { title, type, date, dates, location, description } = article.data;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = 'https://estrellaseuropa.eu';
+const url = `${SITE}/actualidad/${article.slug}/`;
+const desc = description ?? `${title}. Actualidad de la Federación Estrellas de Europa.`;
+
+const typeColor = {
+  'Federación':    '#c44e2a',
+  'Erasmus+':      '#003399',
+  'Cooperación':   '#6b3a8a',
+  'Acción local':  '#3d7848',
+  'Participación': '#d9a727',
+};
+const accent = typeColor[type] ?? '#2b52a8';
+
+function fmtDate(d) {
+  if (!d) return null;
+  const [y, m] = d.split('-');
+  const meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return m ? `${meses[+m - 1]} de ${y}` : y;
+}
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description: desc,
+  image: `${SITE}/og-image.png`,
+  ...(date && { datePublished: date }),
+  inLanguage: 'es-ES',
+  author: { '@type': 'Organization', name: 'Estrellas de Europa', url: SITE },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Estrellas de Europa',
+    logo: { '@type': 'ImageObject', url: `${SITE}/favicon-512x512.png` },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  ...(location && { contentLocation: { '@type': 'Place', name: location } }),
+};
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Actualidad', url: '/actualidad/' },
+  { name: title, url: `/actualidad/${article.slug}/` },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={desc}
+  ogType="article"
+  publishedTime={date}
+  jsonLd={articleJsonLd}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="back-bar">
+    <div class="container">
+      <a href={`${base}/actualidad/`} class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Toda la actualidad
+      </a>
+    </div>
+  </div>
+
+  <section class="article-hero" style={`--ac: ${accent}`}>
+    <div class="container hero-content">
+      <span class="hero-type fade-in">{type}</span>
+      <h1 class="hero-title fade-in fade-in-delay-1">{title}</h1>
+      {description && <p class="hero-desc fade-in fade-in-delay-2">{description}</p>}
+      <div class="hero-details fade-in fade-in-delay-3">
+        {date && (
+          <span class="detail-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            {fmtDate(date)}
+          </span>
+        )}
+        {location && (
+          <span class="detail-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {location}
+          </span>
+        )}
+        {dates && <span class="detail-item">{dates}</span>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article-layout">
+      <article class="article-content prose fade-in" style={`--ac: ${accent}`}>
+        <Content />
+      </article>
+
+      <aside class="article-sidebar fade-in fade-in-delay-1">
+        <div class="sidebar-card">
+          <h3>Información</h3>
+          <dl class="info-list">
+            <dt>Categoría</dt><dd>{type}</dd>
+            {location && <><dt>Lugar</dt><dd>{location}</dd></>}
+            {date && <><dt>Publicado</dt><dd>{fmtDate(date)}</dd></>}
+          </dl>
+          <div class="sidebar-actions">
+            <a href={`${base}/proyectos/`} class="btn btn-eu sidebar-cta">Ver proyectos</a>
+            <a href={`${base}/contacto/`} class="btn btn-outline sidebar-cta">Contactar</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .back-bar {
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    padding: calc(68px + .65rem) 0 .65rem;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.7);
+    text-decoration: none; transition: color .2s, gap .2s;
+  }
+  .back-link:hover { color: var(--c-magec); gap: .55rem; }
+
+  .article-hero {
+    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 45%, #1a1200) 100%);
+    padding: 3rem 0 2.75rem; position: relative;
+  }
+  .hero-type {
+    display: inline-block;
+    font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: #fff;
+    background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.3);
+    padding: .3rem .85rem; border-radius: var(--radius-full); margin-bottom: 1rem;
+  }
+  .hero-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.5rem); color: #fff;
+    line-height: 1.15; margin-bottom: .75rem; max-width: 720px;
+  }
+  .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,.82); max-width: 620px; line-height: 1.6; margin-bottom: 1rem; }
+  .hero-details { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .detail-item { display: flex; align-items: center; gap: .35rem; font-size: .85rem; color: rgba(255,255,255,.72); }
+
+  .article-layout {
+    display: grid; grid-template-columns: 1fr 260px;
+    gap: 3rem; align-items: start;
+    padding-top: 3rem; padding-bottom: 4rem;
+  }
+  .prose :global(h2) {
+    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem; color: var(--ink); margin: 2.25rem 0 .6rem;
+  }
+  .prose :global(p) {
+    font-size: 1.05rem; line-height: 1.8; color: var(--ink-soft);
+    margin-bottom: 1.1rem; text-align: justify; hyphens: auto;
+  }
+  .prose :global(ul) { padding-left: 1.4rem; margin-bottom: 1.25rem; list-style: disc; }
+  .prose :global(li) { font-size: 1rem; line-height: 1.7; color: var(--ink-soft); margin-bottom: .4rem; }
+  .prose :global(strong) { color: var(--ink); }
+  .prose :global(a) { color: var(--ac); }
+
+  .sidebar-card {
+    background: var(--parchment); border: 1px solid rgba(42,31,14,.1);
+    border-radius: var(--radius-lg); padding: 1.5rem;
+    position: sticky; top: 5rem; box-shadow: var(--shadow-card);
+  }
+  .sidebar-card h3 {
+    font-size: 1rem; color: var(--ink); margin-bottom: 1rem;
+    padding-bottom: .75rem; border-bottom: 1px solid var(--sand-dark);
+  }
+  .info-list { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1rem; margin-bottom: 1.5rem; }
+  .info-list dt { font-size: .76rem; font-weight: 600; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .05em; align-self: center; }
+  .info-list dd { font-size: .88rem; color: var(--ink-soft); align-self: center; }
+  .sidebar-actions { display: flex; flex-direction: column; gap: .5rem; }
+  .sidebar-cta { width: 100%; justify-content: center; }
+
+  @media (max-width: 768px) {
+    .article-layout { grid-template-columns: 1fr; }
+    .sidebar-card { position: static; }
+    .article-sidebar { order: -1; }
+  }
+</style>

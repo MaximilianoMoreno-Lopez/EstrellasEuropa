@@ -1,0 +1,111 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const articles = (await getCollection('noticias'))
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const typeColor = {
+  'Federación':    'var(--c-sur)',
+  'Erasmus+':      'var(--eu-blue)',
+  'Cooperación':   'var(--c-murcia)',
+  'Acción local':  'var(--c-green)',
+  'Participación': 'var(--c-magec)',
+};
+
+function fmtDate(d) {
+  if (!d) return null;
+  const [y, m] = d.split('-');
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return m ? `${meses[+m - 1]} ${y}` : y;
+}
+---
+
+<BaseLayout
+  title="Actualidad"
+  description="Noticias y novedades de la Federación Estrellas de Europa: proyectos Erasmus+, cooperación internacional y vida de la federación."
+>
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Actualidad</span>
+      <h1 class="fade-in fade-in-delay-1">Noticias de la federación</h1>
+      <p class="fade-in fade-in-delay-2">
+        Novedades sobre nuestros proyectos europeos, la cooperación internacional
+        y la vida de Estrellas de Europa.
+      </p>
+    </div>
+  </div>
+
+  <section class="section articles-section">
+    <div class="container">
+      <div class="articles-grid">
+        {articles.map((a, i) => (
+          <a
+            href={`${base}/actualidad/${a.slug}/`}
+            class={`article-card fade-in fade-in-delay-${(i % 3) + 1}`}
+            style={`--ac: ${typeColor[a.data.type] ?? 'var(--c-blue)'}`}
+          >
+            <div class="article-band">
+              <span class="article-type">{a.data.type}</span>
+            </div>
+            <div class="article-body">
+              <div class="article-meta">
+                {a.data.date && <span class="article-date">{fmtDate(a.data.date)}</span>}
+                {a.data.location && <span class="article-loc">{a.data.location}</span>}
+              </div>
+              <h2 class="article-title">{a.data.title}</h2>
+              {a.data.description && <p class="article-desc">{a.data.description}</p>}
+              <span class="article-read">Leer más →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles-section { background: var(--sand); }
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .article-card {
+    display: flex; flex-direction: column;
+    background: var(--parchment);
+    border: 1px solid rgba(42,31,14,.08);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden; text-decoration: none; color: inherit;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+  .article-band {
+    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 55%, #1a1200) 100%);
+    padding: 1rem 1.5rem;
+  }
+  .article-type {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; color: #fff;
+  }
+  .article-body { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+  .article-meta { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+  .article-date, .article-loc {
+    font-size: .76rem; color: var(--ink-mute); font-weight: 500;
+  }
+  .article-loc::before { content: '· '; }
+  .article-title {
+    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+    font-size: 1.18rem; color: var(--ink); line-height: 1.3;
+  }
+  .article-desc {
+    font-size: .9rem; color: var(--ink-soft); line-height: 1.65; flex: 1;
+  }
+  .article-read {
+    font-size: .85rem; font-weight: 600; color: var(--ac); margin-top: .25rem;
+  }
+  .article-card:hover .article-title { color: var(--ac); }
+</style>

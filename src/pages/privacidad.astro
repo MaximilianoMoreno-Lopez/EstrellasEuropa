@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const secciones = [
+  {
+    h: '1. Responsable del tratamiento',
+    p: [
+      'El responsable del tratamiento de los datos personales recogidos a través de este sitio web es la <strong>Federación Estrellas de Europa</strong> (NIF G75822320), con domicilio social en C.C. Los Azahares, Planta Alta 3A, 28039 Madrid (España).',
+      'Para cualquier cuestión relacionada con la protección de datos puedes escribir a <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>.',
+    ],
+  },
+  {
+    h: '2. Datos que tratamos',
+    p: [
+      'Este sitio web es de carácter informativo y no incorpora formularios de recogida de datos. Únicamente tratamos los datos personales que nos facilitas voluntariamente cuando te pones en contacto con nosotros por correo electrónico (nombre, dirección de email y el contenido de tu mensaje).',
+    ],
+  },
+  {
+    h: '3. Finalidad y legitimación',
+    p: [
+      'Tratamos tus datos con la finalidad de atender tus consultas, gestionar la posible colaboración o adhesión de organizaciones y mantener la comunicación que tú inicies.',
+      'La base jurídica del tratamiento es tu <strong>consentimiento</strong> al dirigirte a nosotros y el <strong>interés legítimo</strong> de la federación en responder a las comunicaciones recibidas.',
+    ],
+  },
+  {
+    h: '4. Conservación',
+    p: [
+      'Conservamos los datos durante el tiempo necesario para atender tu solicitud y, posteriormente, durante los plazos legalmente exigibles. Cuando dejen de ser necesarios, se suprimen de forma segura.',
+    ],
+  },
+  {
+    h: '5. Destinatarios',
+    p: [
+      'No cedemos tus datos a terceros, salvo obligación legal. Cuando sea imprescindible para gestionar tu solicitud, podrán compartirse con la organización miembro correspondiente (Estrellas del Sur, Estrella Magec o Murcia Debate), que actúa bajo los mismos principios de confidencialidad.',
+    ],
+  },
+  {
+    h: '6. Tus derechos',
+    p: [
+      'Puedes ejercer en cualquier momento tus derechos de <strong>acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad</strong> escribiendo a <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>, indicando el derecho que deseas ejercer.',
+      'Si consideras que el tratamiento no se ajusta a la normativa, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).',
+    ],
+  },
+  {
+    h: '7. Cookies',
+    p: [
+      'Este sitio web no utiliza cookies de seguimiento ni de analítica de terceros. Las fuentes tipográficas se sirven desde el propio servidor, sin peticiones a servicios externos.',
+    ],
+  },
+  {
+    h: '8. Normativa aplicable',
+    p: [
+      'Este tratamiento se rige por el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Política de Privacidad"
+  description="Política de privacidad y protección de datos de la Federación Estrellas de Europa, conforme al RGPD y la LOPDGDD."
+>
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Protección de datos</span>
+      <h1 class="fade-in fade-in-delay-1">Política de Privacidad</h1>
+      <p class="fade-in fade-in-delay-2">
+        Cómo tratamos tus datos personales conforme al RGPD y la LOPDGDD.
+      </p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container legal-layout">
+      <article class="legal-prose fade-in">
+        {secciones.map((s) => (
+          <div class="legal-block">
+            <h2>{s.h}</h2>
+            {s.p.map((par) => <p set:html={par} />)}
+          </div>
+        ))}
+        <p class="legal-update">Última actualización: junio de 2026.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-layout { max-width: 760px; }
+  .legal-block { margin-bottom: 2rem; }
+  .legal-prose h2 {
+    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+    font-size: 1.3rem; color: var(--ink); margin-bottom: .75rem;
+  }
+  .legal-prose p { color: var(--ink-soft); line-height: 1.8; margin-bottom: .9rem; }
+  .legal-prose strong { color: var(--ink); }
+  .legal-prose a { color: var(--eu-blue); text-decoration: none; }
+  .legal-prose a:hover { text-decoration: underline; }
+  .legal-update { font-size: .85rem; color: var(--ink-mute); font-style: italic; margin-top: 1rem; }
+</style>

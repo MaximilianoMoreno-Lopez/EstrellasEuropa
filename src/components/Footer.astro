@@ -20,10 +20,13 @@ const year = new Date().getFullYear();
       </div>
 
       <div class="footer-col">
-        <h4>Organización</h4>
+        <h4>Federación</h4>
         <ul>
           <li><a href={`${base}/sobre-nosotros/`}>Sobre Nosotros</a></li>
           <li><a href={`${base}/organizaciones/`}>Organizaciones miembro</a></li>
+          <li><a href={`${base}/proyectos/`}>Proyectos</a></li>
+          <li><a href={`${base}/actualidad/`}>Actualidad</a></li>
+          <li><a href={`${base}/transparencia/`}>Transparencia</a></li>
           <li><a href={`${base}/contacto/`}>Contacto</a></li>
         </ul>
       </div>
@@ -49,7 +52,11 @@ const year = new Date().getFullYear();
 
     <div class="footer-bottom">
       <p>&copy; {year} Federación Estrellas de Europa. Todos los derechos reservados.</p>
-      <span class="eu-tag">Proyectos cofinanciados por la UE · Erasmus+</span>
+      <span class="footer-legal">
+        <a href={`${base}/transparencia/`}>Transparencia</a>
+        <span aria-hidden="true">·</span>
+        <a href={`${base}/privacidad/`}>Privacidad</a>
+      </span>
     </div>
   </div>
 </footer>
@@ -93,6 +100,9 @@ const year = new Date().getFullYear();
 }
 .footer-bottom p { font-size: .8rem; color: rgba(243,236,221,.28); }
 .eu-tag { font-size: .76rem; color: rgba(243,236,221,.28); }
+.footer-legal { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; color: rgba(243,236,221,.25); }
+.footer-legal a { color: rgba(243,236,221,.5); text-decoration: none; transition: color .2s; }
+.footer-legal a:hover { color: var(--c-magec); }
 
 @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
 @media (max-width: 560px) {

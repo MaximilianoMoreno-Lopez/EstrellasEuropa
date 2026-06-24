@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const docs = [
+  {
+    title: 'Estatutos y acta fundacional',
+    desc: 'Estatutos de la federación y acta de constitución, conforme a la Ley Orgánica 1/2002 reguladora del Derecho de Asociación.',
+    status: 'En preparación',
+  },
+  {
+    title: 'Cuentas anuales',
+    desc: 'Balance y cuenta de resultados de cada ejercicio, una vez aprobados por la Asamblea General.',
+    status: 'En preparación',
+  },
+  {
+    title: 'Memoria de actividades',
+    desc: 'Resumen anual de proyectos, encuentros, participantes y resultados de la federación y sus organizaciones miembro.',
+    status: 'Próximamente',
+  },
+  {
+    title: 'Código ético y de conducta',
+    desc: 'Principios de actuación, valores y normas de comportamiento aplicables a personas socias, voluntarias y participantes.',
+    status: 'En preparación',
+  },
+  {
+    title: 'Plan de igualdad',
+    desc: 'Medidas para garantizar la igualdad efectiva entre mujeres y hombres y prevenir cualquier forma de discriminación.',
+    status: 'En preparación',
+  },
+  {
+    title: 'Política de protección de datos',
+    desc: 'Tratamiento de datos personales conforme al RGPD y la LOPDGDD.',
+    href: '/privacidad/',
+    status: 'Disponible',
+  },
+];
+
+const junta = [
+  { role: 'Presidencia', name: 'Maximiliano Moreno López', org: 'Estrellas del Sur' },
+  { role: 'Vicepresidencia', name: 'Pablo Sánchez Ruiz', org: 'Estrellas del Sur' },
+  { role: 'Vocalía', name: 'Alejandro Artiles', org: 'Estrella Magec' },
+  { role: 'Vocalía', name: 'Nacho Fenollar', org: 'Murcia Debate' },
+];
+
+const ident = [
+  ['Denominación', 'Federación Estrellas de Europa'],
+  ['NIF', 'G75822320'],
+  ['Naturaleza', 'Federación de asociaciones sin ánimo de lucro'],
+  ['Domicilio social', 'C.C. Los Azahares, Planta Alta 3A, 28039 Madrid'],
+  ['Ámbito', 'Estatal'],
+  ['Año de constitución', '2024'],
+];
+---
+
+<BaseLayout
+  title="Portal de Transparencia"
+  description="Portal de transparencia de la Federación Estrellas de Europa: documentación institucional, órganos de gobierno, cuentas y datos identificativos."
+>
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <span class="badge badge-eu fade-in">Rendición de cuentas</span>
+      <h1 class="fade-in fade-in-delay-1">Portal de Transparencia</h1>
+      <p class="fade-in fade-in-delay-2">
+        Creemos que la confianza se construye con información clara y accesible.
+        Aquí publicaremos la documentación institucional de la federación.
+      </p>
+    </div>
+  </div>
+
+  <section class="section notice-section">
+    <div class="container">
+      <div class="notice-card fade-in">
+        <div class="notice-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <h2>Portal en construcción</h2>
+          <p>
+            La federación se constituyó en 2024 y está publicando su documentación de forma progresiva.
+            Los apartados se habilitarán a medida que los documentos sean aprobados por la Asamblea General.
+            Si necesitas información concreta antes de su publicación, escríbenos a
+            <a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section docs-section">
+    <div class="container">
+      <div class="center-head fade-in">
+        <span class="section-label" style="justify-content:center">Documentación pública</span>
+        <h2 class="section-title">Qué encontrarás en este portal</h2>
+        <div class="divider" style="margin-inline:auto"></div>
+      </div>
+      <ul class="docs-list fade-in">
+        {docs.map((d) => (
+          <li class="doc-item">
+            <div class="doc-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="doc-content">
+              <h3>{d.title}</h3>
+              <p>{d.desc}</p>
+            </div>
+            <div class="doc-action">
+              {d.href ? (
+                <a href={`${base}${d.href}`} class="doc-link">Ver política →</a>
+              ) : (
+                <span class={`doc-status ${d.status === 'Próximamente' ? 'soon' : 'prep'}`}>{d.status}</span>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section gobierno-section">
+    <div class="container">
+      <div class="center-head fade-in">
+        <span class="section-label" style="justify-content:center">Órganos de gobierno</span>
+        <h2 class="section-title">Junta Directiva</h2>
+        <div class="divider" style="margin-inline:auto"></div>
+      </div>
+      <p class="gobierno-intro fade-in">
+        La federación se rige por una <strong>Asamblea General</strong>, integrada por sus organizaciones
+        miembro, y por una <strong>Junta Directiva</strong> responsable de la gestión y la representación.
+      </p>
+      <ul class="junta-grid fade-in">
+        {junta.map((m) => (
+          <li class="junta-card">
+            <span class="junta-role">{m.role}</span>
+            <span class="junta-name">{m.name}</span>
+            <span class="junta-org">{m.org}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section ident-section">
+    <div class="container">
+      <div class="ident-card fade-in">
+        <span class="section-label">Datos identificativos</span>
+        <h2 class="section-title">Federación Estrellas de Europa</h2>
+        <div class="divider"></div>
+        <dl class="ident-grid">
+          {ident.map(([k, v]) => (
+            <div><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
+          <div><dt>Correo institucional</dt><dd><a href="mailto:federacion@estrellasdelsur.eu">federacion@estrellasdelsur.eu</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-box fade-in">
+        <h2>¿Echas en falta algún documento?</h2>
+        <p>Solicita cualquier información complementaria y te responderemos lo antes posible.</p>
+        <a href="mailto:federacion@estrellasdelsur.eu" class="btn btn-primary btn-lg">Escríbenos</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .center-head { text-align: center; margin-bottom: 2.5rem; }
+  .notice-section { padding-bottom: 0; }
+  .notice-card {
+    display: flex; gap: 1.25rem; align-items: flex-start;
+    background: rgba(217,167,39,.12); border: 1px solid rgba(217,167,39,.4);
+    border-radius: var(--radius-lg); padding: 1.5rem 1.75rem;
+  }
+  .notice-icon { color: #8a6010; flex-shrink: 0; padding-top: .15rem; }
+  .notice-card h2 { font-size: 1.1rem; margin-bottom: .4rem; color: #6b4a08; font-family: 'DM Sans Variable', sans-serif; font-weight: 600; }
+  .notice-card p { color: #6b4a08; line-height: 1.65; font-size: .95rem; }
+  .notice-card a { color: #8a6010; text-decoration: underline; font-weight: 500; }
+
+  .docs-list {
+    background: var(--parchment); border: 1px solid rgba(42,31,14,.08);
+    border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .doc-item {
+    display: flex; align-items: center; gap: 1.25rem;
+    padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--sand-dark);
+    transition: background .15s;
+  }
+  .doc-item:last-child { border-bottom: none; }
+  .doc-item:hover { background: rgba(196,78,42,.03); }
+  .doc-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: rgba(196,78,42,.1); color: var(--c-sur);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .doc-content { flex-grow: 1; min-width: 0; }
+  .doc-content h3 { font-size: 1rem; color: var(--ink); margin-bottom: .2rem; font-family: 'DM Sans Variable', sans-serif; font-weight: 600; }
+  .doc-content p { font-size: .87rem; color: var(--ink-soft); line-height: 1.55; }
+  .doc-action { flex-shrink: 0; }
+  .doc-link {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .5rem .9rem; background: var(--c-sur); color: #fff;
+    border-radius: 8px; font-size: .82rem; font-weight: 600; text-decoration: none;
+    transition: background .15s, transform .15s; white-space: nowrap;
+  }
+  .doc-link:hover { background: #a83e20; transform: translateY(-1px); }
+  .doc-status {
+    display: inline-block; font-size: .72rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .08em;
+    padding: .35rem .7rem; border-radius: 6px; white-space: nowrap;
+  }
+  .doc-status.prep { color: #8a6010; background: rgba(217,167,39,.15); }
+  .doc-status.soon { color: var(--ink-mute); background: var(--sand); }
+
+  .gobierno-section { background: var(--parchment); }
+  .gobierno-intro { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; color: var(--ink-soft); line-height: 1.7; }
+  .gobierno-intro strong { color: var(--ink); }
+  .junta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+  .junta-card {
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-top: 3px solid var(--c-sur);
+    border-radius: var(--radius-md); padding: 1.5rem 1.25rem;
+    text-align: center; display: flex; flex-direction: column; gap: .35rem;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .junta-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+  .junta-role { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--c-sur); }
+  .junta-name { font-size: 1.05rem; font-weight: 600; color: var(--ink); font-family: 'DM Sans Variable', sans-serif; }
+  .junta-org { font-size: .8rem; color: var(--ink-mute); }
+
+  .ident-card { background: var(--ink); color: #fff; border-radius: var(--radius-lg); padding: 3rem; }
+  .ident-card .section-label { color: var(--c-magec); }
+  .ident-card .section-title { color: #fff; }
+  .ident-card .divider { background: rgba(255,255,255,.25); }
+  .ident-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem 2.5rem; }
+  .ident-grid dt { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.6); margin-bottom: .3rem; font-weight: 600; }
+  .ident-grid dd { font-size: 1rem; color: #fff; line-height: 1.5; }
+  .ident-grid a { color: var(--c-magec); text-decoration: none; }
+  .ident-grid a:hover { text-decoration: underline; }
+
+  .cta-section { padding-bottom: 5rem; }
+  .cta-box {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(196,78,42,.08), rgba(217,167,39,.1));
+    border-radius: var(--radius-lg); padding: 3.5rem 2rem;
+  }
+  .cta-box h2 { font-size: 1.7rem; color: var(--ink); margin-bottom: .6rem; }
+  .cta-box p { color: var(--ink-soft); margin-bottom: 1.75rem; }
+
+  @media (max-width: 640px) {
+    .ident-card { padding: 2rem 1.5rem; }
+    .notice-card { flex-direction: column; gap: .75rem; padding: 1.25rem; }
+    .doc-item { flex-wrap: wrap; }
+    .doc-action { width: 100%; padding-left: 56px; }
+  }
+</style>
