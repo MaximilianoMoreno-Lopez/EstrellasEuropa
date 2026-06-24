@@ -27,7 +27,11 @@ function isActive(href: string) {
 
     <nav class="nav-links" id="nav-links">
       {navLinks.map(link => (
-        <a href={link.href} class={`nav-link ${isActive(link.href) ? 'active' : ''}`}>
+        <a
+          href={link.href}
+          class={`nav-link ${isActive(link.href) ? 'active' : ''}`}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
           {link.label}
         </a>
       ))}
@@ -63,7 +67,7 @@ function isActive(href: string) {
 }
 .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
 .logo-main {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
   font-size: .98rem; font-weight: 700; color: var(--ink);
 }
 .logo-sub {

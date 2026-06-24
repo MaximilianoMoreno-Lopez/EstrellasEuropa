@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/playfair-display';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -65,20 +67,18 @@ const ogImageURL = `${siteURL}${ogImage}`;
   <!-- JSON-LD -->
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 
-  <!-- Favicon -->
+  <!-- Favicon e iconos -->
   <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+  <link rel="icon" type="image/png" sizes="32x32" href={`${base}/favicon-32x32.png`} />
+  <link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
+  <link rel="manifest" href={`${base}/site.webmanifest`} />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Fuentes: self-hosted via @fontsource-variable (importadas arriba) -->
 </head>
 <body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
   <Navbar />
-  <main>
+  <main id="main">
     <slot />
   </main>
   <Footer />

@@ -65,7 +65,7 @@ const orgs = [
 ---
 
 <BaseLayout
-  title="Organizaciones Miembro — Asociaciones Juveniles"
+  title="Organizaciones Miembro · Asociaciones Juveniles"
   description="Descubre las asociaciones juveniles que forman la Federación Estrellas de Europa: Estrellas del Sur (Córdoba), Estrella Magec (Canarias) y Murcia Debate (Murcia)."
 >
 
@@ -150,9 +150,9 @@ const orgs = [
 .orgs-list { display: flex; flex-direction: column; gap: 2.5rem; }
 .org-detail {
   display: grid; grid-template-columns: 220px 1fr;
-  background: #fff;
+  background: var(--parchment);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(10,22,40,.07);
+  border: 1px solid rgba(42,31,14,.07);
   border-left: 4px solid var(--org-color);
   box-shadow: var(--shadow-card);
   overflow: hidden;
@@ -162,7 +162,7 @@ const orgs = [
 .org-detail-side {
   background: linear-gradient(180deg, rgba(var(--org-rgb),.08) 0%, rgba(var(--org-rgb),.03) 100%);
   padding: 2rem 1.5rem;
-  border-right: 1px solid rgba(10,22,40,.06);
+  border-right: 1px solid rgba(42,31,14,.06);
   display: flex; flex-direction: column; gap: .6rem;
 }
 .org-detail-flag { font-size: 3rem; margin-bottom: .25rem; }
@@ -187,7 +187,7 @@ const orgs = [
 .org-detail-name { font-size: 1.5rem; color: var(--navy); margin-bottom: .75rem; }
 .org-detail-desc { color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; }
 .org-detail-activities-title {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'DM Sans Variable', 'DM Sans', sans-serif;
   font-size: .82rem; font-weight: 600; letter-spacing: .08em;
   text-transform: uppercase; color: var(--gray-400); margin-bottom: .75rem;
 }
@@ -198,7 +198,7 @@ const orgs = [
 }
 .org-detail-activities svg { color: var(--org-color); flex-shrink: 0; }
 
-.join-section { background: var(--cream-dark); }
+.join-section { background: var(--parchment); }
 .join-inner {
   display: flex; align-items: center; justify-content: space-between;
   gap: 2rem; flex-wrap: wrap;
@@ -208,7 +208,7 @@ const orgs = [
 
 @media (max-width: 720px) {
   .org-detail { grid-template-columns: 1fr; }
-  .org-detail-side { border-right: none; border-bottom: 1px solid rgba(10,22,40,.06); }
+  .org-detail-side { border-right: none; border-bottom: 1px solid rgba(42,31,14,.06); }
   .org-detail-main { padding: 1.5rem; }
 }
 </style>

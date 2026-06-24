@@ -1,0 +1,13 @@
+{
+  "name": "Estrellas de Europa",
+  "short_name": "EE",
+  "description": "Federación de asociaciones juveniles españolas unidas por los valores europeos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3ecdd",
+  "theme_color": "#001a6e",
+  "icons": [
+    { "src": "/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

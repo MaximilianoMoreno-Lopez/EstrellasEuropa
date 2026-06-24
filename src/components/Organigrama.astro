@@ -56,7 +56,7 @@ const nodes = members.map(m => {
             <text
               x="0" y="5"
               text-anchor="middle"
-              font-family="Playfair Display, Georgia, serif"
+              font-family="Playfair Display Variable, Playfair Display, Georgia, serif"
               font-size="13"
               font-weight="600"
               fill={n.color}
@@ -67,7 +67,7 @@ const nodes = members.map(m => {
               text-anchor={n.x < CX - 20 ? 'end' : n.x > CX + 20 ? 'start' : 'middle'}
               dx={n.x < CX - 40 ? -10 : n.x > CX + 40 ? 10 : 0}
               dy={n.y < CY - 20 ? 0 : n.y > CY + 20 ? 0 : (n.x < CX ? 5 : 5)}
-              font-family="DM Sans, system-ui, sans-serif"
+              font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
               font-size="11.5"
               font-weight="600"
               fill="var(--ink)"
@@ -76,7 +76,7 @@ const nodes = members.map(m => {
               x="0" y={n.y < CY - 20 ? -30 : n.y > CY + 20 ? 67 : 18}
               text-anchor={n.x < CX - 20 ? 'end' : n.x > CX + 20 ? 'start' : 'middle'}
               dx={n.x < CX - 40 ? -10 : n.x > CX + 40 ? 10 : 0}
-              font-family="DM Sans, system-ui, sans-serif"
+              font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
               font-size="10"
               fill="var(--ink-mute)"
             >{n.role}</text>
@@ -89,7 +89,7 @@ const nodes = members.map(m => {
         <text
           x={CX} y={CY - 6}
           text-anchor="middle"
-          font-family="Playfair Display, Georgia, serif"
+          font-family="Playfair Display Variable, Playfair Display, Georgia, serif"
           font-size="14"
           font-style="italic"
           fill="var(--ink)"
@@ -97,7 +97,7 @@ const nodes = members.map(m => {
         <text
           x={CX} y={CY + 12}
           text-anchor="middle"
-          font-family="DM Sans, system-ui, sans-serif"
+          font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
           font-size="9.5"
           letter-spacing="1"
           fill="var(--ink-mute)"

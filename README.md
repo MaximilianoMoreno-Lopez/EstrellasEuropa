@@ -25,8 +25,8 @@ Sitio web de **Estrellas de Europa**, federación española de asociaciones juve
 | GitHub Pages | Hosting |
 | GitHub Actions | CI/CD automático |
 
-**Fuentes:** Playfair Display (títulos) + DM Sans (cuerpo) via Google Fonts  
-**Colores:** Navy `#001a6e` · EU Blue `#0033cc` · Gold `#d9a727` · Sand `#f5f0e8`
+**Fuentes:** Playfair Display (títulos) + DM Sans (cuerpo), self-hosted via `@fontsource-variable` (sin peticiones a Google Fonts)  
+**Colores:** Sand `#f3ecdd` · Ink `#2a1f0e` · EU Blue `#003399` · Gold `#d9a727` + los 5 colores del logo
 
 ---
 
@@ -38,15 +38,24 @@ Sitio web de **Estrellas de Europa**, federación española de asociaciones juve
 │   └── workflows/
 │       └── deploy.yml              # CI/CD → GitHub Pages
 ├── public/
-│   ├── favicon.svg
+│   ├── favicon.svg                 # Estrella de 5 colores de la federación
+│   ├── favicon-*.png               # Iconos PNG (32, 192, 512)
+│   ├── apple-touch-icon.png
+│   ├── site.webmanifest            # PWA manifest
+│   ├── og-image.png                # Imagen para redes (1200x630)
+│   ├── robots.txt                  # Apunta al sitemap-index.xml
 │   ├── logo.jpg
-│   └── sitemap.xml                 # Sitemap estático
+│   └── CNAME                        # Dominio personalizado
+│   # sitemap-index.xml lo genera @astrojs/sitemap en el build
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.astro            # Navegación fija con scroll effect
 │   │   ├── Footer.astro            # Pie de página con columnas
 │   │   ├── Hero.astro              # Hero de portada
+│   │   ├── Stats.astro             # Barra de cifras clave
 │   │   ├── MisionSection.astro     # Misión y pilares
+│   │   ├── ProyectosSection.astro  # Proyectos activos (KA153, NEST)
+│   │   ├── AccionLocal.astro       # Acción local en el territorio
 │   │   ├── MemberOrgs.astro        # Cards de las 3 organizaciones
 │   │   └── Organigrama.astro       # Organigrama radial SVG
 │   ├── layouts/
@@ -55,7 +64,8 @@ Sitio web de **Estrellas de Europa**, federación española de asociaciones juve
 │   │   ├── index.astro             # Home
 │   │   ├── sobre-nosotros.astro    # Historia, valores, organigrama, datos legales
 │   │   ├── organizaciones.astro    # Detalle de las 3 organizaciones miembro
-│   │   └── contacto.astro          # Info de contacto por organización
+│   │   ├── contacto.astro          # Info de contacto por organización
+│   │   └── 404.astro               # Página de error con estilo
 │   └── styles/
 │       └── global.css              # Design tokens y utilidades
 ├── astro.config.mjs

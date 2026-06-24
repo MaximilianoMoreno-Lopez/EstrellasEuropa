@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="La página que buscas no existe o se ha movido."
+>
+  <section class="nf">
+    <div class="container nf-inner">
+      <div class="nf-dots" aria-hidden="true">
+        <span style="background:var(--c-sur)"></span>
+        <span style="background:var(--c-magec)"></span>
+        <span style="background:var(--c-green)"></span>
+        <span style="background:var(--c-murcia)"></span>
+        <span style="background:var(--c-blue)"></span>
+      </div>
+      <p class="nf-code">404</p>
+      <h1>Esta página se ha perdido por Europa</h1>
+      <p class="nf-text">
+        El enlace que has seguido no existe o la página se ha movido.
+        Volvamos a un lugar conocido.
+      </p>
+      <div class="nf-actions">
+        <a href={`${base}/`} class="btn btn-primary btn-lg">Ir al inicio</a>
+        <a href={`${base}/organizaciones/`} class="btn btn-outline btn-lg">Ver organizaciones</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.nf {
+  background: linear-gradient(150deg, #1a0f00 0%, #291500 45%, #1e1200 100%);
+  min-height: 78vh; display: flex; align-items: center;
+  padding: 8rem 0 5rem; text-align: center;
+}
+.nf-inner { max-width: 620px; margin: 0 auto; }
+.nf-dots { display: flex; justify-content: center; gap: .55rem; margin-bottom: 1.75rem; }
+.nf-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.nf-code {
+  font-family: 'Playfair Display Variable', Georgia, serif;
+  font-size: clamp(4rem, 12vw, 7rem); font-weight: 700;
+  color: var(--c-magec); line-height: 1; margin-bottom: .5rem;
+}
+.nf h1 { color: #fff; font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 1rem; }
+.nf-text { color: rgba(255,255,255,.68); line-height: 1.7; margin-bottom: 2.25rem; }
+.nf-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.nf .btn-outline { color: #fff; border-color: rgba(255,255,255,.45); }
+.nf .btn-outline:hover { background: rgba(255,255,255,.1); border-color: #fff; color: #fff; }
+</style>
