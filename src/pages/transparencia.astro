@@ -21,13 +21,21 @@ const docs = [
   },
   {
     title: 'Código ético y de conducta',
-    desc: 'Principios de actuación, valores y normas de comportamiento aplicables a personas socias, voluntarias y participantes.',
-    status: 'En preparación',
+    desc: 'Principios de actuación, valores y normas de comportamiento aplicables a las organizaciones miembro y a las personas participantes.',
+    file: 'Codigo_Etico_Estrellas_de_Europa.pdf',
+    status: 'Disponible',
   },
   {
     title: 'Plan de igualdad',
     desc: 'Medidas para garantizar la igualdad efectiva entre mujeres y hombres y prevenir cualquier forma de discriminación.',
-    status: 'En preparación',
+    file: 'Plan_Igualdad_Estrellas_de_Europa.pdf',
+    status: 'Disponible',
+  },
+  {
+    title: 'Plan de calidad',
+    desc: 'Estándares y procedimientos para garantizar la calidad de los proyectos europeos a lo largo de todo su ciclo.',
+    file: 'Plan_Calidad_Estrellas_de_Europa.pdf',
+    status: 'Disponible',
   },
   {
     title: 'Política de protección de datos',
@@ -106,7 +114,12 @@ const ident = [
               <p>{d.desc}</p>
             </div>
             <div class="doc-action">
-              {d.href ? (
+              {d.file ? (
+                <a href={`${base}/docs/${d.file}`} target="_blank" rel="noopener" class="doc-link">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Descargar PDF</span>
+                </a>
+              ) : d.href ? (
                 <a href={`${base}${d.href}`} class="doc-link">Ver política →</a>
               ) : (
                 <span class={`doc-status ${d.status === 'Próximamente' ? 'soon' : 'prep'}`}>{d.status}</span>

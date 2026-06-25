@@ -1,0 +1,53 @@
+/* Estilo de los documentos del portal de transparencia de Estrellas de Europa */
+:root{
+  --blue:#003399; --blue-dark:#002a7a; --gold:#d9a727;
+  --ink:#2a1f0e; --gray:#5c4a30; --mute:#8a7660;
+  --sand:#f3ecdd; --parch:#fdf9f3; --line:#d7cdb4;
+}
+*{box-sizing:border-box;}
+@page{ size:A4; margin:18mm 17mm; }
+html,body{margin:0;padding:0;}
+body{
+  font-family:'DM Sans','Segoe UI',system-ui,Arial,sans-serif;
+  color:var(--ink); font-size:10.6pt; line-height:1.6;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+.brandbar{height:6px;border-radius:3px;
+  background:linear-gradient(90deg,#c44e2a 0 20%,#d9a727 20% 40%,#3d7848 40% 60%,#6b3a8a 60% 80%,#2b52a8 80% 100%);
+  margin-bottom:16px;}
+.cover{display:flex;align-items:center;gap:16px;padding-bottom:16px;border-bottom:2px solid var(--line);margin-bottom:22px;}
+.cover svg{flex-shrink:0;}
+.cover .org{font-family:'Playfair Display',Georgia,serif;font-size:14pt;font-weight:700;color:var(--ink);line-height:1.15;}
+.cover .org small{display:block;font-family:'DM Sans',sans-serif;font-size:8pt;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-top:5px;}
+h1.doc-title{font-family:'Playfair Display',Georgia,serif;font-size:23pt;font-weight:700;color:var(--ink);margin:0 0 5px;letter-spacing:-.01em;}
+.doc-sub{font-size:10pt;color:var(--gray);margin:0 0 24px;}
+h2{font-size:11.5pt;font-weight:700;color:var(--blue);margin:22px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+h2 .num{font-family:'Playfair Display',Georgia,serif;color:var(--gold);margin-right:7px;}
+h3{font-size:10.4pt;font-weight:700;color:var(--ink);margin:14px 0 5px;}
+p{margin:0 0 10px;text-align:justify;}
+.lead{color:var(--gray);}
+ul{margin:5px 0 11px;padding-left:0;list-style:none;}
+ul li{position:relative;padding:4px 0 4px 20px;}
+ul li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--blue);}
+ul.values li{padding:7px 0 7px 22px;border-bottom:1px solid var(--line);}
+ul.values li:last-child{border-bottom:none;}
+ul.values li::before{content:"\2605";background:none;width:auto;height:auto;left:0;top:6px;color:var(--gold);font-size:10pt;}
+strong{color:var(--ink);}
+ol{margin:5px 0 11px;padding-left:20px;}
+ol li{margin-bottom:7px;padding-left:3px;}
+table{width:100%;border-collapse:collapse;margin:10px 0 13px;font-size:9.8pt;}
+th{text-align:left;background:var(--blue);color:#fff;font-weight:600;padding:8px 11px;}
+td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top;}
+tr:nth-child(even) td{background:var(--parch);}
+td.k{font-weight:600;color:var(--blue);width:34%;}
+.callout{background:var(--parch);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:13px 15px;margin:13px 0;}
+.callout p{margin:0;}
+.ident{margin-top:26px;background:var(--ink);color:#fff;border-radius:12px;padding:20px 22px;page-break-inside:avoid;}
+.ident .ident-label{font-size:8pt;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:0 0 12px;}
+.ident-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;}
+.ident-grid dt{font-size:7.4pt;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.55);margin-bottom:2px;font-weight:600;}
+.ident-grid dd{margin:0;font-size:9.6pt;color:#fff;}
+.ident-grid .gold{color:var(--gold);}
+footer{margin-top:22px;padding-top:11px;border-top:1px solid var(--line);font-size:8pt;color:var(--mute);display:flex;justify-content:space-between;}
+.page-break{page-break-before:always;}
