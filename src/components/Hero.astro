@@ -8,7 +8,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <!-- Logo grande en el fondo -->
   <div class="hero-logo-bg" aria-hidden="true">
-    <img src={`${base}/logo.jpg`} alt="" />
+    <img src={`${base}/logo-star.png`} alt="" />
   </div>
 
   <div class="container hero-inner">
@@ -89,13 +89,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 }
 
 .hero-logo-bg {
-  position: absolute; right: -5%; top: 50%;
-  transform: translateY(-50%);
-  width: clamp(300px, 42vw, 520px);
-  opacity: .1; pointer-events: none; z-index: 0;
-  filter: blur(1px);
+  position: absolute; right: -4%; top: 50%;
+  transform: translateY(-50%) rotate(-8deg);
+  width: clamp(300px, 42vw, 540px);
+  opacity: .16; pointer-events: none; z-index: 0;
 }
-.hero-logo-bg img { width: 100%; height: auto; }
+.hero-logo-bg img {
+  width: 100%; height: auto;
+  filter: drop-shadow(0 0 40px rgba(0,0,0,.25));
+}
 
 .hero-inner { position: relative; z-index: 2; }
 .hero-text { max-width: 640px; }
@@ -184,6 +186,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 @media (max-width: 768px) {
   .hero { min-height: auto; padding: 8rem 0 5rem; }
-  .hero-logo-bg { opacity: .06; right: -10%; }
+  .hero-logo-bg { opacity: .1; right: -14%; }
 }
 </style>
