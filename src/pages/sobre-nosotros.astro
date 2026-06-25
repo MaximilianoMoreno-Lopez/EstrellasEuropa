@@ -4,13 +4,14 @@ import Organigrama from '../components/Organigrama.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const values = [
-  { icon: '🌐', title: 'Europeísmo', desc: 'Creemos en el proyecto europeo como marco de convivencia y oportunidades para la juventud.' },
-  { icon: '🎓', title: 'Aprendizaje no formal', desc: 'La educación fuera del aula es tan valiosa como la académica. Aprendemos haciendo y compartiendo.' },
-  { icon: '🤝', title: 'Solidaridad', desc: 'Nos apoyamos mutuamente entre organizaciones para multiplicar el impacto de nuestras acciones.' },
-  { icon: '🌈', title: 'Inclusión', desc: 'Trabajamos para que todos los jóvenes, independientemente de su origen, tengan acceso a la movilidad europea.' },
-  { icon: '🌱', title: 'Sostenibilidad', desc: 'Integramos la dimensión ambiental en nuestros proyectos y metodologías.' },
-  { icon: '💡', title: 'Innovación', desc: 'Buscamos nuevas formas de conectar a jóvenes con Europa y entre ellos.' },
+  { icon: `<svg ${ICON}><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>`, title: 'Europeísmo', desc: 'Creemos en el proyecto europeo como marco de convivencia y oportunidades para la juventud.' },
+  { icon: `<svg ${ICON}><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>`, title: 'Aprendizaje no formal', desc: 'La educación fuera del aula es tan valiosa como la académica. Aprendemos haciendo y compartiendo.' },
+  { icon: `<svg ${ICON}><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>`, title: 'Solidaridad', desc: 'Nos apoyamos mutuamente entre organizaciones para multiplicar el impacto de nuestras acciones.' },
+  { icon: `<svg ${ICON}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`, title: 'Inclusión', desc: 'Trabajamos para que todos los jóvenes, independientemente de su origen, tengan acceso a la movilidad europea.' },
+  { icon: `<svg ${ICON}><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10z"/><path d="M2 21c0-3 1.9-5.4 5.1-6"/></svg>`, title: 'Sostenibilidad', desc: 'Integramos la dimensión ambiental en nuestros proyectos y metodologías.' },
+  { icon: `<svg ${ICON}><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8.5 14a5 5 0 1 1 7 0c-.7.6-1.2 1.3-1.4 2.2H9.9c-.2-.9-.7-1.6-1.4-2.2z"/></svg>`, title: 'Innovación', desc: 'Buscamos nuevas formas de conectar a jóvenes con Europa y entre ellos.' },
 ];
 
 const milestones = [
@@ -98,7 +99,7 @@ const milestones = [
       <div class="values-grid">
         {values.map((v, i) => (
           <div class={`value-card fade-in fade-in-delay-${(i % 3) + 1}`}>
-            <span class="value-icon">{v.icon}</span>
+            <span class="value-icon" set:html={v.icon} />
             <h4>{v.title}</h4>
             <p>{v.desc}</p>
           </div>
@@ -178,7 +179,12 @@ const milestones = [
   transition: transform .2s;
 }
 .value-card:hover { transform: translateY(-4px); }
-.value-icon { font-size: 2rem; display: block; margin-bottom: .75rem; }
+.value-icon {
+  width: 46px; height: 46px; margin-bottom: 1rem;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,51,153,.1); color: var(--eu-blue);
+}
+.value-icon svg { width: 23px; height: 23px; }
 .value-card h4 { font-size: 1.05rem; color: var(--navy); margin-bottom: .5rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif; font-weight: 600; }
 .value-card p { font-size: .88rem; color: var(--gray-600); line-height: 1.65; }
 

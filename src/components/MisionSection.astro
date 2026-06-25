@@ -1,19 +1,20 @@
 ---
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const pillars = [
   {
-    icon: '🌍',
+    icon: `<svg ${ICON}><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>`,
     title: 'Movilidad europea',
     desc: 'Facilitamos intercambios, voluntariados y formaciones en el marco del programa Erasmus+ para jóvenes de toda España.',
     color: '#c44e2a',
   },
   {
-    icon: '📚',
+    icon: `<svg ${ICON}><path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/></svg>`,
     title: 'Aprendizaje no formal',
     desc: 'Creemos en el poder de la educación fuera del aula: dinámicas grupales, trabajo por proyectos y experiencias transformadoras.',
     color: '#d9a727',
   },
   {
-    icon: '🤝',
+    icon: `<svg ${ICON}><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>`,
     title: 'Valores europeos',
     desc: 'Promovemos la ciudadanía activa, la inclusión y la diversidad como pilares de una Europa unida.',
     color: '#2b52a8',
@@ -41,7 +42,7 @@ const pillars = [
       <div class="pillars fade-in fade-in-delay-1">
         {pillars.map(p => (
           <div class="pillar" style={`--pc: ${p.color}`}>
-            <span class="pillar-icon">{p.icon}</span>
+            <span class="pillar-icon" set:html={p.icon} />
             <div>
               <h4 class="pillar-title">{p.title}</h4>
               <p class="pillar-desc">{p.desc}</p>
@@ -69,7 +70,12 @@ const pillars = [
   transition: transform .2s;
 }
 .pillar:hover { transform: translateX(4px); }
-.pillar-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: .1rem; }
+.pillar-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 11px; display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--pc) 13%, transparent); color: var(--pc);
+}
+.pillar-icon svg { width: 21px; height: 21px; }
 .pillar-title {
   font-size: .98rem; font-weight: 600; color: var(--ink);
   margin-bottom: .3rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif;

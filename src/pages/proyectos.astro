@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const proyectos = [
   {
     badge: 'Erasmus+ KA153',
@@ -10,7 +11,7 @@ const proyectos = [
     title: 'Movilidad de Trabajadores de Juventud',
     status: 'Activo',
     statusColor: 'var(--c-green)',
-    icon: '🏆',
+    icon: `<svg ${ICON}><circle cx="12" cy="9" r="6"/><path d="M9 14.5 8 22l4-2.2L16 22l-1-7.5"/></svg>`,
     lead: 'Subvención Erasmus+ KA153 concedida a la federación para financiar estancias formativas de nuestros educadores y técnicos de juventud en organizaciones europeas.',
     points: [
       'Estancias formativas para youth workers en organizaciones de acogida europeas.',
@@ -25,7 +26,7 @@ const proyectos = [
     title: 'NEST',
     status: 'En desarrollo',
     statusColor: 'var(--c-magec)',
-    icon: '🌐',
+    icon: `<svg ${ICON}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>`,
     lead: 'Proyecto de cooperación internacional junto a socios de distintos países europeos, centrado en la educación no formal, la participación juvenil y el intercambio de metodologías innovadoras.',
     points: [
       'Trabajo en red con organizaciones juveniles de varios países.',
@@ -63,7 +64,7 @@ const acciones = [
       {proyectos.map((p) => (
         <article class="proyecto fade-in" style={`--ac: ${p.accent}`}>
           <div class="proyecto-side">
-            <span class="proyecto-icon">{p.icon}</span>
+            <span class="proyecto-icon" set:html={p.icon} />
             <span class="proyecto-badge">{p.badge}</span>
             <span class="proyecto-status" style={`color:${p.statusColor}`}>
               <span class="status-dot" style={`background:${p.statusColor}`}></span>{p.status}
@@ -144,7 +145,8 @@ const acciones = [
     padding: 2rem 1.5rem;
     display: flex; flex-direction: column; gap: .85rem; align-items: flex-start;
   }
-  .proyecto-icon { font-size: 2.5rem; line-height: 1; }
+  .proyecto-icon { line-height: 1; color: var(--ac); }
+  .proyecto-icon svg { width: 36px; height: 36px; }
   .proyecto-badge {
     font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     color: #fff; background: var(--ac); padding: .3rem .8rem; border-radius: var(--radius-full);
@@ -193,7 +195,7 @@ const acciones = [
   @media (max-width: 760px) {
     .proyecto { grid-template-columns: 1fr; }
     .proyecto-side { flex-direction: row; align-items: center; border-right: none; border-bottom: 1px solid rgba(42,31,14,.06); flex-wrap: wrap; }
-    .proyecto-icon { font-size: 2rem; }
+    .proyecto-icon svg { width: 30px; height: 30px; }
     .acciones-grid { grid-template-columns: 1fr; }
   }
 </style>

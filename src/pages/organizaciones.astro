@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const orgs = [
   {
     id: 'eds',
@@ -11,7 +12,7 @@ const orgs = [
     founded: '2020',
     color: 'var(--c-sur)',
     colorRgb: '196,78,42',
-    flag: '🌟',
+    flag: `<svg ${ICON}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>`,
     description:
       'Asociación juvenil con sede en Córdoba que lleva desde 2019 promoviendo la movilidad europea entre jóvenes del sur de España. Fue la impulsora de la creación de la Federación Estrellas de Europa en 2024.',
     activities: [
@@ -30,7 +31,7 @@ const orgs = [
     founded: '2022',
     color: 'var(--c-magec)',
     colorRgb: '217,167,39',
-    flag: '🌺',
+    flag: `<svg ${ICON}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     description:
       'Organización canaria que trabaja por la inclusión y la participación activa de jóvenes en proyectos europeos, con especial atención a colectivos con menos oportunidades.',
     activities: [
@@ -49,7 +50,7 @@ const orgs = [
     founded: '2021',
     color: 'var(--c-murcia)',
     colorRgb: '107,58,138',
-    flag: '🎤',
+    flag: `<svg ${ICON}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>`,
     description:
       'Asociación murciana que utiliza el debate y la argumentación como herramientas de educación no formal para desarrollar el pensamiento crítico y la participación cívica entre jóvenes.',
     activities: [
@@ -89,7 +90,7 @@ const orgs = [
         {orgs.map((org, i) => (
           <article class={`org-detail fade-in`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}`}>
             <div class="org-detail-side">
-              <div class="org-detail-flag">{org.flag}</div>
+              <div class="org-detail-flag" set:html={org.flag} />
               <span class="org-detail-badge">{org.id.toUpperCase()}</span>
               <p class="org-detail-founded">Fundada en {org.founded}</p>
               <p class="org-detail-loc">
@@ -165,7 +166,8 @@ const orgs = [
   border-right: 1px solid rgba(42,31,14,.06);
   display: flex; flex-direction: column; gap: .6rem;
 }
-.org-detail-flag { font-size: 3rem; margin-bottom: .25rem; }
+.org-detail-flag { margin-bottom: .5rem; color: var(--org-color); }
+.org-detail-flag svg { width: 40px; height: 40px; }
 .org-detail-badge {
   display: inline-block; padding: .25rem .8rem;
   border-radius: var(--radius-full);

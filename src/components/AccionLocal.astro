@@ -1,19 +1,20 @@
 ---
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const acciones = [
   {
-    icon: '🏫',
+    icon: `<svg ${ICON}><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>`,
     title: 'Talleres en centros educativos',
     desc: 'Llevamos la movilidad europea a institutos y centros de formación profesional, acercando Erasmus+ a jóvenes que nunca han oído hablar de él.',
     color: '#c44e2a',
   },
   {
-    icon: '📢',
+    icon: `<svg ${ICON}><path d="M3 11l14-6v14L3 13z"/><path d="M7 13.5V17a2 2 0 0 0 4 0v-1.5"/></svg>`,
     title: 'Sesiones informativas',
     desc: 'Organizamos charlas y eventos locales para explicar las oportunidades de financiación europea disponibles para asociaciones y jóvenes.',
     color: '#d9a727',
   },
   {
-    icon: '🤝',
+    icon: `<svg ${ICON}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>`,
     title: 'Red de asociaciones',
     desc: 'Conectamos organizaciones locales entre sí y con la red europea, facilitando colaboraciones y proyectos conjuntos de mayor alcance.',
     color: '#2b52a8',
@@ -45,7 +46,7 @@ const acciones = [
       <div class="accion-cards fade-in fade-in-delay-1">
         {acciones.map(a => (
           <div class="accion-card" style={`--ac: ${a.color}`}>
-            <span class="accion-icon">{a.icon}</span>
+            <span class="accion-icon" set:html={a.icon} />
             <div>
               <h4 class="accion-title">{a.title}</h4>
               <p class="accion-desc">{a.desc}</p>
@@ -77,7 +78,12 @@ const acciones = [
   transition: transform .2s;
 }
 .accion-card:hover { transform: translateX(5px); }
-.accion-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: .1rem; }
+.accion-icon {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 11px; display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--ac) 13%, transparent); color: var(--ac);
+}
+.accion-icon svg { width: 21px; height: 21px; }
 .accion-title {
   font-size: .98rem; font-weight: 600; color: var(--ink);
   margin-bottom: .3rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif;

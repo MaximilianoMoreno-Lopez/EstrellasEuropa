@@ -1,13 +1,14 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const orgs = [
   {
     id: 'EDS',
     name: 'Estrellas del Sur',
     location: 'Córdoba, Andalucía',
     color: '#c44e2a',
-    flag: '🌟',
+    flag: `<svg ${ICON}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>`,
     description: 'Asociación juvenil cordobesa promotora de la movilidad Erasmus+ y el aprendizaje no formal. Sede fundadora de la federación.',
     tags: ['Intercambios juveniles', 'Voluntariado ESC', 'Formación'],
     website: 'https://estrellasdelsur.eu',
@@ -17,7 +18,7 @@ const orgs = [
     name: 'Estrella Magec',
     location: 'Islas Canarias',
     color: '#d9a727',
-    flag: '🌺',
+    flag: `<svg ${ICON}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
     description: 'Asociación canaria dedicada a la inclusión juvenil y la participación activa en proyectos europeos de educación no formal.',
     tags: ['Inclusión juvenil', 'Erasmus+', 'Educación no formal'],
     website: null,
@@ -27,7 +28,7 @@ const orgs = [
     name: 'Murcia Debate',
     location: 'Murcia',
     color: '#6b3a8a',
-    flag: '🎤',
+    flag: `<svg ${ICON}><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><line x1="12" y1="17" x2="12" y2="22"/></svg>`,
     description: 'Organización murciana que impulsa el pensamiento crítico y la participación juvenil a través del debate y proyectos europeos.',
     tags: ['Debate', 'Pensamiento crítico', 'Participación juvenil'],
     website: null,
@@ -50,7 +51,7 @@ const orgs = [
       {orgs.map((org, i) => (
         <article class={`org-card fade-in fade-in-delay-${i + 1}`} style={`--c: ${org.color}`}>
           <div class="org-top">
-            <span class="org-flag">{org.flag}</span>
+            <span class="org-flag" set:html={org.flag} />
             <span class="org-id">{org.id}</span>
           </div>
           <div class="org-body">
@@ -105,7 +106,8 @@ const orgs = [
   padding: 1.75rem 1.5rem 1.25rem;
   display: flex; align-items: flex-start; justify-content: space-between;
 }
-.org-flag { font-size: 2.4rem; }
+.org-flag { color: var(--c); display: flex; }
+.org-flag svg { width: 34px; height: 34px; }
 .org-id {
   font-size: .68rem; font-weight: 700; letter-spacing: .12em;
   padding: .25rem .65rem; border-radius: var(--radius-full);

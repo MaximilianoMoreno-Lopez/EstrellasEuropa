@@ -3,13 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const beneficios = [
-  { icon: '💶', title: 'Financiación conjunta', desc: 'Acceso a candidaturas Erasmus+ y CES presentadas en red, con más opciones de ser aprobadas.' },
-  { icon: '🤝', title: 'Red de organizaciones', desc: 'Conexión con entidades juveniles de toda España y con socios europeos de confianza.' },
-  { icon: '📚', title: 'Metodologías compartidas', desc: 'Intercambio de buenas prácticas, plantillas y aprendizajes entre organizaciones miembro.' },
-  { icon: '🎓', title: 'Formación', desc: 'Acceso a movilidades de formación (KA153) para vuestro equipo de trabajadores de juventud.' },
-  { icon: '📣', title: 'Visibilidad', desc: 'Presencia en la web de la federación y difusión conjunta de vuestros proyectos.' },
-  { icon: '🌍', title: 'Dimensión europea', desc: 'Mayor alcance e impacto para vuestras iniciativas locales dentro del proyecto europeo.' },
+  { icon: `<svg ${ICON}><circle cx="12" cy="12" r="9"/><path d="M15 9.3a3.8 3.8 0 1 0 0 5.4"/><path d="M6.5 11h6M6.5 13.3h5"/></svg>`, title: 'Financiación conjunta', desc: 'Acceso a candidaturas Erasmus+ y CES presentadas en red, con más opciones de ser aprobadas.' },
+  { icon: `<svg ${ICON}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>`, title: 'Red de organizaciones', desc: 'Conexión con entidades juveniles de toda España y con socios europeos de confianza.' },
+  { icon: `<svg ${ICON}><path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/></svg>`, title: 'Metodologías compartidas', desc: 'Intercambio de buenas prácticas, plantillas y aprendizajes entre organizaciones miembro.' },
+  { icon: `<svg ${ICON}><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>`, title: 'Formación', desc: 'Acceso a movilidades de formación (KA153) para vuestro equipo de trabajadores de juventud.' },
+  { icon: `<svg ${ICON}><path d="M3 11l14-6v14L3 13z"/><path d="M7 13.5V17a2 2 0 0 0 4 0v-1.5"/></svg>`, title: 'Visibilidad', desc: 'Presencia en la web de la federación y difusión conjunta de vuestros proyectos.' },
+  { icon: `<svg ${ICON}><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>`, title: 'Dimensión europea', desc: 'Mayor alcance e impacto para vuestras iniciativas locales dentro del proyecto europeo.' },
 ];
 
 const requisitos = [
@@ -52,7 +53,7 @@ const pasos = [
       <div class="benefits-grid">
         {beneficios.map((b, i) => (
           <div class={`benefit-card fade-in fade-in-delay-${(i % 3) + 1}`}>
-            <span class="benefit-icon">{b.icon}</span>
+            <span class="benefit-icon" set:html={b.icon} />
             <h3>{b.title}</h3>
             <p>{b.desc}</p>
           </div>
@@ -111,7 +112,12 @@ const pasos = [
     box-shadow: var(--shadow-card); transition: transform .2s, box-shadow .2s;
   }
   .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-  .benefit-icon { font-size: 1.9rem; display: block; margin-bottom: .75rem; }
+  .benefit-icon {
+    width: 46px; height: 46px; margin-bottom: 1rem;
+    border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    background: rgba(196,78,42,.12); color: var(--c-sur);
+  }
+  .benefit-icon svg { width: 23px; height: 23px; }
   .benefit-card h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: .4rem; font-family: 'DM Sans Variable', sans-serif; font-weight: 600; }
   .benefit-card p { font-size: .88rem; color: var(--ink-soft); line-height: 1.6; }
 
