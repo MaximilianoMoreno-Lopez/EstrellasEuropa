@@ -13,9 +13,9 @@
   --ink-mute:    #79808c;
   --line:        #e3e6ea;
 
-  /* Acento estructural: azul institucional sobrio */
-  --accent:      #1f4573;
-  --accent-dark: #163556;
+  /* Acento estructural: terracota de marca (el rojo original) */
+  --accent:      #c44e2a;
+  --accent-dark: #a83e20;
 
   /* Colores del logo — los 5 triángulos de la estrella (identidad) */
   --c-sur:    #c44e2a;   /* terracota — Estrellas del Sur */
@@ -142,7 +142,7 @@ h1, h2, h3, h4 {
 }
 .page-hero::after {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(43,82,168,.16) 0%, transparent 65%);
+  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(196,78,42,.14) 0%, transparent 65%);
   pointer-events: none;
 }
 .page-hero-content { position: relative; z-index: 1; }
@@ -173,4 +173,5 @@ h1, h2, h3, h4 {
   }
   .fade-in { opacity: 1 !important; transform: none !important; }
 }
+
 
