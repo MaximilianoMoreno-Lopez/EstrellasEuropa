@@ -51,3 +51,21 @@ td.k{font-weight:600;color:var(--blue);width:34%;}
 .ident-grid .gold{color:var(--gold);}
 footer{margin-top:22px;padding-top:11px;border-top:1px solid var(--line);font-size:8pt;color:var(--mute);display:flex;justify-content:space-between;}
 .page-break{page-break-before:always;}
+
+/* Formularios (autorizaciones) */
+.form-intro{font-size:9.8pt;color:var(--gray);margin:0 0 16px;}
+.field{margin:0 0 12px;}
+.field label{display:block;font-size:8pt;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);margin-bottom:5px;}
+.field .line{display:block;border-bottom:1px solid var(--mute);height:20px;}
+.field-row{display:flex;gap:16px;}
+.field-row .field{flex:1;}
+ul.checklist{margin:6px 0 12px;padding:0;list-style:none;}
+ul.checklist li{position:relative;padding:6px 0 6px 26px;font-size:9.8pt;border-bottom:none;}
+ul.checklist li::before{content:"";position:absolute;left:0;top:8px;width:13px;height:13px;border:1.4px solid var(--blue);border-radius:3px;background:#fff;}
+.optline{margin:3px 0 12px;font-size:9.8pt;}
+.opt{position:relative;display:inline-block;margin:0 16px 6px 0;padding-left:20px;}
+.opt::before{content:"";position:absolute;left:0;top:2px;width:12px;height:12px;border:1.4px solid var(--blue);border-radius:3px;}
+.sign-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 30px;margin-top:22px;page-break-inside:avoid;}
+.sign-box{border-top:1px solid var(--mute);padding-top:6px;font-size:8.4pt;color:var(--gray);min-height:48px;}
+.sign-box .sign-space{display:block;height:34px;}
+.place-date{margin:18px 0 8px;font-size:9.8pt;color:var(--ink);}
