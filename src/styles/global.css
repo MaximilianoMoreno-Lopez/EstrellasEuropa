@@ -3,17 +3,21 @@
 
 /* ─── Design Tokens ─────────────────────────────────── */
 :root {
-  /* Paleta cálida / orgánica — diferente de EdS navy */
-  --sand:        #f3ecdd;
-  --sand-dark:   #e8dfc8;
-  --sand-deeper: #d7cdb4;
-  --parchment:   #fdf9f3;
-  --ink:         #2a1f0e;
-  --ink-soft:    #5c4a30;
-  --ink-mute:    #8a7660;
-  --line:        #c8bda4;
+  /* Base neutra e institucional (antes cálida tipo arena) */
+  --sand:        #f4f5f7;   /* lienzo general, gris muy claro */
+  --sand-dark:   #e8eaef;
+  --sand-deeper: #d9dce3;
+  --parchment:   #ffffff;   /* tarjetas, blanco limpio */
+  --ink:         #1b2330;   /* pizarra oscura (antes marrón) */
+  --ink-soft:    #48505d;
+  --ink-mute:    #79808c;
+  --line:        #e3e6ea;
 
-  /* Colores del logo — los 5 triángulos de la estrella */
+  /* Acento estructural: azul institucional sobrio */
+  --accent:      #1f4573;
+  --accent-dark: #163556;
+
+  /* Colores del logo — los 5 triángulos de la estrella (identidad) */
   --c-sur:    #c44e2a;   /* terracota — Estrellas del Sur */
   --c-magec:  #d9a727;   /* ámbar — Estrella Magec       */
   --c-murcia: #6b3a8a;   /* violeta — Murcia Debate      */
@@ -37,11 +41,11 @@
   --gray-200:  var(--line);
 
   --radius-sm:   6px;
-  --radius-md:   12px;
-  --radius-lg:   20px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
   --radius-full: 999px;
-  --shadow-card: 0 2px 8px rgba(42,31,14,.06), 0 6px 20px rgba(42,31,14,.06);
-  --shadow-lg:   0 12px 36px rgba(42,31,14,.14), 0 4px 12px rgba(42,31,14,.08);
+  --shadow-card: 0 1px 2px rgba(20,30,50,.05), 0 4px 16px rgba(20,30,50,.06);
+  --shadow-lg:   0 14px 34px rgba(20,30,50,.12), 0 4px 10px rgba(20,30,50,.07);
 }
 
 /* ─── Reset ─────────────────────────────────────────── */
@@ -75,7 +79,7 @@ h1, h2, h3, h4 {
 .section-label {
   display: inline-flex; align-items: center; gap: .45rem;
   font-size: .78rem; font-weight: 600; letter-spacing: .12em;
-  text-transform: uppercase; color: var(--c-sur); margin-bottom: .75rem;
+  text-transform: uppercase; color: var(--accent); margin-bottom: .75rem;
 }
 .section-title   { font-size: clamp(1.75rem, 3vw, 2.5rem); color: var(--ink); margin-bottom: 1rem; }
 .section-subtitle { font-size: 1.05rem; color: var(--ink-soft); max-width: 580px; line-height: 1.7; }
@@ -99,15 +103,15 @@ h1, h2, h3, h4 {
   text-decoration: none; border: none; cursor: pointer;
   transition: all .25s ease; white-space: nowrap;
 }
-.btn-primary { background: var(--c-sur); color: #fff; }
-.btn-primary:hover { background: #a83e20; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,78,42,.35); }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(20,30,50,.18); }
 .btn-amber { background: var(--c-magec); color: var(--ink); font-weight: 600; }
-.btn-amber:hover { background: #c29220; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(217,167,39,.35); }
+.btn-amber:hover { background: #c29220; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(20,30,50,.14); }
 .btn-eu { background: var(--eu-blue); color: #fff; }
-.btn-eu:hover { background: #0047cc; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,51,153,.3); }
-.btn-outline { background: transparent; color: var(--c-sur); border: 1.5px solid var(--c-sur); }
-.btn-outline:hover { background: var(--c-sur); color: #fff; }
-.btn-outline-ink { background: transparent; color: var(--ink); border: 1.5px solid rgba(42,31,14,.3); }
+.btn-eu:hover { background: #0047cc; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(20,30,50,.16); }
+.btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+.btn-outline:hover { background: var(--accent); color: #fff; }
+.btn-outline-ink { background: transparent; color: var(--ink); border: 1.5px solid rgba(20,30,50,.3); }
 .btn-outline-ink:hover { background: var(--ink); color: var(--sand); }
 .btn-outline-white { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,.45); }
 .btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: #fff; }
@@ -116,13 +120,13 @@ h1, h2, h3, h4 {
 /* ─── Cards ──────────────────────────────────────────── */
 .card {
   background: var(--parchment); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card); border: 1px solid rgba(42,31,14,.08);
+  box-shadow: var(--shadow-card); border: 1px solid rgba(20,30,50,.08);
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
 /* ─── Divider ────────────────────────────────────────── */
-.divider { width: 3rem; height: 3px; background: linear-gradient(90deg, var(--c-sur), var(--c-magec)); border-radius: var(--radius-full); margin-bottom: 1.5rem; }
+.divider { width: 2.5rem; height: 2px; background: var(--accent); border-radius: var(--radius-full); margin-bottom: 1.5rem; }
 
 /* ─── Scroll Animations ──────────────────────────────── */
 .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
@@ -133,12 +137,12 @@ h1, h2, h3, h4 {
 
 /* ─── Page Hero ──────────────────────────────────────── */
 .page-hero {
-  background: linear-gradient(150deg, #1a0f00 0%, #2d1a06 50%, #1a1200 100%);
+  background: linear-gradient(155deg, #141b28 0%, #1d283a 55%, #121722 100%);
   padding: 9rem 0 5rem; position: relative; overflow: hidden;
 }
 .page-hero::after {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(196,78,42,.12) 0%, transparent 65%);
+  background: radial-gradient(ellipse 60% 70% at 80% 50%, rgba(43,82,168,.16) 0%, transparent 65%);
   pointer-events: none;
 }
 .page-hero-content { position: relative; z-index: 1; }
@@ -150,14 +154,14 @@ h1, h2, h3, h4 {
 /* ─── Accesibilidad ──────────────────────────────────── */
 .skip-link {
   position: absolute; left: 1rem; top: -100px; z-index: 200;
-  background: var(--c-sur); color: #fff;
+  background: var(--accent); color: #fff;
   padding: .6rem 1.1rem; border-radius: var(--radius-md);
   font-size: .9rem; font-weight: 600; text-decoration: none;
   transition: top .2s ease;
 }
 .skip-link:focus { top: 1rem; }
 
-:focus-visible { outline: 2px solid var(--c-sur); outline-offset: 2px; border-radius: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
 
 /* Respeta a quienes prefieren menos movimiento */
 @media (prefers-reduced-motion: reduce) {
@@ -169,3 +173,4 @@ h1, h2, h3, h4 {
   }
   .fade-in { opacity: 1 !important; transform: none !important; }
 }
+

@@ -271,7 +271,7 @@ const ident = [
   .notice-card a { color: #8a6010; text-decoration: underline; font-weight: 500; }
 
   .docs-list {
-    background: var(--parchment); border: 1px solid rgba(42,31,14,.08);
+    background: var(--parchment); border: 1px solid rgba(20,30,50,.08);
     border-radius: var(--radius-lg); overflow: hidden;
   }
   .doc-item {
@@ -280,10 +280,10 @@ const ident = [
     transition: background .15s;
   }
   .doc-item:last-child { border-bottom: none; }
-  .doc-item:hover { background: rgba(196,78,42,.03); }
+  .doc-item:hover { background: rgba(31,69,115,.03); }
   .doc-icon {
     width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-    background: rgba(196,78,42,.1); color: var(--c-sur);
+    background: rgba(31,69,115,.09); color: var(--accent);
     display: flex; align-items: center; justify-content: center;
   }
   .doc-content { flex-grow: 1; min-width: 0; }
@@ -292,11 +292,11 @@ const ident = [
   .doc-action { flex-shrink: 0; }
   .doc-link {
     display: inline-flex; align-items: center; gap: .4rem;
-    padding: .5rem .9rem; background: var(--c-sur); color: #fff;
+    padding: .5rem .9rem; background: var(--accent); color: #fff;
     border-radius: 8px; font-size: .82rem; font-weight: 600; text-decoration: none;
     transition: background .15s, transform .15s; white-space: nowrap;
   }
-  .doc-link:hover { background: #a83e20; transform: translateY(-1px); }
+  .doc-link:hover { background: var(--accent-dark); transform: translateY(-1px); }
   .doc-status {
     display: inline-block; font-size: .72rem; font-weight: 600;
     text-transform: uppercase; letter-spacing: .08em;
@@ -310,14 +310,14 @@ const ident = [
   .gobierno-intro strong { color: var(--ink); }
   .junta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
   .junta-card {
-    background: var(--sand); border: 1px solid var(--sand-dark);
-    border-top: 3px solid var(--c-sur);
+    background: var(--parchment); border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
     border-radius: var(--radius-md); padding: 1.5rem 1.25rem;
     text-align: center; display: flex; flex-direction: column; gap: .35rem;
     transition: transform .2s, box-shadow .2s;
   }
   .junta-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
-  .junta-role { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--c-sur); }
+  .junta-role { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
   .junta-name { font-size: 1.05rem; font-weight: 600; color: var(--ink); font-family: 'DM Sans Variable', sans-serif; }
   .junta-org { font-size: .8rem; color: var(--ink-mute); }
 
@@ -334,7 +334,7 @@ const ident = [
   .cta-section { padding-bottom: 5rem; }
   .cta-box {
     text-align: center;
-    background: linear-gradient(135deg, rgba(196,78,42,.08), rgba(217,167,39,.1));
+    background: linear-gradient(135deg, rgba(31,69,115,.06), rgba(43,82,168,.08));
     border-radius: var(--radius-lg); padding: 3.5rem 2rem;
   }
   .cta-box h2 { font-size: 1.7rem; color: var(--ink); margin-bottom: .6rem; }
