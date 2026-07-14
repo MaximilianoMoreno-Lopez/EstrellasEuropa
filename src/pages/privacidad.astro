@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { LEGAL_VERSION, LEGAL_VERSION_LABEL } from '../lib/legal.js';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -50,7 +51,19 @@ const secciones = [
     ],
   },
   {
-    h: '8. Normativa aplicable',
+    h: '8. Redes sociales',
+    p: [
+      'La federación puede mantener perfiles en redes sociales. El tratamiento de los datos que realices a través de esas plataformas se rige por la política de privacidad de cada red social, además de por esta política en lo que resulte aplicable. No trasladamos a esas plataformas más datos de los que tú mismo compartas al interactuar con nuestros perfiles.',
+    ],
+  },
+  {
+    h: '9. Cambios en esta política',
+    p: [
+      'Podemos actualizar esta política para adaptarla a novedades legales o a cambios en nuestra actividad. La versión vigente es siempre la publicada en esta página, identificada por el número de versión que figura al final. Si introducimos cambios relevantes, lo indicaremos en el propio sitio web.',
+    ],
+  },
+  {
+    h: '10. Normativa aplicable',
     p: [
       'Este tratamiento se rige por el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).',
     ],
@@ -81,7 +94,7 @@ const secciones = [
             {s.p.map((par) => <p set:html={par} />)}
           </div>
         ))}
-        <p class="legal-update">Última actualización: junio de 2026.</p>
+        <p class="legal-update">Versión {LEGAL_VERSION} · Última actualización: {LEGAL_VERSION_LABEL}.</p>
       </article>
     </div>
   </section>
