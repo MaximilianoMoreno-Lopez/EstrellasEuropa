@@ -9,10 +9,10 @@ description: "El Cuerpo Europeo de Solidaridad concede el proyecto a la federaci
 metrics:
   - label: "Duración"
     value: "6 meses"
-  - label: "Subvención"
-    value: "4.461 €"
   - label: "Equipo"
     value: "5 jóvenes"
+  - label: "Meta"
+    value: "200 estudiantes"
 ---
 
 El proyecto **Decide con Información** ha sido aprobado dentro de la acción de

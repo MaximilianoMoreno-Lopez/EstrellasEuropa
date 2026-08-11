@@ -26,7 +26,6 @@ const fmtCorta = (d) => {
   const [y, m, day] = d.split('-');
   return `${+day} ${MESES[+m - 1].slice(0, 3)} ${y}`;
 };
-const fmtEuro = (n) => `${n.toLocaleString('es-ES')} €`;
 
 const kindColor = {
   'Hito':       '#c44e2a',
@@ -107,7 +106,7 @@ const breadcrumbs = [
       <div class="ficha-item"><dt>Convocatoria</dt><dd>{proyecto.convocatoria}</dd></div>
       <div class="ficha-item"><dt>Duración</dt><dd>{proyecto.duracion}</dd></div>
       <div class="ficha-item"><dt>Ámbito</dt><dd>{proyecto.ambito}</dd></div>
-      <div class="ficha-item"><dt>Subvención</dt><dd>{fmtEuro(proyecto.subvencion)}</dd></div>
+      <div class="ficha-item"><dt>Grupo promotor</dt><dd>{proyecto.grupo}</dd></div>
       <div class="ficha-item"><dt>Agencia nacional</dt><dd>{proyecto.agencia}</dd></div>
       <div class="ficha-item"><dt>Prioridad</dt><dd>{proyecto.prioridad}</dd></div>
       <div class="ficha-item"><dt>Entidad responsable</dt><dd>{proyecto.entidad}</dd></div>

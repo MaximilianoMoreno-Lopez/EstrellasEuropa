@@ -20,11 +20,9 @@ export const proyecto = {
   fin: '2027-01-31',
   duracion: '6 meses',
   ambito: 'Institutos públicos de la Comunidad de Madrid',
-  subvencion: 4461,
-  subvencionDesglose: [
-    { concepto: 'Costes de proyecto (630 €/mes × 6)', importe: 3780 },
-    { concepto: 'Costes de coaching (227 €/día × 3)', importe: 681 },
-  ],
+  // El importe de la subvención no se publica aquí; las cuentas de la
+  // federación se rinden en /transparencia/.
+  grupo: '5 jóvenes',
   prioridad: 'Inclusión y diversidad',
   prioridadSecundaria: 'Objetivos de la Juventud de la UE',
   temas: [
