@@ -7,7 +7,7 @@ order: 1
 description: "La acción KA153 financiará estancias formativas de nuestros educadores y técnicos de juventud en organizaciones europeas, elevando la calidad de los proyectos."
 ---
 
-La Federación Estrellas de Europa ha recibido una subvención del programa **Erasmus+ en su acción KA153**, dedicada a la **movilidad de personas trabajadoras en el ámbito de la juventud**. Es el primer gran hito europeo de la federación y un reconocimiento al trabajo de sus organizaciones miembro.
+La Federación Estrellas de Europa ha recibido una subvención del programa **Erasmus+ en su acción KA153**, dedicada a la **movilidad de personas trabajadoras en el ámbito de la juventud**. Es el primer gran hito europeo de la federación y un reconocimiento al trabajo de sus organizaciones miembro. El proyecto con el que se desarrolla se llama **[NEST](/actualidad/nest-cooperacion-europea/)**.
 
 ## Qué es la KA153
 

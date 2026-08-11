@@ -1,24 +1,38 @@
 ---
-title: "NEST: cooperación europea para innovar en el trabajo juvenil"
-type: "Cooperación"
+title: "NEST: así funciona nuestro proyecto de movilidad KA153"
+type: "Erasmus+"
 date: "2025-06"
-location: "Red europea de socios"
+location: "Organizaciones de acogida europeas"
 order: 2
-description: "Estrellas de Europa participa en NEST, un proyecto de cooperación internacional centrado en la educación no formal y el intercambio de metodologías innovadoras."
+description: "NEST es el nombre del proyecto Erasmus+ KA153 concedido a la federación: estancias formativas para nuestros educadores y técnicos de juventud en entidades de otros países europeos."
 ---
 
-Estrellas de Europa participa en **NEST**, un proyecto de cooperación internacional junto a socios de varios países europeos. La iniciativa pone el foco en la **educación no formal**, la **participación juvenil** y el intercambio de metodologías innovadoras entre organizaciones.
+**NEST** es el proyecto con el que la Federación Estrellas de Europa pone en
+marcha la subvención **Erasmus+ KA153** que le fue concedida, dedicada a la
+**movilidad de personas trabajadoras en el ámbito de la juventud**. No son dos
+iniciativas distintas: la KA153 es la acción que lo financia y NEST es el
+proyecto que la desarrolla.
 
-## Cooperar para aprender
+## Qué hace NEST
 
-Los proyectos de cooperación europea permiten que entidades de distintos países pongan en común lo que mejor saben hacer. NEST es un espacio para compartir herramientas, contrastar enfoques y construir recursos que después cada organización adapta a su realidad local.
+- **Estancias formativas** de nuestros educadores, monitores y técnicos de
+  juventud en organizaciones de acogida de otros países europeos.
+- **Transferencia de metodologías** de educación no formal, que después se
+  aplican en Córdoba, Canarias y Murcia.
+- **Trabajo en red** con entidades juveniles europeas, base de futuras
+  colaboraciones y proyectos conjuntos.
 
-## En qué trabaja NEST
+## Por qué invertir en quienes acompañan
 
-- **Educación no formal:** dinámicas y metodologías para aprender fuera del aula.
-- **Participación juvenil:** que los jóvenes sean protagonistas, no solo destinatarios.
-- **Innovación:** nuevas formas de conectar a la juventud con Europa y entre sí.
+Frente a los intercambios dirigidos a jóvenes, la KA153 invierte en el equipo
+que diseña y facilita los proyectos. Detrás de cada intercambio juvenil hay
+personas que lo hacen posible: mejores educadores significan mejores
+experiencias para la juventud.
 
 ## Un proyecto en marcha
 
-NEST se encuentra en desarrollo. Iremos compartiendo en esta sección los avances, encuentros y resultados a medida que el proyecto avance.
+NEST se encuentra en desarrollo. Iremos compartiendo en esta sección los
+avances, las estancias realizadas y los resultados a medida que el proyecto
+avance. Puedes consultar también la
+[noticia de la concesión de la KA153](/actualidad/subvencion-ka153-concedida/)
+y la [ficha del proyecto](/proyectos/).
