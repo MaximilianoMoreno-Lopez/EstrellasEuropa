@@ -1,6 +1,22 @@
 ---
 const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const proyectos = [
+  {
+    id: 'decide',
+    badge: 'Cuerpo Europeo de Solidaridad',
+    badgeColor: '#3d7848',
+    title: 'Decide con Información',
+    org: 'Proyecto de Solidaridad · Madrid',
+    status: 'En ejecución',
+    statusColor: '#3d7848',
+    description: 'Cinco jóvenes que cursaron itinerarios internacionales de Bachillerato acompañan a estudiantes de institutos públicos madrileños en el momento de elegir su itinerario, para que Bachibac, Bachillerato Dual e IB dejen de depender de tener la información en casa.',
+    tags: ['Inclusión y diversidad', 'Orientación académica', 'Comunidad de Madrid'],
+    icon: `<svg ${ICON}><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M6 10.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-5.5"/><path d="M22 8v6"/></svg>`,
+    highlight: true,
+    href: `${base}/proyectos/decide-con-informacion/`,
+    hrefLabel: 'Seguir el proyecto',
+  },
   {
     id: 'ka153',
     badge: 'Erasmus+ KA153',
@@ -12,7 +28,7 @@ const proyectos = [
     description: 'Subvención Erasmus+ KA153 concedida a la federación para financiar estancias formativas de nuestros educadores y técnicos de juventud en organizaciones europeas. Una oportunidad única para elevar la calidad de nuestros proyectos.',
     tags: ['Movilidad internacional', 'Formación', 'Trabajadores de juventud'],
     icon: `<svg ${ICON}><circle cx="12" cy="9" r="6"/><path d="M9 14.5 8 22l4-2.2L16 22l-1-7.5"/></svg>`,
-    highlight: true,
+    highlight: false,
   },
   {
     id: 'nest',
@@ -66,6 +82,13 @@ const proyectos = [
           <div class="proyecto-tags">
             {p.tags.map(t => <span class="proyecto-tag">{t}</span>)}
           </div>
+
+          {p.href && (
+            <a href={p.href} class="proyecto-link" style={`color:${p.badgeColor}`}>
+              {p.hrefLabel ?? 'Ver más'}
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          )}
         </article>
       ))}
     </div>
@@ -139,6 +162,13 @@ const proyectos = [
   background: var(--sand); color: var(--ink-soft);
   border: 1px solid var(--sand-dark);
 }
+
+.proyecto-link {
+  display: inline-flex; align-items: center; gap: .4rem; margin-top: .25rem;
+  font-size: .88rem; font-weight: 600; text-decoration: none;
+  transition: gap .2s;
+}
+.proyecto-link:hover { gap: .65rem; }
 
 @media (max-width: 720px) { .proyectos-grid { grid-template-columns: 1fr; } }
 </style>

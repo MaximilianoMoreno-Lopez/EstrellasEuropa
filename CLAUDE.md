@@ -15,6 +15,11 @@ Usar siempre `${base}/ruta/` donde `base = import.meta.env.BASE_URL.replace(/\/$
 - Domicilio social: San Valeriano 6, 4A, 28039 Madrid (España)
 - Correo: admin@estrellaseuropa.eu
 
+## Proyectos con seguimiento
+Cada proyecto con página propia vive en `src/pages/proyectos/<slug>.astro`, con su ficha
+en `src/data/<slug>.js` y sus novedades como Markdown en `src/content/bitacora/`
+(campo `project` = slug). Proceso completo en [`BITACORA.md`](BITACORA.md).
+
 ## Documentos legales
 Al actualizar Términos o Privacidad, subir siempre `LEGAL_VERSION` en `src/lib/legal.js`
 en el mismo commit que el cambio de texto. Proceso completo en [`LEGAL.md`](LEGAL.md).

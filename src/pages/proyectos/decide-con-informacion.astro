@@ -1,0 +1,652 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { proyecto } from '../../data/decide-con-informacion.js';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = 'https://estrellaseuropa.eu';
+const url = `${SITE}/proyectos/${proyecto.slug}/`;
+const accent = '#3d7848';
+
+// ── Bitácora: cada .md de src/content/bitacora con project = este proyecto ──
+const raw = (await getCollection('bitacora', ({ data }) =>
+  data.project === proyecto.slug && !data.draft
+)).sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+const entradas = await Promise.all(
+  raw.map(async (e) => ({ ...e, Body: (await e.render()).Content }))
+);
+
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const fmtFecha = (d) => {
+  const [y, m, day] = d.split('-');
+  return `${+day} de ${MESES[+m - 1]} de ${y}`;
+};
+const fmtCorta = (d) => {
+  const [y, m, day] = d.split('-');
+  return `${+day} ${MESES[+m - 1].slice(0, 3)} ${y}`;
+};
+const fmtEuro = (n) => `${n.toLocaleString('es-ES')} €`;
+
+const kindColor = {
+  'Hito':       '#c44e2a',
+  'Actividad':  accent,
+  'Material':   '#6b3a8a',
+  'Centro':     '#003399',
+  'Evaluación': '#d9a727',
+  'Difusión':   '#2b52a8',
+};
+
+const completadas = proyecto.fases.filter((f) => f.estado === 'completada').length;
+const faseActual = proyecto.fases.find((f) => f.estado === 'en-curso');
+const progreso = Math.round((completadas / proyecto.fases.length) * 100);
+
+const estadoLabel = { 'completada': 'Completada', 'en-curso': 'En curso', 'prevista': 'Prevista' };
+
+const desc = `Seguimiento público del proyecto «${proyecto.titulo}», financiado por el Cuerpo Europeo de Solidaridad: bitácora de novedades, cronograma, indicadores y equipo.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Project',
+  name: proyecto.titulo,
+  alternateName: proyecto.tituloEn,
+  description: proyecto.lead,
+  url,
+  startDate: proyecto.inicio,
+  endDate: proyecto.fin,
+  inLanguage: 'es-ES',
+  areaServed: proyecto.ambito,
+  funder: { '@type': 'Organization', name: 'Cuerpo Europeo de Solidaridad' },
+  parentOrganization: { '@type': 'Organization', name: 'Estrellas de Europa', url: SITE },
+};
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Proyectos', url: '/proyectos/' },
+  { name: proyecto.titulo, url: `/proyectos/${proyecto.slug}/` },
+];
+---
+
+<BaseLayout title={proyecto.titulo} description={desc} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="back-bar">
+    <div class="container">
+      <a href={`${base}/proyectos/`} class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Todos los proyectos
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Portada ─────────────────────────────────────────── -->
+  <section class="proj-hero" style={`--ac: ${accent}`}>
+    <div class="container">
+      <span class="hero-badge fade-in">{proyecto.programa} · ESC30-SOL</span>
+      <h1 class="hero-title fade-in fade-in-delay-1">{proyecto.titulo}</h1>
+      <p class="hero-en fade-in fade-in-delay-1">{proyecto.tituloEn}</p>
+      <p class="hero-lead fade-in fade-in-delay-2">{proyecto.lead}</p>
+
+      <div class="hero-progress fade-in fade-in-delay-3">
+        <div class="progress-head">
+          <span class="progress-now">
+            {faseActual
+              ? `${faseActual.mes} de ${proyecto.fases.length} · ${faseActual.titulo}`
+              : completadas === proyecto.fases.length ? 'Proyecto finalizado' : 'Pendiente de inicio'}
+          </span>
+          <span class="progress-pct">{progreso}%</span>
+        </div>
+        <div class="progress-track"><span class="progress-fill" style={`width:${Math.max(progreso, 2)}%`}></span></div>
+        <span class="progress-range">{fmtCorta(proyecto.inicio)} — {fmtCorta(proyecto.fin)}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ficha ───────────────────────────────────────────── -->
+  <section class="ficha-strip">
+    <div class="container ficha-grid">
+      <div class="ficha-item"><dt>Programa</dt><dd>{proyecto.accion}</dd></div>
+      <div class="ficha-item"><dt>Convocatoria</dt><dd>{proyecto.convocatoria}</dd></div>
+      <div class="ficha-item"><dt>Duración</dt><dd>{proyecto.duracion}</dd></div>
+      <div class="ficha-item"><dt>Ámbito</dt><dd>{proyecto.ambito}</dd></div>
+      <div class="ficha-item"><dt>Subvención</dt><dd>{fmtEuro(proyecto.subvencion)}</dd></div>
+      <div class="ficha-item"><dt>Agencia nacional</dt><dd>{proyecto.agencia}</dd></div>
+      <div class="ficha-item"><dt>Prioridad</dt><dd>{proyecto.prioridad}</dd></div>
+      <div class="ficha-item"><dt>Entidad responsable</dt><dd>{proyecto.entidad}</dd></div>
+    </div>
+  </section>
+
+  <!-- ── El proyecto ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="dos-col">
+        <div class="fade-in">
+          <span class="section-label">Punto de partida</span>
+          <h2 class="section-title">Una oportunidad formal que no llega a todos</h2>
+          {proyecto.problema.map((p) => <p class="texto">{p}</p>)}
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <span class="section-label">Qué queremos cambiar</span>
+          <ul class="cambio-list">
+            {proyecto.cambio.map((c) => (
+              <li>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                {c}
+              </li>
+            ))}
+          </ul>
+          <h3 class="mini-title">A quién nos dirigimos</h3>
+          <div class="dest-grid">
+            {proyecto.destinatarios.map((d) => (
+              <div class="dest-card">
+                <strong>{d.grupo}</strong>
+                <span class="dest-edad">{d.edad}</span>
+                <span class="dest-nota">{d.nota}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bitácora ────────────────────────────────────────── -->
+  <section class="section bitacora-section" id="bitacora" style={`--ac: ${accent}`}>
+    <div class="container">
+      <div class="bit-header fade-in">
+        <span class="section-label">Bitácora del proyecto</span>
+        <h2 class="section-title">Cómo va</h2>
+        <p class="section-subtitle">
+          Publicamos aquí cada avance: sesiones realizadas, centros que se suman,
+          materiales creados y resultados de la evaluación.
+        </p>
+      </div>
+
+      {entradas.length === 0 ? (
+        <div class="bit-empty fade-in">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg>
+          <p>
+            El proyecto acaba de arrancar. Las primeras novedades se publicarán
+            en cuanto comiencen las sesiones de formación del equipo.
+          </p>
+        </div>
+      ) : (
+        <ol class="bit-feed">
+          {entradas.map((e, i) => (
+            <li class={`bit-entry fade-in fade-in-delay-${(i % 3) + 1}`} id={`n-${e.slug}`} style={`--kc: ${kindColor[e.data.kind] ?? accent}`}>
+              <div class="bit-marker" aria-hidden="true"></div>
+              <div class="bit-card">
+                <div class="bit-meta">
+                  <span class="bit-kind">{e.data.kind}</span>
+                  <time class="bit-date" datetime={e.data.date}>{fmtFecha(e.data.date)}</time>
+                  {e.data.phase && <span class="bit-phase">{e.data.phase}</span>}
+                  {e.data.location && <span class="bit-loc">{e.data.location}</span>}
+                </div>
+                <h3 class="bit-title">
+                  <a href={`#n-${e.slug}`} aria-label={`Enlace a: ${e.data.title}`}>{e.data.title}</a>
+                </h3>
+                {e.data.description && <p class="bit-desc">{e.data.description}</p>}
+
+                {e.data.metrics && (
+                  <div class="bit-metrics">
+                    {e.data.metrics.map((m) => (
+                      <div class="bit-metric"><strong>{m.value}</strong><span>{m.label}</span></div>
+                    ))}
+                  </div>
+                )}
+
+                <div class="bit-body prose"><e.Body /></div>
+
+                {e.data.links && (
+                  <div class="bit-links">
+                    {e.data.links.map((l) => (
+                      <a href={l.url} class="bit-link" rel="noopener">
+                        {l.label}
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </section>
+
+  <!-- ── Cronograma ──────────────────────────────────────── -->
+  <section class="section crono-section">
+    <div class="container">
+      <div class="crono-header fade-in">
+        <span class="section-label">Plan de trabajo</span>
+        <h2 class="section-title">Las seis fases</h2>
+        <p class="section-subtitle">
+          Cada mes corresponde a una fase concreta: preparación, comprensión,
+          decisión, solicitud y transición.
+        </p>
+      </div>
+
+      <div class="crono-list">
+        {proyecto.fases.map((f, i) => (
+          <article class={`fase fase-${f.estado} fade-in`}>
+            <div class="fase-side">
+              <span class="fase-num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="fase-mes">{f.mes}</span>
+              <span class="fase-periodo">{f.periodo}</span>
+            </div>
+            <div class="fase-main">
+              <div class="fase-top">
+                <h3>{f.titulo}</h3>
+                <span class="fase-estado">
+                  <span class="fase-dot" aria-hidden="true"></span>{estadoLabel[f.estado]}
+                </span>
+              </div>
+              <p class="fase-obj">{f.objetivo}</p>
+              <ul class="fase-hitos">
+                {f.hitos.map((h) => <li>{h}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Indicadores ─────────────────────────────────────── -->
+  <section class="section kpi-section" style={`--ac: ${accent}`}>
+    <div class="container">
+      <div class="kpi-header fade-in">
+        <span class="section-label">Cómo medimos el impacto</span>
+        <h2 class="section-title">Indicadores</h2>
+        <p class="section-subtitle">
+          El proyecto no se evalúa por percepciones generales, sino por datos
+          verificables de alcance, aprendizaje y cambio de actitud.
+        </p>
+      </div>
+
+      <div class="kpi-grid">
+        {proyecto.indicadores.map((k, i) => (
+          <div class={`kpi-card fade-in fade-in-delay-${(i % 3) + 1}`}>
+            <span class="kpi-value">{k.actual ?? '—'}</span>
+            <span class="kpi-label">{k.label}</span>
+            {k.meta && <span class="kpi-meta">Meta: {k.meta}</span>}
+          </div>
+        ))}
+      </div>
+
+      <ul class="kpi-metodo fade-in">
+        {proyecto.metodoEvaluacion.map((m) => <li>{m}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Equipo ──────────────────────────────────────────── -->
+  <section class="section equipo-section">
+    <div class="container">
+      <div class="equipo-header fade-in">
+        <span class="section-label">Quién lo hace</span>
+        <h2 class="section-title">Grupo promotor</h2>
+        <p class="section-subtitle">
+          Cinco jóvenes con trayectorias académicas complementarias, acompañados
+          por tres personas de apoyo durante la fase de formación.
+        </p>
+      </div>
+
+      <div class="equipo-grid">
+        {proyecto.equipo.map((p) => (
+          <div class="persona fade-in">
+            <strong class="persona-nombre">{p.nombre}</strong>
+            <span class="persona-rol">{p.rol}</span>
+            <p class="persona-detalle">{p.detalle}</p>
+          </div>
+        ))}
+      </div>
+
+      <h3 class="mini-title coaches-title">Personas de apoyo (coaching)</h3>
+      <div class="equipo-grid">
+        {proyecto.coaches.map((p) => (
+          <div class="persona persona-coach fade-in">
+            <strong class="persona-nombre">{p.nombre}</strong>
+            <span class="persona-rol">{p.rol}</span>
+            <p class="persona-detalle">{p.detalle}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Materiales ──────────────────────────────────────── -->
+  <section class="section mat-section">
+    <div class="container">
+      <div class="mat-header fade-in">
+        <span class="section-label">Resultados abiertos</span>
+        <h2 class="section-title">Materiales para los centros</h2>
+        <p class="section-subtitle">
+          Todo lo que produzcamos quedará disponible de forma gratuita para
+          cualquier instituto que quiera reutilizarlo, participe o no en el proyecto.
+        </p>
+      </div>
+      <ul class="mat-list">
+        {proyecto.materiales.map((m) => (
+          <li class={`mat-item ${m.url ? 'mat-ready' : ''} fade-in`}>
+            <span class="mat-formato">{m.formato}</span>
+            <span class="mat-titulo">{m.titulo}</span>
+            {m.url
+              ? <a class="mat-cta" href={m.url} rel="noopener">Abrir →</a>
+              : <span class="mat-pend">En preparación</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── CTA ─────────────────────────────────────────────── -->
+  <section class="proj-cta">
+    <div class="container cta-inner">
+      <div class="fade-in">
+        <h2>¿Eres un instituto público de Madrid?</h2>
+        <p>
+          Si tu centro ofrece Bachibac, Bachillerato Dual o IB —o quiere informar mejor
+          a su alumnado— escríbenos y organizamos una sesión.
+        </p>
+      </div>
+      <div class="cta-actions fade-in fade-in-delay-1">
+        <a href={`mailto:${proyecto.contacto}`} class="btn btn-amber btn-lg">Escribir al proyecto</a>
+        <a href={`${base}/contacto/`} class="btn btn-outline-white btn-lg">Contacto general</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Portada ── */
+  .back-bar {
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    padding: calc(68px + .65rem) 0 .65rem;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.7);
+    text-decoration: none; transition: color .2s, gap .2s;
+  }
+  .back-link:hover { color: var(--c-magec); gap: .55rem; }
+
+  .proj-hero {
+    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 42%, #0d1410) 100%);
+    padding: 3.25rem 0 3rem;
+  }
+  .hero-badge {
+    display: inline-block; font-size: .72rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: #fff;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28);
+    padding: .3rem .85rem; border-radius: var(--radius-full); margin-bottom: 1rem;
+  }
+  .hero-title { font-size: clamp(1.9rem, 4.2vw, 3rem); color: #fff; line-height: 1.1; }
+  .hero-en {
+    font-size: .95rem; color: rgba(255,255,255,.6); font-style: italic;
+    margin: .3rem 0 1rem;
+  }
+  .hero-lead {
+    font-size: 1.05rem; color: rgba(255,255,255,.85);
+    max-width: 660px; line-height: 1.7;
+  }
+  .hero-progress { margin-top: 2rem; max-width: 520px; }
+  .progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: .5rem; }
+  .progress-now { font-size: .85rem; font-weight: 600; color: #fff; }
+  .progress-pct { font-size: .85rem; font-weight: 700; color: var(--eu-gold); }
+  .progress-track { height: 6px; border-radius: var(--radius-full); background: rgba(255,255,255,.2); overflow: hidden; }
+  .progress-fill { display: block; height: 100%; border-radius: var(--radius-full); background: var(--eu-gold); }
+  .progress-range { display: block; margin-top: .5rem; font-size: .78rem; color: rgba(255,255,255,.6); }
+
+  /* ── Ficha ── */
+  .ficha-strip { background: var(--parchment); border-bottom: 1px solid var(--line); padding: 2rem 0; }
+  .ficha-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; }
+  .ficha-item dt {
+    font-size: .7rem; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--ink-mute); margin-bottom: .25rem;
+  }
+  .ficha-item dd { font-size: .9rem; color: var(--ink); line-height: 1.5; }
+
+  /* ── El proyecto ── */
+  .dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+  .texto { color: var(--ink-soft); line-height: 1.8; margin-bottom: 1rem; }
+  .cambio-list { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 2.25rem; }
+  .cambio-list li {
+    display: flex; align-items: flex-start; gap: .6rem;
+    color: var(--ink-soft); line-height: 1.6;
+  }
+  .cambio-list svg { color: #3d7848; flex-shrink: 0; margin-top: .28rem; }
+  .mini-title {
+    font-size: 1.05rem; color: var(--ink); margin-bottom: 1rem;
+    font-family: 'DM Sans Variable', sans-serif; font-weight: 600;
+  }
+  .dest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+  .dest-card {
+    background: var(--parchment); border: 1px solid var(--line);
+    border-radius: var(--radius-md); padding: .9rem 1rem;
+    display: flex; flex-direction: column; gap: .15rem;
+  }
+  .dest-card strong { font-size: .92rem; color: var(--ink); }
+  .dest-edad { font-size: .78rem; font-weight: 600; color: #3d7848; }
+  .dest-nota { font-size: .8rem; color: var(--ink-mute); line-height: 1.45; }
+
+  /* ── Bitácora ── */
+  .bitacora-section { background: var(--parchment); }
+  .bit-header { max-width: 620px; margin-bottom: 2.75rem; }
+  .bit-empty {
+    display: flex; align-items: center; gap: 1rem;
+    background: var(--sand); border: 1px dashed var(--sand-deeper);
+    border-radius: var(--radius-lg); padding: 1.75rem 2rem;
+    color: var(--ink-soft); max-width: 640px;
+  }
+  .bit-empty svg { color: var(--ac); flex-shrink: 0; }
+  .bit-empty p { line-height: 1.65; }
+
+  .bit-feed {
+    position: relative; display: flex; flex-direction: column; gap: 2rem;
+    padding-left: 1.75rem;
+  }
+  .bit-feed::before {
+    content: ''; position: absolute; left: 5px; top: .5rem; bottom: .5rem;
+    width: 2px; background: var(--sand-deeper);
+  }
+  .bit-entry { position: relative; scroll-margin-top: 90px; }
+  .bit-marker {
+    position: absolute; left: -1.75rem; top: .45rem;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--kc); border: 3px solid var(--parchment);
+    box-shadow: 0 0 0 1px var(--kc);
+  }
+  .bit-card {
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-left: 3px solid var(--kc);
+    border-radius: var(--radius-md); padding: 1.5rem 1.75rem;
+  }
+  .bit-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .85rem; margin-bottom: .55rem; }
+  .bit-kind {
+    font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    color: #fff; background: var(--kc); padding: .2rem .6rem; border-radius: var(--radius-full);
+  }
+  .bit-date, .bit-phase, .bit-loc { font-size: .78rem; color: var(--ink-mute); font-weight: 500; }
+  .bit-phase::before, .bit-loc::before { content: '· '; }
+  .bit-title { font-size: 1.22rem; color: var(--ink); line-height: 1.3; margin-bottom: .4rem; }
+  .bit-title a { text-decoration: none; }
+  .bit-title a:hover { color: var(--kc); }
+  .bit-desc { color: var(--ink-soft); line-height: 1.7; margin-bottom: .9rem; }
+
+  .bit-metrics { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1rem; }
+  .bit-metric {
+    background: var(--parchment); border: 1px solid var(--sand-dark);
+    border-radius: var(--radius-sm); padding: .5rem .9rem;
+    display: flex; flex-direction: column; line-height: 1.2;
+  }
+  .bit-metric strong { font-size: 1.15rem; color: var(--kc); font-family: 'Playfair Display Variable', serif; }
+  .bit-metric span { font-size: .72rem; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .05em; }
+
+  .bit-body :global(p) { color: var(--ink-soft); line-height: 1.75; margin-bottom: .85rem; }
+  .bit-body :global(p:last-child) { margin-bottom: 0; }
+  .bit-body :global(ul) { list-style: disc; padding-left: 1.3rem; margin-bottom: .85rem; }
+  .bit-body :global(li) { color: var(--ink-soft); line-height: 1.65; margin-bottom: .3rem; }
+  .bit-body :global(h2), .bit-body :global(h3) {
+    font-size: 1rem; color: var(--ink); margin: 1.2rem 0 .5rem;
+    font-family: 'DM Sans Variable', sans-serif; font-weight: 600;
+  }
+  .bit-body :global(strong) { color: var(--ink); }
+  .bit-body :global(a) { color: var(--kc); }
+  .bit-body :global(blockquote) {
+    border-left: 3px solid var(--sand-deeper); padding-left: 1rem;
+    font-style: italic; color: var(--ink-mute); margin-bottom: .85rem;
+  }
+
+  .bit-links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+  .bit-link {
+    display: inline-flex; align-items: center; gap: .35rem;
+    font-size: .84rem; font-weight: 600; color: var(--kc); text-decoration: none;
+    border: 1px solid color-mix(in srgb, var(--kc) 35%, transparent);
+    border-radius: var(--radius-full); padding: .3rem .85rem;
+    transition: background .2s;
+  }
+  .bit-link:hover { background: color-mix(in srgb, var(--kc) 10%, transparent); }
+
+  /* ── Cronograma ── */
+  .crono-header { max-width: 620px; margin-bottom: 2.5rem; }
+  .crono-list { display: flex; flex-direction: column; gap: 1rem; }
+  .fase {
+    display: grid; grid-template-columns: 150px 1fr;
+    background: var(--parchment); border: 1px solid var(--line);
+    border-radius: var(--radius-md); overflow: hidden;
+  }
+  .fase-side {
+    padding: 1.4rem 1.25rem; background: var(--sand);
+    border-right: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: .1rem;
+  }
+  .fase-num {
+    font-family: 'Playfair Display Variable', serif; font-size: 1.6rem;
+    font-weight: 700; color: var(--sand-deeper); line-height: 1;
+  }
+  .fase-mes { font-size: .85rem; font-weight: 700; color: var(--ink); margin-top: .35rem; }
+  .fase-periodo { font-size: .76rem; color: var(--ink-mute); }
+  .fase-main { padding: 1.4rem 1.6rem; }
+  .fase-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: .4rem; }
+  .fase-main h3 { font-size: 1.1rem; color: var(--ink); }
+  .fase-estado {
+    display: inline-flex; align-items: center; gap: .35rem;
+    font-size: .76rem; font-weight: 600; color: var(--ink-mute); white-space: nowrap;
+  }
+  .fase-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-mute); }
+  .fase-obj { font-size: .9rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: .6rem; }
+  .fase-hitos { display: flex; flex-direction: column; gap: .3rem; }
+  .fase-hitos li {
+    font-size: .87rem; color: var(--ink-soft); line-height: 1.55;
+    padding-left: .95rem; position: relative;
+  }
+  .fase-hitos li::before {
+    content: ''; position: absolute; left: 0; top: .58em;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--sand-deeper);
+  }
+  .fase-completada .fase-num { color: #3d7848; }
+  .fase-completada .fase-estado { color: #3d7848; }
+  .fase-completada .fase-dot { background: #3d7848; }
+  .fase-en-curso { border-color: rgba(196,78,42,.35); box-shadow: var(--shadow-card); }
+  .fase-en-curso .fase-side { background: rgba(196,78,42,.06); }
+  .fase-en-curso .fase-num { color: var(--accent); }
+  .fase-en-curso .fase-estado { color: var(--accent); }
+  .fase-en-curso .fase-dot { background: var(--accent); animation: pulso 2s ease-in-out infinite; }
+  @keyframes pulso { 0%,100% { opacity: 1 } 50% { opacity: .35 } }
+  @media (prefers-reduced-motion: reduce) { .fase-en-curso .fase-dot { animation: none } }
+
+  /* ── Indicadores ── */
+  .kpi-section { background: var(--parchment); }
+  .kpi-header { max-width: 620px; margin-bottom: 2.5rem; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+  .kpi-card {
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-radius: var(--radius-md); padding: 1.5rem 1.25rem;
+    display: flex; flex-direction: column; gap: .2rem;
+  }
+  .kpi-value {
+    font-family: 'Playfair Display Variable', serif;
+    font-size: 2.1rem; font-weight: 700; color: var(--ac); line-height: 1;
+  }
+  .kpi-label { font-size: .88rem; font-weight: 600; color: var(--ink); }
+  .kpi-meta { font-size: .76rem; color: var(--ink-mute); }
+  .kpi-metodo {
+    display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem;
+    border-top: 1px solid var(--line); padding-top: 1.75rem;
+  }
+  .kpi-metodo li {
+    font-size: .89rem; color: var(--ink-soft); line-height: 1.6;
+    padding-left: 1.1rem; position: relative;
+  }
+  .kpi-metodo li::before {
+    content: ''; position: absolute; left: 0; top: .6em;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--ac);
+  }
+
+  /* ── Equipo ── */
+  .equipo-header { max-width: 620px; margin-bottom: 2.5rem; }
+  .equipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .persona {
+    background: var(--parchment); border: 1px solid var(--line);
+    border-radius: var(--radius-md); padding: 1.4rem 1.5rem;
+    display: flex; flex-direction: column; gap: .25rem;
+  }
+  .persona-nombre { font-size: 1rem; color: var(--ink); }
+  .persona-rol {
+    font-size: .76rem; font-weight: 700; letter-spacing: .06em;
+    text-transform: uppercase; color: #3d7848; margin-bottom: .3rem;
+  }
+  .persona-detalle { font-size: .87rem; color: var(--ink-soft); line-height: 1.6; }
+  .persona-coach .persona-rol { color: var(--c-murcia); }
+  .coaches-title { margin: 2.5rem 0 1rem; }
+
+  /* ── Materiales ── */
+  .mat-section { background: var(--parchment); }
+  .mat-header { max-width: 620px; margin-bottom: 2rem; }
+  .mat-list { display: flex; flex-direction: column; gap: .6rem; }
+  .mat-item {
+    display: grid; grid-template-columns: 150px 1fr auto;
+    align-items: center; gap: 1rem;
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-radius: var(--radius-md); padding: .9rem 1.25rem;
+  }
+  .mat-formato {
+    font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .mat-titulo { font-size: .93rem; color: var(--ink); }
+  .mat-pend { font-size: .8rem; color: var(--ink-mute); font-style: italic; white-space: nowrap; }
+  .mat-cta { font-size: .85rem; font-weight: 600; color: #3d7848; text-decoration: none; white-space: nowrap; }
+  .mat-ready { border-color: rgba(61,120,72,.3); }
+
+  /* ── CTA ── */
+  .proj-cta {
+    background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
+    padding: 4rem 0;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; }
+  .cta-inner h2 { color: #fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom: .5rem; }
+  .cta-inner p { color: rgba(255,255,255,.72); max-width: 480px; }
+  .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── Responsive ── */
+  @media (max-width: 980px) {
+    .ficha-grid { grid-template-columns: repeat(2, 1fr); }
+    .dos-col { grid-template-columns: 1fr; gap: 2.5rem; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-metodo { grid-template-columns: 1fr; }
+    .equipo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .ficha-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .dest-grid { grid-template-columns: 1fr; }
+    .fase { grid-template-columns: 1fr; }
+    .fase-side { flex-direction: row; align-items: baseline; gap: .6rem; border-right: none; border-bottom: 1px solid var(--line); }
+    .fase-num { font-size: 1.15rem; }
+    .fase-mes { margin-top: 0; }
+    .equipo-grid { grid-template-columns: 1fr; }
+    .mat-item { grid-template-columns: 1fr; gap: .3rem; }
+    .bit-card { padding: 1.25rem 1.25rem; }
+  }
+</style>
