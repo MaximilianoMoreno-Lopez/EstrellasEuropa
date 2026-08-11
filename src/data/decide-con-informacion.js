@@ -147,14 +147,13 @@ export const proyecto = {
     'Seguimiento con los centros seis meses después del cierre, con datos agregados de solicitudes.',
   ],
 
-  // Si algún miembro del equipo prefiere no aparecer con su nombre completo,
-  // basta con dejar solo el nombre de pila en este listado.
+  // El grupo promotor aparece solo con el nombre de pila.
   equipo: [
-    { nombre: 'Ziyad Moussa El Hnoudi', rol: 'Coordinación general', detalle: 'Relación con los centros y supervisión pedagógica de los contenidos. Aporta la experiencia directa del itinerario Bachibac.' },
-    { nombre: 'Iker Aguilar Tizón', rol: 'Orientación y apoyo entre iguales', detalle: 'Dinamiza los espacios de diálogo y las tutorías centradas en motivación y toma de decisiones.' },
-    { nombre: 'Ane Bados Gil', rol: 'Diseño pedagógico y materiales', detalle: 'Responsable de presentaciones, guías, cuestionarios, escape room y repositorio digital.' },
-    { nombre: 'Carlos Paraluta', rol: 'Comunicación con centros y familias', detalle: 'Gestiona el correo del proyecto y la coordinación con equipos directivos y AMPAs.' },
-    { nombre: 'Marta Rey Moreno', rol: 'Organización y gestión operativa', detalle: 'Calendario, seguimiento de tareas y registro del presupuesto.' },
+    { nombre: 'Ziyad', rol: 'Coordinación general', detalle: 'Relación con los centros y supervisión pedagógica de los contenidos. Aporta la experiencia directa del itinerario Bachibac.' },
+    { nombre: 'Iker', rol: 'Orientación y apoyo entre iguales', detalle: 'Dinamiza los espacios de diálogo y las tutorías centradas en motivación y toma de decisiones.' },
+    { nombre: 'Ane', rol: 'Diseño pedagógico y materiales', detalle: 'Responsable de presentaciones, guías, cuestionarios, escape room y repositorio digital.' },
+    { nombre: 'Carlos', rol: 'Comunicación con centros y familias', detalle: 'Gestiona el correo del proyecto y la coordinación con equipos directivos y AMPAs.' },
+    { nombre: 'Marta', rol: 'Organización y gestión operativa', detalle: 'Calendario, seguimiento de tareas y registro del presupuesto.' },
   ],
 
   coaches: [
