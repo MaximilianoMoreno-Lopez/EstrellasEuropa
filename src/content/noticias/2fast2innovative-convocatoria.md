@@ -37,8 +37,13 @@ Fundația Județeană pentru Tineret Timiș (Rumanía).
 
 ## Cómo participar
 
+Toda la información del proyecto está en la
+**[página de la convocatoria](/proyectos/2fast2innovative/)**: objetivos,
+resultados previstos, perfil de las personas participantes, condiciones y
+consorcio completo.
+
 Las tres plazas del equipo español se cubren a través de
 **[Estrellas del Sur](https://estrellasdelsur.eu/proyectos/2fast2innovative/)**,
 una de las organizaciones miembro de la federación, que gestiona la selección y
-el envío de los participantes. En su ficha del proyecto están el infopack
-completo, las condiciones de participación y el formulario de preinscripción.
+el envío de los participantes. En su ficha están el infopack completo, las
+condiciones de participación y el formulario de preinscripción.

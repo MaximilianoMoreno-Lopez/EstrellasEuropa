@@ -1,0 +1,362 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { proyecto } from '../../data/2fast2innovative.js';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const SITE = 'https://estrellaseuropa.eu';
+const url = `${SITE}/proyectos/${proyecto.slug}/`;
+const accent = '#2b52a8';
+
+const desc = `Convocatoria de ${proyecto.titulo}, curso de formación Erasmus+ KA153 en Trancoso (Portugal) sobre emprendimiento social e innovación rural. Tres plazas para España, ${proyecto.fechas.toLowerCase()}.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: proyecto.titulo,
+  alternateName: proyecto.tituloEn,
+  description: proyecto.lead,
+  url,
+  inLanguage: 'en',
+  educationalCredentialAwarded: proyecto.certificado,
+  about: proyecto.formato,
+  provider: { '@type': 'Organization', name: proyecto.coordinadora },
+  funder: { '@type': 'Organization', name: 'Erasmus+' },
+  hasCourseInstance: {
+    '@type': 'CourseInstance',
+    courseMode: 'in-person',
+    startDate: proyecto.inicio,
+    endDate: proyecto.fin,
+    location: { '@type': 'Place', name: proyecto.lugar },
+  },
+};
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Proyectos', url: '/proyectos/' },
+  { name: proyecto.titulo, url: `/proyectos/${proyecto.slug}/` },
+];
+---
+
+<BaseLayout title={proyecto.titulo} description={desc} jsonLd={jsonLd} breadcrumbs={breadcrumbs}>
+  <div class="back-bar">
+    <div class="container">
+      <a href={`${base}/proyectos/`} class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        Todos los proyectos
+      </a>
+    </div>
+  </div>
+
+  <!-- ── Portada ─────────────────────────────────────────── -->
+  <section class="proj-hero" style={`--ac: ${accent}`}>
+    <div class="container">
+      <span class="hero-badge fade-in">{proyecto.programa} · KA153-YOU</span>
+      <h1 class="hero-title fade-in fade-in-delay-1">{proyecto.titulo}</h1>
+      <p class="hero-en fade-in fade-in-delay-1">{proyecto.tituloEn}</p>
+      <p class="hero-lead fade-in fade-in-delay-2">{proyecto.lead}</p>
+
+      <div class="hero-facts fade-in fade-in-delay-3">
+        <span class="fact"><strong>{proyecto.fechas}</strong></span>
+        <span class="fact">{proyecto.lugar}</span>
+        <span class="fact">{proyecto.plazas}</span>
+      </div>
+
+      <div class="hero-actions fade-in fade-in-delay-3">
+        <a href={proyecto.aplicar.url} target="_blank" rel="noopener" class="btn btn-amber btn-lg">
+          Solicitar plaza en {proyecto.aplicar.organizacion}
+        </a>
+      </div>
+      <p class="hero-note fade-in fade-in-delay-3">
+        Convocatoria abierta. Las plazas españolas se cubren a través de nuestras organizaciones miembro.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Ficha ───────────────────────────────────────────── -->
+  <section class="ficha-strip">
+    <div class="container ficha-grid">
+      <div class="ficha-item"><dt>Acción</dt><dd>{proyecto.accion}</dd></div>
+      <div class="ficha-item"><dt>Formato</dt><dd>{proyecto.formato}</dd></div>
+      <div class="ficha-item"><dt>Duración</dt><dd>{proyecto.duracion}</dd></div>
+      <div class="ficha-item"><dt>Lugar</dt><dd>{proyecto.lugar}</dd></div>
+      <div class="ficha-item"><dt>Coordina</dt><dd>{proyecto.coordinadora}</dd></div>
+      <div class="ficha-item"><dt>Nuestro papel</dt><dd>{proyecto.entidad}</dd></div>
+      <div class="ficha-item"><dt>Idioma de trabajo</dt><dd>{proyecto.idioma}</dd></div>
+      <div class="ficha-item"><dt>Certificado</dt><dd>{proyecto.certificado}</dd></div>
+    </div>
+  </section>
+
+  <!-- ── El proyecto ─────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="dos-col">
+        <div class="fade-in">
+          <span class="section-label">Punto de partida</span>
+          <h2 class="section-title">Emprender donde nadie espera que se emprenda</h2>
+          {proyecto.contexto.map((p) => <p class="texto">{p}</p>)}
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <span class="section-label">Objetivos del curso</span>
+          <ul class="check-list">
+            {proyecto.objetivos.map((o) => (
+              <li>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                {o}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Resultados ──────────────────────────────────────── -->
+  <section class="section res-section">
+    <div class="container">
+      <div class="bloque-header fade-in">
+        <span class="section-label">Qué deja el proyecto</span>
+        <h2 class="section-title">Resultados previstos</h2>
+        <p class="section-subtitle">
+          El curso no termina en Trancoso. Lo que se produce durante la semana queda
+          publicado y se difunde en cada uno de los países socios.
+        </p>
+      </div>
+      <div class="res-grid">
+        {proyecto.resultados.map((r, i) => (
+          <div class={`res-card fade-in fade-in-delay-${(i % 3) + 1}`}>
+            <h3>{r.titulo}</h3>
+            <p>{r.detalle}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Perfil y condiciones ────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="dos-col">
+        <div class="fade-in">
+          <span class="section-label">A quién va dirigido</span>
+          <h2 class="section-title">Perfil de las personas participantes</h2>
+          <ul class="check-list">
+            {proyecto.perfil.map((p) => (
+              <li>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <p class="texto req-nota">
+            Requisitos básicos: {proyecto.edad.toLowerCase()}, residencia en España y
+            nivel de inglés suficiente para participar en un entorno internacional.
+            No se pide ningún certificado de idiomas.
+          </p>
+        </div>
+        <div class="fade-in fade-in-delay-1">
+          <span class="section-label">Condiciones</span>
+          <h2 class="section-title">Qué cubre el programa</h2>
+          <ul class="check-list">
+            {proyecto.cubre.map((c) => (
+              <li>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                {c}
+              </li>
+            ))}
+          </ul>
+          <p class="texto">
+            El presupuesto de viaje del equipo español se ha calculado en régimen de
+            <em>green travel</em>, por lo que el trayecto se planifica en autobús, tren o
+            coche compartido. La organización de envío detalla el resto de condiciones,
+            incluida su cuota de socio, en la ficha de la convocatoria.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Consorcio ───────────────────────────────────────── -->
+  <section class="section soc-section">
+    <div class="container">
+      <div class="bloque-header fade-in">
+        <span class="section-label">Consorcio</span>
+        <h2 class="section-title">Siete países en el proyecto</h2>
+      </div>
+      <ul class="soc-list">
+        {proyecto.socios.map((s) => (
+          <li class={`soc-item ${s.rol === 'Coordinadora' ? 'soc-coord' : ''} fade-in`}>
+            <span class="soc-pais">{s.pais}</span>
+            <span class="soc-nombre">{s.nombre}</span>
+            <span class="soc-rol">{s.rol}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Cómo solicitar ──────────────────────────────────── -->
+  <section class="section apply-section">
+    <div class="container">
+      <div class="apply-card fade-in">
+        <span class="section-label">Cómo participar</span>
+        <h2 class="section-title">La solicitud se hace en {proyecto.aplicar.organizacion}</h2>
+        <p class="texto">
+          La federación coordina la participación española en el proyecto, pero la
+          selección de las personas participantes la gestiona la organización miembro
+          que las envía. {proyecto.aplicar.nota}
+        </p>
+        <a href={proyecto.aplicar.url} target="_blank" rel="noopener" class="btn btn-amber btn-lg apply-btn">
+          Ir a la convocatoria
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ─────────────────────────────────────────────── -->
+  <section class="proj-cta">
+    <div class="container cta-inner">
+      <div class="fade-in">
+        <h2>¿Eres una entidad juvenil y quieres formar parte?</h2>
+        <p>
+          Las organizaciones miembro de la federación acceden a convocatorias como esta
+          y envían a sus equipos a proyectos europeos. Escríbenos si te interesa.
+        </p>
+      </div>
+      <div class="cta-actions fade-in fade-in-delay-1">
+        <a href={`${base}/unete/`} class="btn btn-amber btn-lg">Unirse a la federación</a>
+        <a href={`${base}/contacto/`} class="btn btn-outline-white btn-lg">Contacto</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Portada ── */
+  .back-bar {
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    padding: calc(68px + .65rem) 0 .65rem;
+  }
+  .back-link {
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.7);
+    text-decoration: none; transition: color .2s, gap .2s;
+  }
+  .back-link:hover { color: var(--c-magec); gap: .55rem; }
+
+  .proj-hero {
+    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 42%, #0d1220) 100%);
+    padding: 3.25rem 0 3rem;
+  }
+  .hero-badge {
+    display: inline-block; font-size: .72rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: #fff;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28);
+    padding: .3rem .85rem; border-radius: var(--radius-full); margin-bottom: 1rem;
+  }
+  .hero-title { font-size: clamp(1.9rem, 4.2vw, 3rem); color: #fff; line-height: 1.1; }
+  .hero-en {
+    font-size: .95rem; color: rgba(255,255,255,.6); font-style: italic;
+    margin: .3rem 0 1rem;
+  }
+  .hero-lead {
+    font-size: 1.05rem; color: rgba(255,255,255,.85);
+    max-width: 660px; line-height: 1.7;
+  }
+  .hero-facts {
+    display: flex; flex-wrap: wrap; gap: .5rem .75rem; margin-top: 1.75rem;
+  }
+  .fact {
+    font-size: .84rem; color: rgba(255,255,255,.85);
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22);
+    padding: .35rem .85rem; border-radius: var(--radius-full);
+  }
+  .fact strong { color: #fff; font-weight: 600; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
+  .hero-note { font-size: .82rem; color: rgba(255,255,255,.6); margin-top: .85rem; }
+
+  /* ── Ficha ── */
+  .ficha-strip { background: var(--parchment); border-bottom: 1px solid var(--line); padding: 2rem 0; }
+  .ficha-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem 2rem; }
+  .ficha-item dt {
+    font-size: .7rem; font-weight: 700; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--ink-mute); margin-bottom: .25rem;
+  }
+  .ficha-item dd { font-size: .9rem; color: var(--ink); line-height: 1.5; }
+
+  /* ── Bloques de contenido ── */
+  .dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+  .texto { color: var(--ink-soft); line-height: 1.8; margin-bottom: 1rem; }
+  .req-nota { margin-top: 1.5rem; font-size: .92rem; }
+  .check-list { display: flex; flex-direction: column; gap: .7rem; }
+  .check-list li {
+    display: flex; align-items: flex-start; gap: .6rem;
+    color: var(--ink-soft); line-height: 1.6;
+  }
+  .check-list svg { color: var(--c-blue); flex-shrink: 0; margin-top: .28rem; }
+  .bloque-header { max-width: 620px; margin-bottom: 2.5rem; }
+
+  /* ── Resultados ── */
+  .res-section { background: var(--parchment); }
+  .res-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .res-card {
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-left: 3px solid var(--c-blue);
+    border-radius: var(--radius-md); padding: 1.5rem 1.75rem;
+  }
+  .res-card h3 {
+    font-size: 1.05rem; color: var(--ink); margin-bottom: .4rem;
+    font-family: 'DM Sans Variable', sans-serif; font-weight: 600;
+  }
+  .res-card p { font-size: .9rem; color: var(--ink-soft); line-height: 1.65; }
+
+  /* ── Consorcio ── */
+  .soc-section { background: var(--parchment); }
+  .soc-list { display: flex; flex-direction: column; gap: .6rem; }
+  .soc-item {
+    display: grid; grid-template-columns: 130px 1fr auto; align-items: center; gap: 1rem;
+    background: var(--sand); border: 1px solid var(--sand-dark);
+    border-radius: var(--radius-md); padding: .9rem 1.25rem;
+  }
+  .soc-coord { border-left: 3px solid var(--c-blue); }
+  .soc-pais { font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-mute); }
+  .soc-nombre { font-size: .95rem; color: var(--ink); line-height: 1.4; }
+  .soc-rol {
+    font-size: .72rem; font-weight: 600; color: var(--ink-mute);
+    background: var(--parchment); border: 1px solid var(--sand-dark);
+    padding: .2rem .7rem; border-radius: var(--radius-full); white-space: nowrap;
+  }
+
+  /* ── Cómo solicitar ── */
+  .apply-card {
+    background: var(--parchment); border: 1px solid var(--line);
+    border-left: 4px solid var(--c-magec);
+    border-radius: var(--radius-lg); padding: 2.25rem 2.5rem;
+    max-width: 780px;
+  }
+  .apply-btn { display: inline-flex; align-items: center; gap: .5rem; margin-top: .75rem; }
+
+  /* ── CTA ── */
+  .proj-cta {
+    background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
+    padding: 4rem 0;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; }
+  .cta-inner h2 { color: #fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom: .5rem; }
+  .cta-inner p { color: rgba(255,255,255,.72); max-width: 480px; }
+  .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* ── Responsive ── */
+  @media (max-width: 980px) {
+    .ficha-grid { grid-template-columns: repeat(2, 1fr); }
+    .dos-col { grid-template-columns: 1fr; gap: 2.5rem; }
+    .res-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .ficha-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .soc-item { grid-template-columns: 1fr; gap: .3rem; }
+    .soc-rol { justify-self: start; }
+    .apply-card { padding: 1.5rem 1.5rem; }
+  }
+</style>
