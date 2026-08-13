@@ -38,6 +38,25 @@ const proyectos = [
     ],
     tags: ['Movilidad internacional', 'Formación', 'Trabajadores de juventud', 'Educación no formal'],
   },
+  {
+    badge: 'Erasmus+ KA153',
+    accent: 'var(--c-blue)',
+    title: '2Fast2Innovative',
+    status: 'Convocatoria abierta',
+    statusColor: 'var(--c-magec)',
+    icon: `<svg ${ICON}><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>`,
+    lead: 'Curso de formación sobre emprendimiento social e innovación rural en Trancoso, en el interior de Portugal, coordinado por Hawk Stars. La federación es la organización socia española y envía al equipo nacional, que viaja del 26 de octubre al 4 de noviembre de 2026.',
+    points: [
+      '21 trabajadores juveniles de siete países, tres de ellos enviados desde España.',
+      'Herramientas de emprendimiento social, innovación rural, facilitación y trabajo juvenil digital para acompañar a jóvenes de entornos rurales.',
+      'Co-creación de seis actividades de educación no formal, probadas con estudiantes del instituto de Pinhel, que formarán un toolkit abierto.',
+      'Youthpass para las 21 personas participantes y un seminario de difusión en cada país socio.',
+    ],
+    tags: ['Emprendimiento social', 'Innovación rural', 'Formación', 'Portugal'],
+    href: 'https://estrellasdelsur.eu/proyectos/2fast2innovative/',
+    hrefLabel: 'Ver la convocatoria en Estrellas del Sur',
+    external: true,
+  },
 ];
 
 const acciones = [
@@ -49,7 +68,7 @@ const acciones = [
 
 <BaseLayout
   title="Proyectos"
-  description="Proyectos europeos de la Federación Estrellas de Europa: NEST (movilidad Erasmus+ KA153) y Decide con Información, proyecto del Cuerpo Europeo de Solidaridad."
+  description="Proyectos europeos de la Federación Estrellas de Europa: NEST (movilidad Erasmus+ KA153), 2Fast2Innovative (formación en emprendimiento social en Portugal) y Decide con Información, proyecto del Cuerpo Europeo de Solidaridad."
 >
   <div class="page-hero">
     <div class="container page-hero-content">
@@ -88,7 +107,12 @@ const acciones = [
               {p.tags.map((t) => <span class="proyecto-tag">{t}</span>)}
             </div>
             {p.href && (
-              <a href={p.href} class="proyecto-link">
+              <a
+                href={p.href}
+                class="proyecto-link"
+                target={p.external ? '_blank' : undefined}
+                rel={p.external ? 'noopener' : undefined}
+              >
                 {p.hrefLabel ?? 'Ver más'}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </a>
