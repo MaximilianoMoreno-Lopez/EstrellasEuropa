@@ -4,13 +4,13 @@ type: "Erasmus+"
 date: "2026-08"
 location: "Trancoso, Portugal"
 order: -1
-description: "La federación participa como organización socia española en 2Fast2Innovative, un curso de formación Erasmus+ sobre emprendimiento social e innovación rural que se celebra en Trancoso del 26 de octubre al 4 de noviembre de 2026."
+description: "La federación participa como organización socia española en 2Fast2Innovative, un curso de formación Erasmus+ sobre emprendimiento social e innovación rural que se celebra en Trancoso del 26 de octubre al 3 de noviembre de 2026."
 ---
 
 La Federación Estrellas de Europa es la organización socia española de
 **2Fast2Innovative - Promoting Social Entrepreneurship in Youth**, un curso de
 formación Erasmus+ coordinado por **Hawk Stars** en Trancoso, una villa medieval
-del interior centro de Portugal. Se celebra del **26 de octubre al 4 de
+del interior centro de Portugal. Se celebra del **26 de octubre al 3 de
 noviembre de 2026** y reúne a 21 trabajadores juveniles de siete países.
 
 ## De qué va el proyecto
