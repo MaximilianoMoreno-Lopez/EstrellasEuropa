@@ -3,7 +3,7 @@ title: "Nace Estrellas de Europa: tres asociaciones, una misma visión"
 type: "Federación"
 date: "2024-09"
 location: "Madrid, España"
-order: 3
+order: 4
 description: "Tres asociaciones juveniles de Córdoba, Canarias y Murcia se unen para crear una federación que multiplique el alcance de sus proyectos europeos."
 ---
 

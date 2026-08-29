@@ -3,7 +3,7 @@ title: "El Cuerpo Europeo de Solidaridad concede «Decide con Información»"
 type: "Solidaridad"
 date: "2026-08"
 location: "Comunidad de Madrid"
-order: 0
+order: 1
 description: "Un grupo de cinco jóvenes llevará durante seis meses orientación sobre itinerarios internacionales de Bachillerato a institutos públicos madrileños, con la federación como entidad responsable."
 ---
 

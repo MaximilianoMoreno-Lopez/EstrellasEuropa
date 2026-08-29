@@ -3,7 +3,7 @@ title: "Erasmus+ concede a la federación una subvención KA153"
 type: "Erasmus+"
 date: "2025-03"
 location: "España"
-order: 1
+order: 2
 description: "La acción KA153 financiará estancias formativas de nuestros educadores y técnicos de juventud en organizaciones europeas, elevando la calidad de los proyectos."
 ---
 

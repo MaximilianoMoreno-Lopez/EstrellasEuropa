@@ -62,12 +62,31 @@ const orgs = [
     website: null,
     email: 'admin@estrellaseuropa.eu',
   },
+  {
+    id: 'edr',
+    name: 'Estrella del Rif',
+    location: 'Melilla',
+    founded: '2024',
+    color: 'var(--c-blue)',
+    colorRgb: '43,82,168',
+    flag: `<svg ${ICON}><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+    description:
+      'Asociación juvenil de Melilla, formada íntegramente por voluntariado. Trabaja con educación no formal para que la juventud de una ciudad sin conexión terrestre con Europa continental participe en la vida democrática y acceda a las oportunidades europeas, con un enfoque intercultural que refleja la diversidad de la ciudad.',
+    activities: [
+      'Diálogo intercultural y cohesión comunitaria',
+      'Participación democrática y ciudadanía europea',
+      'Inclusión de jóvenes con discapacidad',
+      'Pensamiento crítico y alfabetización mediática',
+    ],
+    website: 'https://estrelladelrif.eu',
+    email: 'asoc.estrelladelrif@gmail.com',
+  },
 ];
 ---
 
 <BaseLayout
   title="Organizaciones Miembro · Asociaciones Juveniles"
-  description="Descubre las asociaciones juveniles que forman la Federación Estrellas de Europa: Estrellas del Sur (Córdoba), Estrella Magec (Canarias) y Murcia Debate (Murcia)."
+  description="Descubre las asociaciones juveniles que forman la Federación Estrellas de Europa: Estrellas del Sur (Córdoba), Estrella Magec (Canarias), Murcia Debate (Murcia) y Estrella del Rif (Melilla)."
 >
 
   <div class="page-hero">
@@ -78,7 +97,7 @@ const orgs = [
       </span>
       <h1 class="fade-in fade-in-delay-1">Las asociaciones que forman la federación</h1>
       <p class="fade-in fade-in-delay-2">
-        Tres entidades de distintas regiones de España, unidas por el compromiso con
+        Cuatro entidades de distintas regiones de España, unidas por el compromiso con
         la juventud y los valores europeos.
       </p>
     </div>

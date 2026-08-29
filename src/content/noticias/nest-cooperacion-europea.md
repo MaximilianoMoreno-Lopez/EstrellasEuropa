@@ -3,7 +3,7 @@ title: "NEST: así funciona nuestro proyecto de movilidad KA153"
 type: "Erasmus+"
 date: "2025-06"
 location: "Organizaciones de acogida europeas"
-order: 2
+order: 3
 description: "NEST es el nombre del proyecto Erasmus+ KA153 concedido a la federación: estancias formativas para nuestros educadores y técnicos de juventud en entidades de otros países europeos."
 ---
 
