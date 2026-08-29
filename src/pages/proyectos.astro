@@ -6,6 +6,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const ICON = 'viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
 const proyectos = [
   {
+    badge: 'Erasmus+ KA152',
+    accent: 'var(--c-murcia)',
+    title: 'Frames of Us',
+    status: 'En preparación',
+    statusColor: 'var(--c-magec)',
+    icon: `<svg ${ICON}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
+    lead: 'Intercambio juvenil de ocho días en Madrid coordinado por la federación, con cinco organizaciones de Chequia, Portugal, Chipre, Polonia y Grecia. Treinta jóvenes trabajan bienestar, identidad y participación a través de la narración.',
+    points: [
+      '30 jóvenes de seis países, con prioridad para quienes tienen menos oportunidades.',
+      'Fotovoz, teatro silencioso, relato digital y cine social: 48 horas de educación no formal.',
+      'Día Comunitario abierto al barrio de Usera, conducido por las propias personas participantes.',
+      'Reconocimiento con Youthpass y certificación de Red Reconoce.',
+    ],
+    tags: ['Intercambio juvenil', 'Bienestar', 'Narración', 'Madrid'],
+    href: `${base}/proyectos/frames-of-us/`,
+    hrefLabel: 'Ver la ficha del proyecto',
+  },
+  {
     badge: 'Cuerpo Europeo de Solidaridad',
     accent: 'var(--c-green)',
     title: 'Decide con Información',
