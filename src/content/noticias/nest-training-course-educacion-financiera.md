@@ -30,6 +30,4 @@ Gracias a las organizaciones socias que lo han hecho posible, Municipality of Fy
 
 ---
 
-<img src="/eu-cofinanciado.png" alt="Cofinanciado por la Unión Europea" width="240" loading="lazy" decoding="async">
-
 *Proyecto KA153-YOU-8FC5C383, cofinanciado por el programa Erasmus+ de la Unión Europea. Financiado por la Unión Europea. Las opiniones y puntos de vista expresados solo comprometen a su(s) autor(es) y no reflejan necesariamente los de la Unión Europea o los del Instituto de la Juventud (INJUVE). Ni la Unión Europea ni la autoridad otorgante pueden ser considerados responsables de ellos.*
