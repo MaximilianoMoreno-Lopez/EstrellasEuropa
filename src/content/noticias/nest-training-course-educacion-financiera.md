@@ -1,14 +1,14 @@
 ---
-title: "NEST: 28 youth workers de 7 países aprenden a hablar de dinero con los jóvenes"
+title: "NEST: 22 youth workers de 7 países aprenden a hablar de dinero con los jóvenes"
 type: "Erasmus+"
 date: "2026-09"
 dates: "Del 24 al 30 de septiembre de 2026"
 location: "Villa Castora, Cercedilla (Madrid)"
 order: -3
-description: "28 youth workers de 7 países se forman en Madrid para enseñar educación financiera a jóvenes con métodos de educación no formal."
+description: "22 youth workers de 7 países se forman en Madrid para enseñar educación financiera a jóvenes con métodos de educación no formal."
 ---
 
-Del 24 al 30 de septiembre de 2026 reunimos en Villa Castora (Cercedilla, Madrid) a 28 trabajadores y trabajadoras de juventud de España, Portugal, Serbia, Grecia, Rumanía, Macedonia del Norte y Chequia. El objetivo era que volvieran a casa con herramientas reales para que los jóvenes entiendan su dinero, tomen mejores decisiones y se atrevan a emprender.
+Del 24 al 30 de septiembre de 2026 reunimos en Villa Castora (Cercedilla, Madrid) a 22 trabajadores y trabajadoras de juventud de España, Portugal, Serbia, Grecia, Rumanía, Macedonia del Norte y Chequia. El objetivo era que volvieran a casa con herramientas reales para que los jóvenes entiendan su dinero, tomen mejores decisiones y se atrevan a emprender.
 
 Muchos jóvenes llegan a su primer contrato, su primer alquiler o su primera tarjeta de crédito sin que nadie les haya explicado cómo funciona nada de eso. Las personas que trabajan con juventud lo ven cada día, pero pocas veces tienen recursos pensados para abordarlo. De ahí nace NEST, un Training Course Erasmus+ coordinado por la Federación Estrellas de Europa.
 
@@ -26,7 +26,7 @@ Esto no se queda en Madrid. En las próximas semanas cada equipo nacional organi
 
 ## Gracias
 
-Gracias a las organizaciones socias que lo han hecho posible, Municipality of Fyli (Grecia), Mreža mladih - MANIFEST (Serbia), Asociatia Valori Educationale Nonformale (Rumanía), Brno for You (Chequia), Guarda a Terra - Associação Juvenil (Portugal) y KUD Goce Delchev (Macedonia del Norte). Y gracias, sobre todo, a los 28 youth workers que han convertido una semana de formación en algo que llegará a cientos de jóvenes.
+Gracias a las organizaciones socias que lo han hecho posible, Municipality of Fyli (Grecia), Mreža mladih - MANIFEST (Serbia), Asociatia Valori Educationale Nonformale (Rumanía), Brno for You (Chequia), Guarda a Terra - Associação Juvenil (Portugal) y KUD Goce Delchev (Macedonia del Norte). Y gracias, sobre todo, a los 22 youth workers que han convertido una semana de formación en algo que llegará a cientos de jóvenes.
 
 ---
 
