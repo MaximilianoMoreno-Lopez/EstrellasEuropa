@@ -42,7 +42,7 @@ export const proyecto = {
   ],
 
   objetivos: [
-    'Dar a las 30 personas participantes micro-prácticas de bienestar y salud mental y herramientas creativas —fotovoz, cuadros de teatro silencioso, arcos narrativos— y acompañarlas a construir un plan de práctica personal.',
+    'Dar a las 30 personas participantes micro-prácticas de bienestar y salud mental y herramientas creativas (fotovoz, cuadros de teatro silencioso, arcos narrativos) y acompañarlas a construir un plan de práctica personal.',
     'Promover la creatividad, la iniciativa y la capacidad de resolver problemas.',
     'Fomentar relaciones empáticas y sentido cívico a través de la alfabetización mediática.',
     'Crear un Día Comunitario conducido por los propios jóvenes, que abra la actividad al vecindario y fomente la comprensión intercultural.',
@@ -108,7 +108,7 @@ export const proyecto = {
     { pais: 'Chequia', nombre: 'EDDA, z.ú.', rol: 'Socia' },
     {
       pais: 'Portugal',
-      nombre: 'Hawk Stars — Associação para a Educação, Inovação e Desenvolvimento Social',
+      nombre: 'Hawk Stars (Associação para a Educação, Inovação e Desenvolvimento Social)',
       rol: 'Socia',
     },
     { pais: 'Chipre', nombre: 'Make it Happen', rol: 'Socia' },

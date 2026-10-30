@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StarPieces from '../components/StarPieces.astro';
 import Organigrama from '../components/Organigrama.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -19,8 +20,8 @@ const milestones = [
   { year: '2024', title: 'Inscripción registral', desc: 'La federación obtiene su NIF G75822320 y queda inscrita en el Registro Nacional de Asociaciones.' },
   { year: '2025', title: 'NEST: primera subvención Erasmus+', desc: 'La federación obtiene una subvención Erasmus+ KA153 para el proyecto NEST, de movilidad de trabajadores de juventud con organizaciones de acogida europeas. Primer gran hito europeo de la federación.' },
   { year: '2026', title: 'Frames of Us', desc: 'Erasmus+ concede a la federación un intercambio juvenil KA152: ocho días en Madrid con 30 jóvenes de seis países trabajando bienestar, identidad y participación a través de la narración.' },
-  { year: '2026', title: 'Estrella del Rif se incorpora', desc: 'La asociación juvenil Estrella del Rif, de Melilla, entra en la federación como cuarta organización miembro y suma la voz de la juventud de una región periférica sin conexión terrestre con Europa continental.' },
-  { year: '2026', title: 'Horizonte Rioja se incorpora', desc: 'La asociación juvenil Horizonte Rioja, nacida en los pueblos de La Rioja, entra en la federación como quinta organización miembro y aporta la mirada de la juventud del medio rural.' },
+  { year: '2026', c: 'var(--c-blue)', title: 'Estrella del Rif se incorpora', desc: 'La asociación juvenil Estrella del Rif, de Melilla, entra en la federación como cuarta organización miembro y suma la voz de la juventud de una región periférica sin conexión terrestre con Europa continental.' },
+  { year: '2026', c: 'var(--c-rioja)', title: 'Horizonte Rioja se incorpora', desc: 'La asociación juvenil Horizonte Rioja, nacida en los pueblos de La Rioja, entra en la federación como quinta organización miembro y aporta la mirada de la juventud del medio rural.' },
   { year: '2026', title: 'Decide con Información', desc: 'El Cuerpo Europeo de Solidaridad concede un Proyecto de Solidaridad para acercar los itinerarios internacionales de Bachillerato al alumnado de institutos públicos madrileños.' },
 ];
 ---
@@ -30,7 +31,8 @@ const milestones = [
   description="Conoce la historia, la misión y el equipo de la Federación Estrellas de Europa: una red de asociaciones juveniles españolas comprometidas con los valores europeos."
 >
 
-  <div class="page-hero">
+  <div class="page-hero" style="--ph-c: var(--logo-red-l)">
+    <StarPieces variant="outline" highlight={['red']} class="ph-star" />
     <div class="container page-hero-content">
       <span class="badge badge-eu fade-in">Sobre nosotros</span>
       <h1 class="fade-in fade-in-delay-1">Quiénes somos</h1>
@@ -46,16 +48,16 @@ const milestones = [
     <div class="container">
       <div class="historia-grid">
         <div class="fade-in">
-          <span class="section-label">Nuestra historia</span>
+          <span class="section-label" style="--label-c: var(--c-sur)">Nuestra historia</span>
           <h2 class="section-title">Nació de la necesidad de ir más lejos</h2>
           <div class="divider"></div>
-          <p style="color: var(--gray-600); line-height: 1.75; margin-bottom: 1rem;">
+          <p class="historia-p">
             La Federación Estrellas de Europa fue fundada en 2024 con la convicción de que
             las asociaciones juveniles son más poderosas cuando trabajan juntas. Impulsada por
             Estrellas del Sur (Córdoba), se unieron pronto Estrella Magec (Canarias) y Murcia Debate
             para conformar una red de primer nivel.
           </p>
-          <p style="color: var(--gray-600); line-height: 1.75; margin-bottom: 1.5rem;">
+          <p class="historia-p">
             Nuestra sede social se encuentra en Madrid, un punto de encuentro simbólico para
             organizaciones del norte, el sur y las islas, desde donde coordinamos candidaturas conjuntas,
             intercambios de metodología y proyectos Erasmus+ de mayor envergadura.
@@ -66,8 +68,8 @@ const milestones = [
               <span class="fact-l">Año de fundación</span>
             </div>
             <div class="fact">
-              <span class="fact-n">3</span>
-              <span class="fact-l">CCAA representadas</span>
+              <span class="fact-n">5</span>
+              <span class="fact-l">Comunidades y ciudades autónomas</span>
             </div>
             <div class="fact">
               <span class="fact-n">Madrid</span>
@@ -78,8 +80,8 @@ const milestones = [
 
         <div class="milestones fade-in fade-in-delay-1">
           <h3 class="milestones-title">Hitos</h3>
-          {milestones.map(m => (
-            <div class="milestone">
+          {milestones.map((m, i) => (
+            <div class:list={["milestone", { "milestone-org": m.c }]} style={`--mc: ${m.c ?? 'var(--ink)'}`}>
               <span class="milestone-year">{m.year}</span>
               <div class="milestone-body">
                 <strong>{m.title}</strong>
@@ -96,13 +98,13 @@ const milestones = [
   <section class="section values-section">
     <div class="container">
       <div class="section-header fade-in">
-        <span class="section-label">Valores</span>
+        <span class="section-label" style="--label-c: var(--c-blue)">Valores</span>
         <h2 class="section-title">Lo que nos guía</h2>
       </div>
       <div class="values-grid">
         {values.map((v, i) => (
           <div class={`value-card fade-in fade-in-delay-${(i % 3) + 1}`}>
-            <span class="value-icon" set:html={v.icon} />
+            <span class="value-icon" set:html={v.icon} style={`--vc: ${['var(--c-sur)', 'var(--c-magec-ink)', 'var(--c-murcia)', 'var(--c-blue)', 'var(--c-green)', 'var(--c-rioja)'][i % 6]}`} />
             <h4>{v.title}</h4>
             <p>{v.desc}</p>
           </div>
@@ -123,7 +125,7 @@ const milestones = [
           <dt>Denominación</dt><dd>Federación Estrellas de Europa</dd>
           <dt>NIF</dt><dd>G75822320</dd>
           <dt>Domicilio social</dt><dd>San Valeriano 6, 4A, 28039 Madrid</dd>
-          <dt>Email</dt><dd><a href="mailto:admin@estrellaseuropa.eu">admin@estrellaseuropa.eu</a></dd>
+          <dt>Email</dt><dd><a href="mailto:admin@estrellaseuropa.eu">admin<wbr />@estrellaseuropa.eu</a></dd>
           <dt>Año de constitución</dt><dd>2024</dd>
         </dl>
       </div>
@@ -134,82 +136,100 @@ const milestones = [
 
 <style>
 .historia-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: start;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5rem); align-items: start;
 }
-.facts-row { display: flex; gap: 2rem; flex-wrap: wrap; }
-.fact { display: flex; flex-direction: column; gap: .2rem; }
+.historia-p { color: var(--ink-soft); line-height: 1.78; margin-bottom: 1.1rem; font-size: 1.0625rem; }
+.facts-row {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+}
+.fact { display: flex; flex-direction: column; gap: .35rem; padding: 0 1.25rem; border-left: 1px solid var(--line); }
+.fact:first-child { padding-left: 0; border-left: 0; }
 .fact-n {
-  font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
-  font-size: 1.6rem; font-weight: 700; color: var(--eu-blue);
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 600; color: var(--ink); line-height: 1.05;
+  font-variant-numeric: lining-nums tabular-nums; letter-spacing: -.01em;
 }
-.fact-l { font-size: .8rem; color: var(--gray-500); }
+.fact-l { font-size: .84rem; color: var(--ink-mute); }
+
+.milestones {
+  background: var(--parchment); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 2rem 2rem .75rem; box-shadow: var(--shadow-card);
+}
 .milestones-title {
-  font-family: 'DM Sans Variable', 'DM Sans', sans-serif;
-  font-size: .8rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--gray-400); margin-bottom: 1.25rem;
+  font-family: var(--font-sans);
+  font-size: .74rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-mute); margin-bottom: 1.5rem;
 }
 .milestone {
-  display: flex; gap: 1.25rem;
-  padding-bottom: 1.5rem;
-  border-left: 2px solid var(--gray-200);
-  padding-left: 1.25rem;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1rem;
+  padding: 0 0 1.5rem 1.4rem;
+  border-left: 2px solid var(--line);
   position: relative;
 }
+.milestone:last-child { border-left-color: transparent; }
 .milestone::before {
-  content: ''; position: absolute; left: -5px; top: 4px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--eu-blue);
+  content: ''; position: absolute; left: -7px; top: 3px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--parchment); border: 3px solid var(--mc);
 }
+.milestone-org::before { background: var(--mc); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mc) 18%, transparent); }
 .milestone-year {
-  font-size: .78rem; font-weight: 700; color: var(--eu-blue);
-  background: rgba(0,51,153,.08); padding: .2rem .6rem;
-  border-radius: var(--radius-full); white-space: nowrap; height: fit-content;
+  font-size: .78rem; font-weight: 700; color: var(--ink);
+  background: var(--sand); border: 1px solid var(--sand-dark); padding: .15rem .55rem;
+  border-radius: var(--radius-full); height: fit-content; font-variant-numeric: lining-nums tabular-nums;
 }
-.milestone-body strong { display: block; font-size: .95rem; color: var(--navy); margin-bottom: .25rem; }
-.milestone-body p { font-size: .85rem; color: var(--gray-600); line-height: 1.6; }
+.milestone-body { min-width: 0; }
+.milestone-body strong { display: block; font-size: 1rem; color: var(--ink); margin-bottom: .25rem; line-height: 1.35; }
+.milestone-body p { font-size: .88rem; color: var(--ink-soft); line-height: 1.62; }
 
 .values-section { background: var(--parchment); }
-.section-header { margin-bottom: 2.5rem; }
+.section-header { margin-bottom: var(--space-head); }
 .values-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem;
 }
 .value-card {
-  background: var(--parchment); padding: 1.75rem;
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(20,30,50,.06);
-  box-shadow: var(--shadow-card);
-  transition: transform .2s;
+  background: var(--sand); padding: 1.85rem 1.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--sand-dark);
 }
-.value-card:hover { transform: translateY(-4px); }
 .value-icon {
-  width: 46px; height: 46px; margin-bottom: 1rem;
+  width: 48px; height: 48px; margin-bottom: 1.15rem;
   border-radius: 12px; display: flex; align-items: center; justify-content: center;
-  background: rgba(0,51,153,.1); color: var(--eu-blue);
+  background: var(--parchment); color: var(--vc);
+  box-shadow: 0 1px 2px rgba(20,30,50,.06), inset 0 0 0 1px color-mix(in srgb, var(--vc) 22%, transparent);
 }
-.value-icon svg { width: 23px; height: 23px; }
-.value-card h4 { font-size: 1.05rem; color: var(--navy); margin-bottom: .5rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif; font-weight: 600; }
-.value-card p { font-size: .88rem; color: var(--gray-600); line-height: 1.65; }
+.value-icon :global(svg) { width: 23px; height: 23px; flex-shrink: 0; }
+.value-card h4 { font-size: 1.0625rem; color: var(--ink); margin-bottom: .45rem; font-family: var(--font-sans); font-weight: 600; }
+.value-card p { font-size: .9rem; color: var(--ink-soft); line-height: 1.65; }
 
-.legal-section { background: var(--parchment); }
+.legal-section { background: var(--parchment); border-top: 1px solid var(--line); }
 .legal-card {
-  background: var(--cream); border-radius: var(--radius-md);
-  padding: 2rem 2.5rem; border: 1px solid var(--cream-dark);
-  max-width: 620px;
+  background: var(--sand); border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem; border: 1px solid var(--sand-dark);
+  max-width: 680px;
 }
-.legal-card h3 { font-size: 1.1rem; color: var(--navy); margin-bottom: 1.25rem; }
-.legal-dl { display: grid; grid-template-columns: auto 1fr; gap: .5rem 1.5rem; }
-dt { font-size: .82rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: .06em; align-self: center; }
-dd { font-size: .92rem; color: var(--navy); }
+.legal-card h3 { font-size: 1.25rem; color: var(--ink); margin-bottom: 1.25rem; }
+.legal-dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .65rem 1.75rem; }
+dt { font-size: .74rem; font-weight: 700; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .1em; align-self: center; }
+dd { font-size: .95rem; color: var(--ink); min-width: 0; overflow-wrap: break-word; }
 dd a { color: var(--eu-blue); text-decoration: none; }
-dd a:hover { text-decoration: underline; }
+dd a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 860px) {
-  .historia-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .historia-grid { grid-template-columns: 1fr; }
   .values-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 560px) {
-  .values-grid { grid-template-columns: 1fr; }
-  .legal-card { padding: 1.5rem; }
+  .values-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .legal-card { padding: 1.5rem 1.25rem; }
+  .legal-dl { grid-template-columns: 1fr; gap: .15rem; }
+  .legal-dl dt { margin-top: .75rem; }
+  .legal-dl dt:first-child { margin-top: 0; }
+  .milestones { padding: 1.5rem 1.25rem .5rem; }
+  .fact { padding: 0 .75rem; }
+  .milestone { grid-template-columns: 1fr; gap: .4rem; }
+  .milestone-year { justify-self: start; }
 }
 </style>

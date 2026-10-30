@@ -20,8 +20,18 @@ const newsColor = {
   'Erasmus+': 'var(--eu-blue)',
   'Cooperación': 'var(--c-murcia)',
   'Acción local': 'var(--c-green)',
-  'Participación': 'var(--c-magec)',
+  'Participación': 'var(--c-magec-ink)',
+  'Solidaridad': 'var(--c-green)',
 };
+
+function fmtDate(d) {
+  if (!d) return null;
+  const [y, m] = d.split('-');
+  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return m ? `${meses[+m - 1]} ${y}` : y;
+}
+
+const ARROW = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>';
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -59,8 +69,8 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <Hero />
-  <Stats />
   <MisionSection />
+  <Stats />
   <ProyectosSection />
   <AccionLocal />
   <MemberOrgs />
@@ -70,10 +80,10 @@ const jsonLd = {
     <div class="container">
       <div class="news-head fade-in">
         <div>
-          <span class="section-label">Actualidad</span>
+          <span class="section-label" style="--label-c: var(--c-blue)">Actualidad</span>
           <h2 class="section-title">Últimas novedades</h2>
         </div>
-        <a href={`${base}/actualidad/`} class="news-all">Ver todo →</a>
+        <a href={`${base}/actualidad/`} class="link-arrow news-all">Ver toda la actualidad <Fragment set:html={ARROW} /></a>
       </div>
       <div class="news-grid">
         {latest.map((a, i) => (
@@ -82,10 +92,13 @@ const jsonLd = {
             class={`news-card fade-in fade-in-delay-${i + 1}`}
             style={`--ac: ${newsColor[a.data.type] ?? 'var(--c-blue)'}`}
           >
-            <span class="news-type">{a.data.type}</span>
+            <div class="news-meta">
+              <span class="news-type">{a.data.type}</span>
+              {a.data.date && <span class="news-date">{fmtDate(a.data.date)}</span>}
+            </div>
             <h3>{a.data.title}</h3>
             {a.data.description && <p>{a.data.description}</p>}
-            <span class="news-read">Leer más →</span>
+            <span class="news-read">Leer más <Fragment set:html={ARROW} /></span>
           </a>
         ))}
       </div>
@@ -95,7 +108,7 @@ const jsonLd = {
   <Organigrama />
 
   <!-- CTA Strip -->
-  <section class="cta-strip">
+  <section class="cta-strip cta-band">
     <div class="container cta-inner">
       <div class="cta-text fade-in">
         <h2>¿Tu asociación quiere unirse?</h2>
@@ -110,58 +123,73 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-.cta-strip {
-  background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
-  padding: 5rem 0;
-}
+.cta-strip { padding: clamp(3.5rem, 7vw, 5.5rem) 0; }
 .cta-inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 3rem; flex-wrap: wrap;
+  gap: 2rem 3rem; flex-wrap: wrap;
 }
 .cta-text h2 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.4rem);
   color: #fff; margin-bottom: .75rem;
 }
-.cta-text p { color: rgba(255,255,255,.7); max-width: 460px; line-height: 1.65; }
-.cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0; }
+.cta-text p { color: rgba(255,255,255,.78); max-width: 48ch; line-height: 1.65; font-size: 1.05rem; }
+.cta-actions { display: flex; gap: .85rem; flex-wrap: wrap; flex-shrink: 0; }
 
 /* Actualidad teaser */
 .news-teaser { background: var(--parchment); }
 .news-head {
   display: flex; align-items: flex-end; justify-content: space-between;
-  gap: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap;
+  gap: 1rem 2rem; margin-bottom: 2.5rem; flex-wrap: wrap;
 }
-.news-all {
-  font-size: .9rem; font-weight: 600; color: var(--accent);
-  text-decoration: none; white-space: nowrap; transition: gap .2s;
-}
-.news-all:hover { text-decoration: underline; }
-.news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.news-head .section-title { margin-bottom: 0; }
+.news-all { margin-bottom: .4rem; }
+.news-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
 .news-card {
-  display: flex; flex-direction: column; gap: .6rem;
+  position: relative;
+  display: flex; flex-direction: column; gap: .7rem;
   background: var(--sand); border: 1px solid var(--sand-dark);
-  border-top: 3px solid var(--ac);
-  border-radius: var(--radius-md); padding: 1.5rem;
-  text-decoration: none; color: inherit;
-  transition: transform .25s ease, box-shadow .25s ease;
+  border-radius: var(--radius-lg); padding: 1.6rem 1.6rem 1.4rem;
+  text-decoration: none; color: inherit; overflow: hidden;
+  transition: transform .3s var(--ease-out), box-shadow .3s ease, background-color .3s ease;
 }
-.news-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.news-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ac);
+}
+.news-card:hover, .news-card:focus-visible {
+  transform: translateY(-4px); box-shadow: var(--shadow-lg); background: var(--parchment);
+}
+.news-card:focus-visible { outline-offset: 4px; }
+.news-meta { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
 .news-type {
   font-size: .7rem; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: var(--ac);
 }
+.news-date { font-size: .78rem; color: var(--ink-mute); }
+.news-date::before { content: '·'; margin-right: .6rem; color: var(--sand-deeper); }
 .news-card h3 {
-  font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
-  font-size: 1.12rem; color: var(--ink); line-height: 1.3;
+  font-size: 1.2rem; color: var(--ink); line-height: 1.3;
+  transition: color .2s;
 }
+.news-card:hover h3 { color: var(--ac); }
 .news-card p {
-  font-size: .87rem; color: var(--ink-soft); line-height: 1.6; flex: 1;
+  font-size: .9rem; color: var(--ink-soft); line-height: 1.6;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
 }
-.news-read { font-size: .82rem; font-weight: 600; color: var(--ac); margin-top: .25rem; }
+.news-read {
+  display: inline-flex; align-items: center; gap: .4rem;
+  margin-top: auto; padding-top: .5rem;
+  font-size: .86rem; font-weight: 600; color: var(--ac);
+  transition: gap .2s var(--ease-out);
+}
+.news-card:hover .news-read { gap: .65rem; }
 
-@media (max-width: 768px) {
-  .cta-inner { flex-direction: column; }
+@media (max-width: 900px) {
   .news-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .cta-inner { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 560px) {
+  .cta-actions { flex-direction: column; align-items: stretch; width: 100%; }
 }
 </style>

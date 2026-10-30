@@ -17,7 +17,7 @@ metrics:
 
 El proyecto **Decide con Información** ha sido aprobado dentro de la acción de
 **Proyectos de Solidaridad (ESC30-SOL)** del Cuerpo Europeo de Solidaridad,
-convocatoria 2026 – ronda 1, gestionada en España por el INJUVE. La Federación
+convocatoria 2026, ronda 1, gestionada en España por el INJUVE. La Federación
 Estrellas de Europa actúa como entidad responsable y el proyecto lo ejecuta un
 grupo de cinco jóvenes que cursaron itinerarios internacionales de Bachillerato.
 

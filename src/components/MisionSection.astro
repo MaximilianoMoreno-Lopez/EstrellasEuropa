@@ -5,19 +5,19 @@ const pillars = [
     icon: `<svg ${ICON}><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>`,
     title: 'Movilidad europea',
     desc: 'Facilitamos intercambios, voluntariados y formaciones en el marco del programa Erasmus+ para jóvenes de toda España.',
-    color: '#c44e2a',
+    color: 'var(--c-sur)',
   },
   {
     icon: `<svg ${ICON}><path d="M4 5a2 2 0 0 1 2-2h6v16H6a2 2 0 0 0-2 2z"/><path d="M20 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 1 2 2z"/></svg>`,
     title: 'Aprendizaje no formal',
     desc: 'Creemos en el poder de la educación fuera del aula: dinámicas grupales, trabajo por proyectos y experiencias transformadoras.',
-    color: '#d9a727',
+    color: 'var(--c-magec)', ink: 'var(--c-magec-ink)',
   },
   {
     icon: `<svg ${ICON}><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>`,
     title: 'Valores europeos',
     desc: 'Promovemos la ciudadanía activa, la inclusión y la diversidad como pilares de una Europa unida.',
-    color: '#2b52a8',
+    color: 'var(--c-blue)',
   },
 ];
 ---
@@ -26,7 +26,7 @@ const pillars = [
   <div class="container">
     <div class="mision-grid">
       <div class="mision-text fade-in">
-        <span class="section-label">Nuestra misión</span>
+        <span class="section-label" style="--label-c: var(--c-sur)">Nuestra misión</span>
         <h2 class="section-title">Impulsamos oportunidades para la juventud española en Europa</h2>
         <div class="divider"></div>
         <p class="section-subtitle">
@@ -40,8 +40,9 @@ const pillars = [
       </div>
 
       <div class="pillars fade-in fade-in-delay-1">
-        {pillars.map(p => (
-          <div class="pillar" style={`--pc: ${p.color}`}>
+        {pillars.map((p, i) => (
+          <div class="pillar" style={`--pc: ${p.color}; --pc-ink: ${p.ink ?? p.color}`}>
+            <span class="pillar-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
             <span class="pillar-icon" set:html={p.icon} />
             <div>
               <h4 class="pillar-title">{p.title}</h4>
@@ -57,30 +58,42 @@ const pillars = [
 <style>
 .mision-section { background: var(--parchment); }
 .mision-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 5.5rem); align-items: center;
 }
-.pillars { display: flex; flex-direction: column; gap: 1.25rem; }
+.mision-text .section-title { max-width: 22ch; }
+.pillars { display: flex; flex-direction: column; counter-reset: p; }
 .pillar {
-  display: flex; align-items: flex-start; gap: 1rem;
-  padding: 1.2rem 1.4rem;
-  border-radius: var(--radius-md);
-  background: var(--sand);
-  border-left: 3px solid var(--pc);
-  transition: transform .2s;
+  position: relative;
+  display: grid; grid-template-columns: auto 44px minmax(0, 1fr); align-items: start; gap: 1.1rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid var(--line);
 }
-.pillar:hover { transform: translateX(4px); }
+.pillar:last-child { border-bottom: 1px solid var(--line); }
+.pillar::before {
+  content: ''; position: absolute; left: 0; top: -1px; width: 48px; height: 2px;
+  background: var(--pc);
+}
+.pillar-num {
+  font-family: var(--font-serif); font-size: .95rem; font-weight: 600;
+  color: var(--ink-mute); font-variant-numeric: lining-nums tabular-nums;
+  padding-top: .6rem; min-width: 1.6rem;
+}
 .pillar-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 11px; display: flex; align-items: center; justify-content: center;
-  background: color-mix(in srgb, var(--pc) 13%, transparent); color: var(--pc);
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  background: color-mix(in srgb, var(--pc) 13%, transparent); color: var(--pc-ink);
 }
-.pillar-icon svg { width: 21px; height: 21px; }
+.pillar-icon :global(svg) { width: 22px; height: 22px; flex-shrink: 0; }
 .pillar-title {
-  font-size: .98rem; font-weight: 600; color: var(--ink);
-  margin-bottom: .3rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif;
+  font-size: 1.0625rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .3rem; font-family: var(--font-sans); letter-spacing: 0;
 }
-.pillar-desc { font-size: .87rem; color: var(--ink-soft); line-height: 1.65; }
+.pillar-desc { font-size: .92rem; color: var(--ink-soft); line-height: 1.65; }
 
 @media (max-width: 860px) { .mision-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+@media (max-width: 480px) {
+  .pillar { grid-template-columns: 44px minmax(0, 1fr); }
+  .pillar-num { display: none; }
+}
 </style>

@@ -5,92 +5,95 @@ const acciones = [
     icon: `<svg ${ICON}><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>`,
     title: 'Talleres en centros educativos',
     desc: 'Llevamos la movilidad europea a institutos y centros de formación profesional, acercando Erasmus+ a jóvenes que nunca han oído hablar de él.',
-    color: '#c44e2a',
+    color: 'var(--c-sur)',
   },
   {
     icon: `<svg ${ICON}><path d="M3 11l14-6v14L3 13z"/><path d="M7 13.5V17a2 2 0 0 0 4 0v-1.5"/></svg>`,
     title: 'Sesiones informativas',
     desc: 'Organizamos charlas y eventos locales para explicar las oportunidades de financiación europea disponibles para asociaciones y jóvenes.',
-    color: '#d9a727',
+    color: 'var(--c-magec)', ink: 'var(--c-magec-ink)',
   },
   {
     icon: `<svg ${ICON}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>`,
     title: 'Red de asociaciones',
     desc: 'Conectamos organizaciones locales entre sí y con la red europea, facilitando colaboraciones y proyectos conjuntos de mayor alcance.',
-    color: '#2b52a8',
+    color: 'var(--c-blue)',
   },
 ];
 ---
 
 <section class="section accion-section">
   <div class="container">
-    <div class="accion-grid">
-      <div class="accion-text fade-in">
-        <span class="section-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          Acción local
-        </span>
+    <div class="accion-head fade-in">
+      <div>
+        <span class="section-label" style="--label-c: var(--c-magec)">Acción local</span>
         <h2 class="section-title">Europa empieza en tu barrio</h2>
         <div class="divider"></div>
+      </div>
+      <div class="accion-copy">
         <p class="accion-body">
           No solo enviamos jóvenes a Europa: también trabajamos en nuestras comunidades para que
           más personas conozcan y aprovechen las oportunidades que ofrece la Unión Europea.
         </p>
         <p class="accion-body">
-          Desde Córdoba, Canarias y Murcia, nuestras organizaciones miembro desarrollan
+          Desde Córdoba, Canarias, Murcia, Melilla y La Rioja, nuestras organizaciones miembro desarrollan
           actividades de sensibilización, formación y participación que tienen impacto directo
           en el territorio.
         </p>
       </div>
+    </div>
 
-      <div class="accion-cards fade-in fade-in-delay-1">
-        {acciones.map(a => (
-          <div class="accion-card" style={`--ac: ${a.color}`}>
-            <span class="accion-icon" set:html={a.icon} />
-            <div>
-              <h4 class="accion-title">{a.title}</h4>
-              <p class="accion-desc">{a.desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div class="accion-cards">
+      {acciones.map((a, i) => (
+        <div class={`accion-card fade-in fade-in-delay-${i + 1}`} style={`--ac: ${a.color}; --ac-ink: ${a.ink ?? a.color}`}>
+          <span class="accion-icon" set:html={a.icon} />
+          <h3 class="accion-title">{a.title}</h3>
+          <p class="accion-desc">{a.desc}</p>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <style>
 .accion-section { background: var(--parchment); }
-.accion-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 5rem; align-items: center;
+.accion-head {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.5rem clamp(2rem, 5vw, 4.5rem); align-items: end;
+  margin-bottom: var(--space-head);
 }
+.accion-head .divider { margin-bottom: 0; }
 .accion-body {
-  font-size: 1rem; color: var(--ink-soft); line-height: 1.75;
-  margin-bottom: 1.1rem;
+  font-size: 1.0625rem; color: var(--ink-soft); line-height: 1.75;
 }
-.accion-cards { display: flex; flex-direction: column; gap: 1.1rem; }
+.accion-body + .accion-body { margin-top: 1rem; }
+.accion-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
 .accion-card {
-  display: flex; align-items: flex-start; gap: 1rem;
-  padding: 1.25rem 1.4rem;
-  border-radius: var(--radius-md);
+  position: relative;
+  padding: 1.85rem 1.75rem 1.75rem;
+  border-radius: var(--radius-lg);
   background: var(--sand);
-  border-left: 3px solid var(--ac);
-  transition: transform .2s;
+  border: 1px solid var(--sand-dark);
+  overflow: hidden;
 }
-.accion-card:hover { transform: translateX(5px); }
+.accion-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ac);
+}
 .accion-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 11px; display: flex; align-items: center; justify-content: center;
-  background: color-mix(in srgb, var(--ac) 13%, transparent); color: var(--ac);
+  width: 48px; height: 48px; margin-bottom: 1.25rem;
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  background: var(--parchment); color: var(--ac-ink);
+  box-shadow: 0 1px 2px rgba(20,30,50,.06), inset 0 0 0 1px color-mix(in srgb, var(--ac) 25%, transparent);
 }
-.accion-icon svg { width: 21px; height: 21px; }
+.accion-icon :global(svg) { width: 23px; height: 23px; flex-shrink: 0; }
 .accion-title {
-  font-size: .98rem; font-weight: 600; color: var(--ink);
-  margin-bottom: .3rem; font-family: 'DM Sans Variable', 'DM Sans', sans-serif;
+  font-size: 1.0625rem; font-weight: 600; color: var(--ink);
+  margin-bottom: .45rem; font-family: var(--font-sans); letter-spacing: 0;
 }
-.accion-desc { font-size: .87rem; color: var(--ink-soft); line-height: 1.65; }
+.accion-desc { font-size: .92rem; color: var(--ink-soft); line-height: 1.68; }
 
-@media (max-width: 860px) {
-  .accion-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+@media (max-width: 900px) {
+  .accion-head { grid-template-columns: 1fr; align-items: start; }
+  .accion-cards { grid-template-columns: 1fr; gap: 1rem; }
 }
 </style>

@@ -12,7 +12,7 @@ La **Federación Estrellas de Europa** suma una cuarta organización miembro:
 formada íntegramente por voluntariado.
 
 Con su incorporación, la federación pasa a estar presente en cuatro territorios
-—Andalucía, Canarias, Murcia y Melilla— y amplía su alcance a una realidad que
+(Andalucía, Canarias, Murcia y Melilla) y amplía su alcance a una realidad que
 ninguna de las tres organizaciones fundadoras tenía sobre el terreno.
 
 ## Por qué importa Melilla

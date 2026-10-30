@@ -7,8 +7,8 @@ order: -2
 description: "Ocho días en Madrid con 30 jóvenes de seis países para trabajar bienestar, identidad y participación a través de la narración. La federación coordina el proyecto."
 ---
 
-El INJUVE ha concedido a la Federación Estrellas de Europa **Frames of Us —
-Youth Storytelling for Wellbeing & Participation**, un intercambio juvenil
+El INJUVE ha concedido a la Federación Estrellas de Europa **Frames of Us
+(Youth Storytelling for Wellbeing & Participation)**, un intercambio juvenil
 Erasmus+ (KA152-YOU) de la convocatoria 2026. Es el **primer intercambio juvenil**
 de la federación y el tercer proyecto europeo que se le concede como entidad
 solicitante.

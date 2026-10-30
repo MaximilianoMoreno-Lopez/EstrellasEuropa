@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StarPieces from '../components/StarPieces.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -10,7 +11,7 @@ const proyectos = [
     accent: 'var(--c-murcia)',
     title: 'Frames of Us',
     status: 'En preparación',
-    statusColor: 'var(--c-magec)',
+    statusColor: 'var(--c-magec-ink)',
     icon: `<svg ${ICON}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
     lead: 'Intercambio juvenil de ocho días en Madrid coordinado por la federación, con cinco organizaciones de Chequia, Portugal, Chipre, Polonia y Grecia. Treinta jóvenes trabajan bienestar, identidad y participación a través de la narración.',
     points: [
@@ -55,13 +56,15 @@ const proyectos = [
       'Mejora directa de la calidad de los proyectos que después realizamos en España.',
     ],
     tags: ['Movilidad internacional', 'Formación', 'Trabajadores de juventud', 'Educación no formal'],
+    href: `${base}/actualidad/nest-cooperacion-europea/`,
+    hrefLabel: 'Leer en actualidad',
   },
   {
     badge: 'Erasmus+ KA153',
     accent: 'var(--c-blue)',
     title: '2Fast2Innovative',
     status: 'Convocatoria abierta',
-    statusColor: 'var(--c-magec)',
+    statusColor: 'var(--c-magec-ink)',
     icon: `<svg ${ICON}><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V18h8v-3.3A7 7 0 0 0 12 2Z"/></svg>`,
     lead: 'Curso de formación sobre emprendimiento social e innovación rural en Trancoso, en el interior de Portugal, coordinado por Hawk Stars. La federación es la organización socia española y envía al equipo nacional, que viaja del 26 de octubre al 3 de noviembre de 2026.',
     points: [
@@ -87,7 +90,8 @@ const acciones = [
   title="Proyectos"
   description="Proyectos europeos de la Federación Estrellas de Europa: NEST (movilidad Erasmus+ KA153), 2Fast2Innovative (formación en emprendimiento social en Portugal) y Decide con Información, proyecto del Cuerpo Europeo de Solidaridad."
 >
-  <div class="page-hero">
+  <div class="page-hero" style="--ph-c: var(--logo-blue-l)">
+    <StarPieces variant="outline" highlight={['blue']} class="ph-star" />
     <div class="container page-hero-content">
       <span class="badge badge-eu fade-in">Proyectos europeos</span>
       <h1 class="fade-in fade-in-delay-1">Lo que estamos construyendo</h1>
@@ -115,7 +119,7 @@ const acciones = [
             <ul class="proyecto-points">
               {p.points.map((pt) => (
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
                   {pt}
                 </li>
               ))}
@@ -143,7 +147,7 @@ const acciones = [
   <section class="section acciones-section">
     <div class="container">
       <div class="acciones-header fade-in">
-        <span class="section-label">El programa Erasmus+</span>
+        <span class="section-label" style="--label-c: var(--c-blue)">El programa Erasmus+</span>
         <h2 class="section-title">Cómo financia Europa el trabajo juvenil</h2>
         <p class="section-subtitle">
           Nuestros proyectos se enmarcan en las distintas acciones del programa Erasmus+
@@ -162,7 +166,7 @@ const acciones = [
     </div>
   </section>
 
-  <section class="proyectos-cta">
+  <section class="proyectos-cta cta-band">
     <div class="container cta-inner">
       <div class="fade-in">
         <h2>¿Quieres participar en un proyecto?</h2>
@@ -177,48 +181,60 @@ const acciones = [
 </BaseLayout>
 
 <style>
-  .proyectos-list { display: flex; flex-direction: column; gap: 2.5rem; }
+  .proyectos-list { display: flex; flex-direction: column; gap: 2rem; }
   .proyecto {
-    display: grid; grid-template-columns: 240px 1fr;
+    position: relative;
+    display: grid; grid-template-columns: 250px minmax(0, 1fr);
     background: var(--parchment);
     border: 1px solid rgba(20,30,50,.08);
-    border-left: 4px solid var(--ac);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     overflow: hidden;
-    transition: box-shadow .25s;
   }
-  .proyecto:hover { box-shadow: var(--shadow-lg); }
+  .proyecto::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--ac);
+  }
   .proyecto-side {
-    background: color-mix(in srgb, var(--ac) 8%, var(--sand));
+    background: color-mix(in srgb, var(--ac) 7%, var(--parchment));
     border-right: 1px solid rgba(20,30,50,.06);
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.6rem 2rem 1.85rem;
     display: flex; flex-direction: column; gap: .85rem; align-items: flex-start;
   }
-  .proyecto-icon { line-height: 1; color: var(--ac); }
-  .proyecto-icon svg { width: 36px; height: 36px; }
+  .proyecto-icon {
+    width: 60px; height: 60px; border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ac); background: var(--parchment);
+    box-shadow: 0 1px 2px rgba(20,30,50,.08), 0 8px 18px rgba(20,30,50,.07);
+    margin-bottom: .25rem;
+  }
+  .proyecto-icon :global(svg) { width: 28px; height: 28px; flex-shrink: 0; }
   .proyecto-badge {
-    font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
     color: #fff; background: var(--ac); padding: .3rem .8rem; border-radius: var(--radius-full);
+    max-width: 100%; white-space: normal; line-height: 1.35;
   }
-  .proyecto-status { display: flex; align-items: center; gap: .4rem; font-size: .82rem; font-weight: 600; }
-  .status-dot { width: 7px; height: 7px; border-radius: 50%; }
-  .proyecto-main { padding: 2rem 2.25rem; }
-  .proyecto-main h2 { font-size: 1.5rem; color: var(--ink); margin-bottom: .6rem; }
-  .proyecto-lead { color: var(--ink-soft); line-height: 1.7; margin-bottom: 1.25rem; }
-  .proyecto-points { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1.25rem; }
+  .proyecto-status { display: flex; align-items: center; gap: .45rem; font-size: .84rem; font-weight: 600; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .proyecto-main { padding: 2.25rem 2.5rem; }
+  .proyecto-main h2 { font-size: clamp(1.5rem, 2.4vw, 1.875rem); color: var(--ink); margin-bottom: .7rem; }
+  .proyecto-lead { color: var(--ink-soft); line-height: 1.75; margin-bottom: 1.4rem; font-size: 1.02rem; max-width: 70ch; }
+  .proyecto-points { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.4rem; }
   .proyecto-points li {
-    display: flex; align-items: flex-start; gap: .55rem;
-    font-size: .92rem; color: var(--ink-soft); line-height: 1.5;
+    display: flex; align-items: flex-start; gap: .6rem;
+    font-size: .93rem; color: var(--ink-soft); line-height: 1.55;
   }
-  .proyecto-points svg { color: var(--ac); flex-shrink: 0; margin-top: .15rem; }
+  .proyecto-points svg {
+    color: var(--ac); flex-shrink: 0; margin-top: .12rem;
+    width: 18px; height: 18px; padding: 2px; border-radius: 50%;
+    background: color-mix(in srgb, var(--ac) 12%, transparent);
+  }
   .proyecto-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
   .proyecto-link {
-    display: inline-flex; align-items: center; gap: .4rem; margin-top: 1.25rem;
-    font-size: .9rem; font-weight: 600; color: var(--ac); text-decoration: none;
-    transition: gap .2s;
+    display: inline-flex; align-items: center; gap: .45rem; margin-top: 1.5rem;
+    font-size: .92rem; font-weight: 600; color: var(--ac); text-decoration: none;
+    transition: gap .2s var(--ease-out); min-height: 44px;
   }
-  .proyecto-link:hover { gap: .65rem; }
+  .proyecto-link:hover { gap: .7rem; }
   .proyecto-tag {
     font-size: .72rem; font-weight: 500; padding: .25rem .7rem;
     border-radius: var(--radius-full); background: var(--sand);
@@ -226,32 +242,42 @@ const acciones = [
   }
 
   .acciones-section { background: var(--parchment); }
-  .acciones-header { max-width: 600px; margin-bottom: 2.5rem; }
-  .acciones-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .acciones-header { max-width: 640px; margin-bottom: var(--space-head); }
+  .acciones-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
   .accion-card {
+    position: relative; overflow: hidden;
     background: var(--sand); border: 1px solid var(--sand-dark);
-    border-radius: var(--radius-md); padding: 1.75rem;
+    border-radius: var(--radius-lg); padding: 1.85rem 1.75rem;
   }
   .accion-code {
-    display: inline-block; font-family: 'Playfair Display Variable', serif;
-    font-size: 1.5rem; font-weight: 700; color: var(--eu-blue); margin-bottom: .5rem;
+    display: inline-block; font-family: var(--font-serif);
+    font-size: 2.25rem; font-weight: 600; color: var(--eu-blue); margin-bottom: .6rem; line-height: 1;
+    font-variant-numeric: lining-nums;
   }
-  .accion-card h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: .4rem; font-family: 'DM Sans Variable', sans-serif; font-weight: 600; }
-  .accion-card p { font-size: .88rem; color: var(--ink-soft); line-height: 1.6; }
+  .accion-card h3 { font-size: 1.0625rem; color: var(--ink); margin-bottom: .45rem; font-family: var(--font-sans); font-weight: 600; }
+  .accion-card p { font-size: .9rem; color: var(--ink-soft); line-height: 1.65; }
 
-  .proyectos-cta {
-    background: linear-gradient(135deg, #001a6e 0%, var(--eu-blue) 60%, #0a2480 100%);
-    padding: 4rem 0;
+  .proyectos-cta { padding: clamp(3.5rem, 6vw, 4.75rem) 0; }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.75rem 2.5rem; flex-wrap: wrap; }
+  .cta-inner h2 { color: #fff; font-size: clamp(1.6rem, 2.8vw, 2.1rem); margin-bottom: .5rem; }
+  .cta-inner p { color: rgba(255,255,255,.78); max-width: 46ch; }
+  .cta-actions { display: flex; gap: .85rem; flex-wrap: wrap; }
+
+  @media (max-width: 860px) {
+    .acciones-grid { grid-template-columns: 1fr; gap: 1rem; }
   }
-  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 2.5rem; flex-wrap: wrap; }
-  .cta-inner h2 { color: #fff; font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom: .5rem; }
-  .cta-inner p { color: rgba(255,255,255,.72); max-width: 440px; }
-  .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-
   @media (max-width: 760px) {
-    .proyecto { grid-template-columns: 1fr; }
-    .proyecto-side { flex-direction: row; align-items: center; border-right: none; border-bottom: 1px solid rgba(20,30,50,.06); flex-wrap: wrap; }
-    .proyecto-icon svg { width: 30px; height: 30px; }
-    .acciones-grid { grid-template-columns: 1fr; }
+    .proyecto { grid-template-columns: minmax(0, 1fr); }
+    .proyecto-side {
+      flex-direction: row; align-items: center; flex-wrap: wrap; gap: .6rem .75rem;
+      border-right: none; border-bottom: 1px solid rgba(20,30,50,.06);
+      padding: 1.35rem 1.35rem 1.25rem 1.6rem;
+    }
+    .proyecto-icon { width: 48px; height: 48px; border-radius: 12px; margin: 0 .25rem 0 0; }
+    .proyecto-icon :global(svg) { width: 24px; height: 24px; }
+    .proyecto-main { padding: 1.5rem 1.35rem 1.6rem 1.6rem; }
+  }
+  @media (max-width: 560px) {
+    .cta-actions { flex-direction: column; align-items: stretch; width: 100%; }
   }
 </style>

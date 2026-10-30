@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StarPieces from '../components/StarPieces.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -109,6 +110,7 @@ const orgs = [
 >
 
   <div class="page-hero">
+    <StarPieces variant="outline" highlight={['all']} class="ph-star" />
     <div class="container page-hero-content">
       <span class="badge badge-eu fade-in">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
@@ -126,9 +128,9 @@ const orgs = [
     <div class="container">
       <div class="orgs-list">
         {orgs.map((org, i) => (
-          <article class={`org-detail fade-in`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}`}>
+          <article id={org.id} class={`org-detail fade-in ${org.id === 'ema' ? 'org-light' : ''}`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}; --org-text: ${org.id === 'ema' ? 'var(--c-magec-ink)' : org.id === 'eds' ? 'var(--accent-text)' : org.color}`}>
             <div class="org-detail-side">
-              <div class="org-detail-flag" set:html={org.flag} />
+              <div class={`org-detail-flag ${org.id === 'hri' ? 'org-detail-logo' : ''}`} set:html={org.flag} />
               <span class="org-detail-badge">{org.id.toUpperCase()}</span>
               <p class="org-detail-founded">Fundada en {org.founded}</p>
               <p class="org-detail-loc">
@@ -137,12 +139,14 @@ const orgs = [
               </p>
               {org.website && (
                 <a href={org.website} target="_blank" rel="noopener" class="org-detail-link">
-                  Visitar web ↗
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                  Visitar web<span class="sr-only"> (se abre en otra pestaña)</span>
                 </a>
               )}
               {org.email && (
                 <a href={`mailto:${org.email}`} class="org-detail-link">
-                  {org.email}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+                  <span>{org.email.split('@')[0]}<wbr />@{org.email.split('@')[1]}</span>
                 </a>
               )}
             </div>
@@ -155,7 +159,7 @@ const orgs = [
               <ul class="org-detail-activities">
                 {org.activities.map(act => (
                   <li>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
                     {act}
                   </li>
                 ))}
@@ -176,7 +180,7 @@ const orgs = [
           y compartan los valores de movilidad, inclusión y aprendizaje no formal.
         </p>
       </div>
-      <a href={`${base}/unete/`} class="btn btn-eu btn-lg fade-in fade-in-delay-1">
+      <a href={`${base}/unete/`} class="btn btn-primary btn-lg fade-in fade-in-delay-1">
         Quiero ser miembro
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
@@ -186,70 +190,99 @@ const orgs = [
 </BaseLayout>
 
 <style>
-.orgs-list { display: flex; flex-direction: column; gap: 2.5rem; }
+.orgs-list { display: flex; flex-direction: column; gap: 2rem; }
 .org-detail {
-  display: grid; grid-template-columns: 220px 1fr;
+  display: grid; grid-template-columns: 260px minmax(0, 1fr);
   background: var(--parchment);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(20,30,50,.07);
-  border-left: 4px solid var(--org-color);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  transition: box-shadow .25s;
+  scroll-margin-top: 92px;
+  position: relative;
 }
-.org-detail:hover { box-shadow: var(--shadow-lg); }
+.org-detail::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--org-color);
+}
+.org-detail:target { box-shadow: 0 0 0 2px var(--org-color), var(--shadow-lg); }
 .org-detail-side {
-  background: linear-gradient(180deg, rgba(var(--org-rgb),.08) 0%, rgba(var(--org-rgb),.03) 100%);
-  padding: 2rem 1.5rem;
+  background: linear-gradient(180deg, rgba(var(--org-rgb),.09) 0%, rgba(var(--org-rgb),.03) 100%);
+  padding: 2rem 1.6rem 2rem 1.85rem;
   border-right: 1px solid rgba(20,30,50,.06);
-  display: flex; flex-direction: column; gap: .6rem;
+  display: flex; flex-direction: column; gap: .6rem; align-items: flex-start;
 }
-.org-detail-flag { margin-bottom: .5rem; color: var(--org-color); }
-.org-detail-flag svg { width: 40px; height: 40px; }
-.org-detail-flag img { height: 40px; width: auto; }
+.org-detail-flag {
+  display: flex; align-items: center; justify-content: center;
+  width: 64px; height: 64px; border-radius: 16px; margin-bottom: .6rem;
+  background: var(--parchment); color: var(--org-text);
+  box-shadow: 0 1px 2px rgba(20,30,50,.08), 0 8px 18px rgba(20,30,50,.07);
+}
+.org-detail-flag :global(svg) { width: 30px; height: 30px; flex-shrink: 0; }
+.org-detail-logo { width: auto; padding: 0 .75rem; }
+.org-detail-flag :global(img) { height: 38px; width: auto; max-width: 80px; }
 .org-detail-badge {
   display: inline-block; padding: .25rem .8rem;
   border-radius: var(--radius-full);
   background: var(--org-color); color: #fff;
-  font-size: .72rem; font-weight: 700; letter-spacing: .1em;
-  width: fit-content;
+  font-size: .7rem; font-weight: 700; letter-spacing: .12em;
 }
-.org-detail-founded { font-size: .82rem; color: var(--gray-500); }
+.org-light .org-detail-badge { color: var(--ink); }
+.org-detail-founded { font-size: .84rem; color: var(--ink-mute); font-variant-numeric: lining-nums; }
 .org-detail-loc {
-  display: flex; align-items: center; gap: .3rem;
-  font-size: .85rem; color: var(--gray-600);
+  display: flex; align-items: center; gap: .35rem;
+  font-size: .88rem; color: var(--ink-soft); font-weight: 500;
 }
 .org-detail-link {
-  font-size: .85rem; color: var(--org-color);
-  font-weight: 500; text-decoration: none;
+  display: inline-flex; align-items: center; gap: .45rem; max-width: 100%;
+  font-size: .86rem; color: var(--org-text);
+  font-weight: 600; text-decoration: none; padding: .15rem 0;
+  min-width: 0; overflow-wrap: break-word; min-height: 32px;
 }
-.org-detail-link:hover { text-decoration: underline; }
-.org-detail-main { padding: 2rem 2.5rem; }
-.org-detail-name { font-size: 1.5rem; color: var(--navy); margin-bottom: .75rem; }
-.org-detail-desc { color: var(--gray-600); line-height: 1.7; margin-bottom: 1.5rem; }
+.org-detail-link svg { flex-shrink: 0; }
+.org-detail-link:first-of-type { margin-top: .5rem; }
+.org-detail-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.org-detail-main { padding: 2.25rem 2.5rem; }
+.org-detail-name { font-size: clamp(1.5rem, 2.4vw, 1.875rem); color: var(--ink); margin-bottom: .85rem; }
+.org-detail-desc { color: var(--ink-soft); line-height: 1.75; margin-bottom: 1.75rem; font-size: 1.02rem; max-width: 68ch; }
 .org-detail-activities-title {
-  font-family: 'DM Sans Variable', 'DM Sans', sans-serif;
-  font-size: .82rem; font-weight: 600; letter-spacing: .08em;
-  text-transform: uppercase; color: var(--gray-400); margin-bottom: .75rem;
+  font-family: var(--font-sans);
+  font-size: .74rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-mute); margin-bottom: .9rem;
 }
-.org-detail-activities { display: flex; flex-direction: column; gap: .5rem; }
+.org-detail-activities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem 1.5rem; }
 .org-detail-activities li {
-  display: flex; align-items: center; gap: .5rem;
-  font-size: .92rem; color: var(--gray-600);
+  display: flex; align-items: flex-start; gap: .55rem;
+  font-size: .93rem; color: var(--ink-soft); line-height: 1.5;
 }
-.org-detail-activities svg { color: var(--org-color); flex-shrink: 0; }
+.org-detail-activities svg {
+  color: var(--org-text); flex-shrink: 0; margin-top: .1rem;
+  padding: 2px; border-radius: 50%; background: rgba(var(--org-rgb), .12);
+  width: 18px; height: 18px;
+}
 
-.join-section { background: var(--parchment); }
+.join-section { background: var(--parchment); border-top: 1px solid var(--line); }
 .join-inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 2rem; flex-wrap: wrap;
+  gap: 1.5rem 2rem; flex-wrap: wrap;
 }
-.join-text h2 { font-size: 1.6rem; color: var(--navy); margin-bottom: .5rem; }
-.join-text p { color: var(--gray-600); max-width: 500px; }
+.join-text h2 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); color: var(--ink); margin-bottom: .5rem; }
+.join-text p { color: var(--ink-soft); max-width: 52ch; }
 
+@media (max-width: 860px) {
+  .org-detail-activities { grid-template-columns: 1fr; }
+}
 @media (max-width: 720px) {
-  .org-detail { grid-template-columns: 1fr; }
-  .org-detail-side { border-right: none; border-bottom: 1px solid rgba(20,30,50,.06); }
-  .org-detail-main { padding: 1.5rem; }
+  .org-detail { grid-template-columns: minmax(0, 1fr); }
+  .org-detail-side {
+    border-right: none; border-bottom: 1px solid rgba(20,30,50,.06);
+    display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; row-gap: .35rem;
+    padding: 1.5rem 1.35rem 1.35rem 1.6rem;
+  }
+  .org-detail-flag { grid-row: span 3; margin-bottom: 0; width: 56px; height: 56px; }
+  .org-detail-logo { width: auto; }
+  .org-detail-side > * { justify-self: start; }
+  .org-detail-link { grid-column: 1 / -1; }
+  .org-detail-link:first-of-type { margin-top: .4rem; }
+  .org-detail-main { padding: 1.5rem 1.35rem 1.6rem 1.6rem; }
 }
 </style>

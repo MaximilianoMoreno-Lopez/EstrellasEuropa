@@ -9,7 +9,7 @@ const proyectos = [
     title: 'Frames of Us',
     org: 'Intercambio juvenil · Madrid',
     status: 'En preparación',
-    statusColor: '#d9a727',
+    statusColor: '#8a6410',
     description: 'Intercambio juvenil de ocho días en Madrid coordinado por la federación, con cinco organizaciones de Chequia, Portugal, Chipre, Polonia y Grecia. Treinta jóvenes trabajan la relación entre bienestar, identidad y participación a través de la narración, y cierran con un Día Comunitario abierto al barrio de Usera.',
     tags: ['Intercambio juvenil', 'Bienestar', 'Narración', 'Madrid'],
     icon: `<svg ${ICON}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>`,
@@ -44,6 +44,8 @@ const proyectos = [
     tags: ['Movilidad internacional', 'Formación', 'Educación no formal'],
     icon: `<svg ${ICON}><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>`,
     highlight: false,
+    href: `${base}/actualidad/nest-cooperacion-europea/`,
+    hrefLabel: 'Leer en actualidad',
   },
 ];
 ---
@@ -51,10 +53,7 @@ const proyectos = [
 <section class="section proyectos-section" id="proyectos">
   <div class="container">
     <div class="proyectos-header fade-in">
-      <span class="section-label">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        Proyectos activos
-      </span>
+      <span class="section-label" style="--label-c: var(--c-blue)">Proyectos activos</span>
       <h2 class="section-title">Lo que estamos construyendo</h2>
       <p class="section-subtitle">
         Proyectos con impacto real para jóvenes y educadores de toda España.
@@ -63,20 +62,16 @@ const proyectos = [
 
     <div class="proyectos-grid">
       {proyectos.map((p, i) => (
-        <article class={`proyecto-card fade-in fade-in-delay-${i + 1} ${p.highlight ? 'proyecto-highlight' : ''}`}>
+        <article class={`proyecto-card fade-in fade-in-delay-${i + 1}`} style={`--pc:${p.badgeColor}`}>
           <div class="proyecto-top">
-            <div class="proyecto-icon" style={`color:${p.badgeColor}`} set:html={p.icon} />
-            <div class="proyecto-meta">
-              <span class="proyecto-badge" style={`background: ${p.badgeColor}18; color: ${p.badgeColor}; border-color: ${p.badgeColor}30`}>
-                {p.badge}
-              </span>
-              <span class="proyecto-status" style={`color: ${p.statusColor}`}>
-                <span class="status-dot" style={`background: ${p.statusColor}`}></span>
-                {p.status}
-              </span>
-            </div>
+            <span class="proyecto-icon" set:html={p.icon} />
+            <span class="proyecto-status" style={`--sc: ${p.statusColor}`}>
+              <span class="status-dot"></span>
+              {p.status}
+            </span>
           </div>
 
+          <span class="proyecto-badge">{p.badge}</span>
           <h3 class="proyecto-title">{p.title}</h3>
           <p class="proyecto-org">{p.org}</p>
           <p class="proyecto-desc">{p.description}</p>
@@ -86,7 +81,7 @@ const proyectos = [
           </div>
 
           {p.href && (
-            <a href={p.href} class="proyecto-link" style={`color:${p.badgeColor}`}>
+            <a href={p.href} class="proyecto-link">
               {p.hrefLabel ?? 'Ver más'}
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
@@ -94,70 +89,74 @@ const proyectos = [
         </article>
       ))}
     </div>
+
+    <div class="proyectos-more fade-in">
+      <a href={`${base}/proyectos/`} class="link-arrow">
+        Todos los proyectos
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
 <style>
 .proyectos-section { background: var(--sand); }
-.proyectos-header { margin-bottom: 3rem; }
+.proyectos-header { margin-bottom: var(--space-head); }
 .proyectos-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1.75rem;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
 }
 
 .proyecto-card {
+  position: relative;
   background: var(--parchment);
   border-radius: var(--radius-lg);
   border: 1px solid rgba(20,30,50,.07);
   box-shadow: var(--shadow-card);
-  padding: 2rem;
-  display: flex; flex-direction: column; gap: 1rem;
-  transition: transform .25s ease, box-shadow .25s ease;
+  padding: 1.75rem 1.75rem 1.6rem;
+  display: flex; flex-direction: column; gap: .75rem;
+  overflow: hidden;
 }
-.proyecto-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-
-.proyecto-highlight {
-  border-color: rgba(0,51,153,.15);
-  background: linear-gradient(135deg, #fdf9f3 0%, #f0f4ff 100%);
-  box-shadow: var(--shadow-card), 0 0 0 1px rgba(0,51,153,.08);
+.proyecto-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--pc);
 }
 
 .proyecto-top {
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  margin-bottom: .4rem;
 }
-.proyecto-icon { line-height: 1; }
-.proyecto-icon svg { width: 34px; height: 34px; }
-.proyecto-meta { display: flex; flex-direction: column; align-items: flex-end; gap: .4rem; }
+.proyecto-icon {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--pc); background: color-mix(in srgb, var(--pc) 11%, transparent);
+}
+.proyecto-icon :global(svg) { width: 24px; height: 24px; flex-shrink: 0; }
 
 .proyecto-badge {
-  font-size: .72rem; font-weight: 600; letter-spacing: .06em;
-  text-transform: uppercase; padding: .25rem .7rem;
-  border-radius: var(--radius-full); border: 1px solid;
-  white-space: nowrap;
+  align-self: flex-start;
+  font-size: .7rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--pc);
 }
 .proyecto-status {
-  display: flex; align-items: center; gap: .35rem;
-  font-size: .78rem; font-weight: 500;
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .76rem; font-weight: 600; color: var(--sc);
+  padding: .25rem .65rem; border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--sc) 9%, transparent);
 }
-.status-dot {
-  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-}
+.status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--sc); }
 
 .proyecto-title {
-  font-size: 1.25rem; color: var(--ink); line-height: 1.3;
-  font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+  font-size: var(--fs-h3); color: var(--ink); line-height: 1.25;
 }
 .proyecto-org {
-  font-size: .8rem; font-weight: 500; color: var(--ink-mute);
-  text-transform: uppercase; letter-spacing: .06em;
+  font-size: .76rem; font-weight: 600; color: var(--ink-mute);
+  text-transform: uppercase; letter-spacing: .07em; margin-top: -.35rem;
 }
 .proyecto-desc {
-  font-size: .9rem; color: var(--ink-soft); line-height: 1.7;
+  font-size: .9rem; color: var(--ink-soft); line-height: 1.68;
   flex: 1;
 }
-.proyecto-tags {
-  display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .25rem;
-}
+.proyecto-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
 .proyecto-tag {
   font-size: .72rem; font-weight: 500;
   padding: .2rem .65rem; border-radius: var(--radius-full);
@@ -166,11 +165,20 @@ const proyectos = [
 }
 
 .proyecto-link {
-  display: inline-flex; align-items: center; gap: .4rem; margin-top: .25rem;
-  font-size: .88rem; font-weight: 600; text-decoration: none;
-  transition: gap .2s;
+  display: inline-flex; align-items: center; gap: .45rem; margin-top: .5rem;
+  padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: .9rem; font-weight: 600; text-decoration: none; color: var(--pc);
+  transition: gap .2s var(--ease-out); min-height: 44px;
 }
-.proyecto-link:hover { gap: .65rem; }
+.proyecto-link:hover { gap: .7rem; }
+.proyectos-more { margin-top: 2.25rem; text-align: center; }
 
-@media (max-width: 720px) { .proyectos-grid { grid-template-columns: 1fr; } }
+@media (max-width: 1060px) {
+  .proyectos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proyecto-card:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .proyectos-grid { grid-template-columns: 1fr; }
+  .proyecto-card { padding: 1.5rem 1.35rem; }
+}
 </style>

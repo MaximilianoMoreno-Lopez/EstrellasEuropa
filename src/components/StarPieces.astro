@@ -1,0 +1,50 @@
+---
+/**
+ * StarPieces: las cinco piezas de la estrella del logo, trazadas en SVG
+ * (viewBox 0 0 557 510) y asignadas a los colores de cada entidad.
+ * Es una ilustración decorativa: el logo oficial (PNG) no se toca.
+ *
+ * variant:
+ *   color   → colores de entidad (fondo claro)
+ *   light   → tonos derivados claros (fondo oscuro)
+ *   outline → solo contorno blanco; `highlight` rellena piezas concretas
+ *   mono    → todas en currentColor
+ */
+interface Props {
+  variant?: 'color' | 'light' | 'outline' | 'mono';
+  highlight?: string[];
+  class?: string;
+  title?: string;
+}
+import { PIECES } from '../lib/star.js';
+const { variant = 'color', highlight = [], class: cls = '', title } = Astro.props;
+
+
+
+function fill(p: (typeof PIECES)[number]) {
+  if (variant === 'color') return p.c;
+  if (variant === 'light') return p.l;
+  if (variant === 'mono') return 'currentColor';
+  return highlight.includes(p.id) || highlight.includes('all') ? p.l : 'none';
+}
+---
+<svg
+  class={`star-pieces star-${variant} ${cls}`}
+  viewBox="-10 -10 577 530"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden={title ? undefined : 'true'}
+  role={title ? 'img' : undefined}
+  focusable="false"
+>
+  {title && <title>{title}</title>}
+  {PIECES.map((p) => (
+    <polygon
+      class={`sp sp-${p.id}`}
+      points={p.pts}
+      fill={fill(p)}
+      stroke={variant === 'outline' ? 'rgba(255,255,255,.22)' : undefined}
+      stroke-width={variant === 'outline' ? 3 : undefined}
+      stroke-linejoin="round"
+    />
+  ))}
+</svg>

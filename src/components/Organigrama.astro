@@ -1,164 +1,100 @@
 ---
-const members = [
-  { name: 'Maximiliano Moreno López', role: 'Presidencia', org: 'Estrellas del Sur', color: '#c44e2a', initials: 'MM', angle: -90 },
-  { name: 'Pablo Sánchez Ruiz',       role: 'Secretaría',  org: 'Estrella Magec',    color: '#d9a727', initials: 'PS', angle: 30  },
-  { name: 'Nacho Fenollar',           role: 'Vocalía',     org: 'Murcia Debate',     color: '#6b3a8a', initials: 'NF', angle: 150 },
-];
+interface Props {
+  /** Solo las tarjetas, sin sección ni encabezado (para incrustar en otra página) */
+  bare?: boolean;
+}
+const { bare = false } = Astro.props;
+const Tag = bare ? 'div' : 'section';
 
-// SVG radial layout
-const CX = 400; const CY = 340; const R = 210;
-const nodes = members.map(m => {
-  const rad = (m.angle * Math.PI) / 180;
-  return { ...m, x: CX + R * Math.cos(rad), y: CY + R * Math.sin(rad) };
-});
+const members = [
+  { name: 'Maximiliano Moreno López', role: 'Presidencia', org: 'Estrellas del Sur', color: 'var(--c-sur)',    text: 'var(--accent-text)', initials: 'MM' },
+  { name: 'Pablo Sánchez Ruiz',       role: 'Secretaría',  org: 'Estrella Magec',    color: 'var(--c-magec)',  text: 'var(--c-magec-ink)', initials: 'PS', darkText: true },
+  { name: 'Nacho Fenollar',           role: 'Vocalía',     org: 'Murcia Debate',     color: 'var(--c-murcia)', text: 'var(--c-murcia)',    initials: 'NF' },
+];
 ---
 
-<section class="section-sm organigrama-section" id="equipo">
-  <div class="container">
-    <div class="org-header fade-in">
-      <span class="section-label">Junta Directiva</span>
-      <h2 class="section-title">Equipo de la federación</h2>
-      <p class="section-subtitle">
-        Representantes de las organizaciones miembro que gobiernan la federación
-        con una visión plural e integrada.
-      </p>
-    </div>
-
-    <div class="org-chart-wrap fade-in fade-in-delay-1">
-      <svg
-        viewBox="0 40 800 600"
-        xmlns="http://www.w3.org/2000/svg"
-        class="org-svg"
-        aria-label="Organigrama radial de la federación"
-      >
-        <!-- Spokes -->
-        {nodes.map(n => (
-          <line
-            x1={CX} y1={CY}
-            x2={n.x} y2={n.y}
-            stroke={n.color}
-            stroke-width="2.5"
-            stroke-opacity="0.5"
-            stroke-dasharray="6 4"
-          />
-        ))}
-
-        <!-- Outer node circles + labels -->
-        {nodes.map(n => (
-          <g class="org-node" transform={`translate(${n.x},${n.y})`}>
-            <!-- Glow -->
-            <circle r="38" fill={n.color} opacity=".1" />
-            <!-- Ring -->
-            <circle r="30" fill="var(--parchment)" stroke={n.color} stroke-width="2.5" />
-            <!-- Initials -->
-            <text
-              x="0" y="5"
-              text-anchor="middle"
-              font-family="Playfair Display Variable, Playfair Display, Georgia, serif"
-              font-size="13"
-              font-weight="600"
-              fill={n.color}
-            >{n.initials}</text>
-            <!-- Name label -->
-            <text
-              x="0" y={n.y < CY - 20 ? -44 : n.y > CY + 20 ? 52 : 0}
-              text-anchor={n.x < CX - 20 ? 'end' : n.x > CX + 20 ? 'start' : 'middle'}
-              dx={n.x < CX - 40 ? -10 : n.x > CX + 40 ? 10 : 0}
-              dy={n.y < CY - 20 ? 0 : n.y > CY + 20 ? 0 : (n.x < CX ? 5 : 5)}
-              font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
-              font-size="11.5"
-              font-weight="600"
-              fill="var(--ink)"
-            >{n.name}</text>
-            <text
-              x="0" y={n.y < CY - 20 ? -30 : n.y > CY + 20 ? 67 : 18}
-              text-anchor={n.x < CX - 20 ? 'end' : n.x > CX + 20 ? 'start' : 'middle'}
-              dx={n.x < CX - 40 ? -10 : n.x > CX + 40 ? 10 : 0}
-              font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
-              font-size="10"
-              fill="var(--ink-mute)"
-            >{n.role}</text>
-          </g>
-        ))}
-
-        <!-- Central hub -->
-        <circle cx={CX} cy={CY} r="56" fill="var(--sand)" stroke="var(--sand-deeper)" stroke-width="1.5" />
-        <circle cx={CX} cy={CY} r="50" fill="var(--parchment)" stroke="var(--line)" stroke-width="1" />
-        <text
-          x={CX} y={CY - 6}
-          text-anchor="middle"
-          font-family="Playfair Display Variable, Playfair Display, Georgia, serif"
-          font-size="14"
-          font-style="italic"
-          fill="var(--ink)"
-        >Federación</text>
-        <text
-          x={CX} y={CY + 12}
-          text-anchor="middle"
-          font-family="DM Sans Variable, DM Sans, system-ui, sans-serif"
-          font-size="9.5"
-          letter-spacing="1"
-          fill="var(--ink-mute)"
-        >ESTRELLAS DE EUROPA</text>
-      </svg>
-
-      <!-- Cards list (mobile + semantic) -->
-      <div class="org-cards">
-        {members.map(m => (
-          <div class="org-card" style={`--c: ${m.color}`}>
-            <div class="org-avatar">{m.initials}</div>
-            <div class="org-info">
-              <strong>{m.name}</strong>
-              <span>{m.role}</span>
-              <span class="org-org">{m.org}</span>
-            </div>
-          </div>
-        ))}
+<Tag class:list={['organigrama', { 'section-sm organigrama-section': !bare }]} id={bare ? undefined : 'equipo'}>
+  <div class:list={[{ container: !bare }]}>
+    {!bare && (
+      <div class="org-header fade-in">
+        <span class="section-label" style="--label-c: var(--c-rioja)">Junta Directiva</span>
+        <h2 class="section-title">Equipo de la federación</h2>
+        <p class="section-subtitle">
+          Representantes de las organizaciones miembro que gobiernan la federación
+          con una visión plural e integrada.
+        </p>
       </div>
+    )}
+
+    <div class="team fade-in fade-in-delay-1">
+      <div class="team-rail" aria-hidden="true"><span></span></div>
+      <ul class="team-cards">
+        {members.map((m) => (
+          <li class="team-card" style={`--c: ${m.color}; --c-text: ${m.text}`}>
+            <div class={`team-avatar ${m.darkText ? 'team-avatar-dark' : ''}`} aria-hidden="true">
+              {m.initials}
+            </div>
+            <div class="team-info">
+              <span class="team-role">{m.role}</span>
+              <strong class="team-name">{m.name}</strong>
+              <span class="team-org"><span class="team-piece" aria-hidden="true"></span>{m.org}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   </div>
-</section>
+</Tag>
 
 <style>
 .organigrama-section { background: var(--sand); }
-.org-header { max-width: 560px; margin-bottom: 3rem; }
-.org-chart-wrap { display: flex; flex-direction: column; align-items: center; gap: 2rem; }
+.org-header { max-width: 640px; margin-bottom: 2.5rem; }
 
-.org-svg {
-  width: 100%; max-width: 680px;
-  height: auto; display: block;
+.team { position: relative; }
+.team-rail {
+  position: relative; height: 1px; background: var(--sand-deeper);
+  margin: 0 calc((100% - 3rem) / 6); top: 0;
 }
-.org-node { cursor: default; }
-.org-node circle { transition: r .2s; }
-.org-node:hover circle:nth-child(2) { r: 34; }
-
-.org-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1rem; width: 100%;
+.team-rail span {
+  position: absolute; left: 50%; top: 50%; width: 48px; height: 4px; border-radius: 2px;
+  transform: translate(-50%, -50%); background: var(--fed-band);
 }
-.org-card {
-  display: flex; align-items: center; gap: .85rem;
+.team-cards {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem; padding-top: 1.75rem; position: relative;
+}
+.team-card {
+  position: relative;
+  display: flex; align-items: center; gap: 1rem;
   background: var(--parchment);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(20,30,50,.08);
-  border-left: 3px solid var(--c);
-  padding: .9rem 1.1rem;
+  padding: 1.25rem 1.4rem;
   box-shadow: var(--shadow-card);
 }
-.org-avatar {
-  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+.team-card::before {
+  content: ''; position: absolute; left: 50%; top: calc(-1.75rem - 1px); width: 1px; height: 1.75rem;
+  background: var(--sand-deeper);
+}
+.team-avatar {
+  position: relative;
+  width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
   background: var(--c); color: #fff;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .88rem;
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.05rem; letter-spacing: .02em;
 }
-.org-info { display: flex; flex-direction: column; gap: .1rem; }
-.org-info strong { font-size: .9rem; color: var(--ink); line-height: 1.2; }
-.org-info span   { font-size: .78rem; color: var(--ink-soft); }
-.org-org { color: var(--c) !important; font-weight: 500; }
+.team-avatar-dark { color: var(--ink); }
+.team-piece { width: 10px; height: 10px; flex-shrink: 0; background: var(--c); clip-path: polygon(0 100%, 100% 0, 62% 100%); }
+.team-info { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.team-role {
+  font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.team-name { font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.team-org { display: inline-flex; align-items: center; gap: .4rem; font-size: .84rem; font-weight: 500; color: var(--c-text); }
 
-@media (max-width: 860px) { .org-cards { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 560px) {
-  .org-cards { grid-template-columns: 1fr; }
-  .org-svg { display: none; }
+@media (max-width: 860px) {
+  .team-rail, .team-card::before { display: none; }
+  .team-cards { grid-template-columns: 1fr; gap: 1rem; padding-top: 0; max-width: 520px; }
 }
 </style>

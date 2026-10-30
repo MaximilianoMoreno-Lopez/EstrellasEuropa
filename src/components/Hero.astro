@@ -1,35 +1,71 @@
 ---
+import { PIECES, STAR_CENTER } from '../lib/star.js';
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Caja de la ilustración (unidades del viewBox de la estrella, 557 x 510)
+const VB = { x: -125, y: -72, w: 850, h: 640 };
+
+// Las cinco entidades orbitan alrededor de la estrella. Las piezas mantienen los
+// colores originales del logo y no se asignan a ninguna entidad: el color de cada
+// organización aparece solo en su marcador y su etiqueta.
+// Datos (nombre y lugar) de organizaciones.astro.
+const ORBIT = { cx: 285, cy: 258, r: 318 };
+const members = [
+  { id: 'eds', name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)',    deg: -97,  side: 'l' },
+  { id: 'ema', name: 'Estrella Magec',    place: 'Canarias', c: 'var(--c-magec)',  deg: -46,  side: 'r' },
+  { id: 'mur', name: 'Murcia Debate',     place: 'Murcia',   c: 'var(--c-murcia)', deg: 47,   side: 'r' },
+  { id: 'hri', name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)',  deg: 129,  side: 'l' },
+  { id: 'edr', name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-blue)',   deg: -134, side: 'l' },
+].map((m, i) => {
+  const rad = (m.deg * Math.PI) / 180;
+  return { ...m, i, x: +(ORBIT.cx + ORBIT.r * Math.cos(rad)).toFixed(1), y: +(ORBIT.cy + ORBIT.r * Math.sin(rad)).toFixed(1) };
+});
+
+const pieces = PIECES.map((p, i) => {
+  const vx = p.cx - STAR_CENTER.x;
+  const vy = p.cy - STAR_CENTER.y;
+  const len = Math.hypot(vx, vy) || 1;
+  const ux = vx / len, uy = vy / len;
+  return {
+    ...p,
+    i,
+    // Desplazamiento de entrada
+    dx: (ux * 70).toFixed(1), dy: (uy * 70).toFixed(1),
+    rot: (i % 2 ? 9 : -9),
+  };
+});
+
+const pct = (x: number, y: number) =>
+  `left:${(((x - VB.x) / VB.w) * 100).toFixed(2)}%;top:${(((y - VB.y) / VB.h) * 100).toFixed(2)}%`;
+
+const pills = [
+  { name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)' },
+  { name: 'Estrella Magec',    place: 'Canarias', c: 'var(--c-magec)' },
+  { name: 'Murcia Debate',     place: 'Murcia',   c: 'var(--c-murcia)' },
+  { name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-blue)' },
+  { name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)' },
+];
 ---
 
 <section class="hero">
-  <!-- Mapa de Europa decorativo -->
-  <div class="hero-bg-pattern" aria-hidden="true"></div>
-
-  <!-- Logo grande en el fondo -->
-  <div class="hero-logo-bg" aria-hidden="true">
-    <img src={`${base}/logo-star.png`} alt="" />
-  </div>
+  <div class="hero-bg" aria-hidden="true"></div>
 
   <div class="container hero-inner">
-    <div class="hero-text fade-in">
+    <div class="hero-text">
       <a href={`${base}/actualidad/subvencion-ka153-concedida/`} class="hero-announcement">
-        <span class="announcement-pulse"></span>
+        <span class="announcement-tag">Novedad</span>
         Subvención Erasmus+ KA153 concedida
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
 
       <div class="hero-kicker">
-        <span class="kicker-dot" style="background:var(--c-sur)"></span>
-        <span class="kicker-dot" style="background:var(--c-magec)"></span>
-        <span class="kicker-dot" style="background:var(--c-green)"></span>
-        <span class="kicker-dot" style="background:var(--c-murcia)"></span>
-        <span class="kicker-dot" style="background:var(--c-blue)"></span>
+        <span class="kicker-band" aria-hidden="true"></span>
         <span class="kicker-label">Federación · Erasmus+ · España</span>
       </div>
 
       <h1>
-        Juntos llegamos<br />
+        Juntos llegamos
         <em>más lejos</em>
       </h1>
 
@@ -39,153 +75,235 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </p>
 
       <div class="hero-actions">
-        <a href={`${base}/organizaciones/`} class="btn btn-amber btn-lg">
+        <a href={`${base}/organizaciones/`} class="btn btn-primary btn-lg">
           Nuestras organizaciones
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a href={`${base}/sobre-nosotros/`} class="btn btn-outline-white btn-lg">
+        <a href={`${base}/sobre-nosotros/`} class="btn btn-outline-ink btn-lg">
           Conocer la federación
         </a>
       </div>
 
       <div class="hero-orgs">
         <span class="hero-orgs-label">Organizaciones miembro</span>
-        <div class="hero-org-pills">
-          <span class="org-pill" style="--c: var(--c-sur)">Estrellas del Sur · Córdoba</span>
-          <span class="org-pill" style="--c: var(--c-magec)">Estrella Magec · Canarias</span>
-          <span class="org-pill" style="--c: var(--c-murcia)">Murcia Debate · Murcia</span>
-        </div>
+        <ul class="hero-org-pills">
+          {pills.map((o) => (
+            <li class="org-pill" style={`--c:${o.c}`}>
+              <span class="org-pill-dot" aria-hidden="true"></span>
+              {o.name}<span class="org-pill-place"> · {o.place}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
-  </div>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <div class="scroll-line"></div>
+    <div class="hero-visual" style={`--vb-ratio:${VB.w} / ${VB.h}`}>
+      <svg class="hv-svg" viewBox={`${VB.x} ${VB.y} ${VB.w} ${VB.h}`} aria-hidden="true" focusable="false">
+        <!-- Órbitas -->
+        <circle class="hv-orbit" cx="285" cy="258" r="318" />
+        <circle class="hv-orbit hv-orbit-2" cx="285" cy="258" r="236" />
+        <!-- Destellos -->
+        <g class="hv-sparks">
+          <path d="M-60 120 l4 -12 4 12 12 4 -12 4 -4 12 -4 -12 -12 -4z" />
+          <path d="M640 330 l3 -9 3 9 9 3 -9 3 -3 9 -3 -9 -9 -3z" />
+          <path d="M120 520 l3 -9 3 9 9 3 -9 3 -3 9 -3 -9 -9 -3z" />
+          <circle cx="560" cy="-30" r="4" />
+          <circle cx="-20" cy="420" r="3" />
+          <circle cx="660" cy="520" r="3.5" />
+          <circle cx="40" cy="-50" r="2.5" />
+        </g>
+        <!-- Las cinco piezas, con los colores del logo -->
+        {pieces.map((p) => (
+          <polygon
+            class={`hv-piece sp-${p.id}`}
+            points={p.pts}
+            fill={p.c}
+            style={`--i:${p.i};--dx:${p.dx}px;--dy:${p.dy}px;--rot:${p.rot}deg`}
+          />
+        ))}
+        <!-- Una entidad en cada punto de la órbita -->
+        {members.map((m) => (
+          <g class={`hv-member hm-${m.id}`} style={`--c:${m.c};--i:${m.i}`}>
+            <circle class="hv-halo" cx={m.x} cy={m.y} r="17" />
+            <circle class="hv-dot" cx={m.x} cy={m.y} r="8.5" />
+          </g>
+        ))}
+      </svg>
+
+      {members.map((m) => (
+        <a
+          href={`${base}/organizaciones/#${m.id}`}
+          class={`hv-label hv-label-${m.side} hl-${m.id}`}
+          style={`${pct(m.x, m.y)};--c:${m.c};--i:${m.i}`}
+        >
+          <strong>{m.name}</strong>
+          <span>{m.place}</span>
+        </a>
+      ))}
+    </div>
   </div>
 </section>
 
 <style>
 .hero {
-  position: relative; min-height: 100vh;
-  background: linear-gradient(155deg, #141b28 0%, #1c2739 55%, #11161f 100%);
+  position: relative; overflow: hidden; isolation: isolate;
+  min-height: min(100vh, 920px);
   display: flex; align-items: center;
-  overflow: hidden; padding: 6rem 0 5rem;
+  padding: calc(var(--nav-offset) + 3.25rem) 0 4.5rem;
+  background: var(--parchment);
 }
-
-/* Grain texture overlay */
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: .04; pointer-events: none; z-index: 0;
-}
-
-.hero-bg-pattern {
-  position: absolute; inset: 0; pointer-events: none;
+.hero-bg {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(ellipse 80% 60% at 72% 45%, rgba(196,78,42,.15) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 92% 18%, rgba(217,167,39,.06) 0%, transparent 50%),
-    radial-gradient(ellipse 34% 50% at 8% 82%, rgba(107,58,138,.10) 0%, transparent 55%);
-  z-index: 0;
+    radial-gradient(circle at 73% 46%, rgba(217,167,39,.14) 0, rgba(217,167,39,.05) 22%, transparent 42%),
+    linear-gradient(180deg, #fff 0%, #fff 55%, var(--sand) 100%);
+}
+.hero-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(20,28,46,.09) 1px, transparent 1.3px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 70% 45%, #000 0%, transparent 75%);
+          mask-image: radial-gradient(ellipse 70% 80% at 70% 45%, #000 0%, transparent 75%);
 }
 
-.hero-logo-bg {
-  position: absolute; right: -4%; top: 50%;
-  transform: translateY(-50%) rotate(-8deg);
-  width: clamp(300px, 42vw, 540px);
-  opacity: .16; pointer-events: none; z-index: 0;
+.hero-inner {
+  width: 100%;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 4rem); align-items: center;
 }
-.hero-logo-bg img {
-  width: 100%; height: auto;
-  filter: drop-shadow(0 0 40px rgba(0,0,0,.25));
-}
-
-.hero-inner { position: relative; z-index: 2; }
-.hero-text { max-width: 640px; }
+.hero-text { max-width: 620px; }
 
 .hero-announcement {
-  display: inline-flex; align-items: center; gap: .5rem;
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18);
+  display: inline-flex; align-items: center; gap: .6rem;
+  background: var(--parchment); border: 1px solid var(--line);
   border-radius: var(--radius-full);
-  padding: .35rem 1rem .35rem .6rem;
-  font-size: .82rem; font-weight: 500; color: rgba(255,255,255,.85);
-  text-decoration: none; margin-bottom: 1.5rem;
-  transition: background .2s, border-color .2s;
-  backdrop-filter: blur(8px);
+  padding: .3rem .95rem .3rem .3rem;
+  font-size: .84rem; font-weight: 500; color: var(--ink-soft);
+  text-decoration: none; margin-bottom: 1.75rem;
+  box-shadow: 0 1px 2px rgba(20,30,50,.05);
+  transition: border-color .2s, box-shadow .2s, color .2s;
 }
-.hero-announcement:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.3); }
-.announcement-pulse {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--c-magec); flex-shrink: 0;
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .6; transform: scale(1.3); }
+.hero-announcement:hover { border-color: var(--sand-deeper); color: var(--ink); box-shadow: var(--shadow-card); }
+.hero-announcement svg { transition: transform .25s var(--ease-out); }
+.hero-announcement:hover svg { transform: translateX(3px); }
+.announcement-tag {
+  font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--ink); color: #fff;
+  padding: .22rem .6rem; border-radius: var(--radius-full);
 }
 
-.hero-kicker {
-  display: flex; align-items: center; gap: .5rem;
-  margin-bottom: 1.75rem;
-}
-.kicker-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-}
+.hero-kicker { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
+.kicker-band { width: 44px; height: 4px; border-radius: 2px; background: var(--fed-band); }
 .kicker-label {
-  font-size: .78rem; font-weight: 600; letter-spacing: .14em;
-  text-transform: uppercase; color: rgba(255,255,255,.45);
-  margin-left: .25rem;
+  font-size: .76rem; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-mute);
 }
 
 .hero-text h1 {
-  font-size: clamp(2.8rem, 5.5vw, 4.2rem);
-  color: #fff; margin-bottom: 1.25rem; line-height: 1.08;
+  font-size: var(--fs-display);
+  color: var(--ink); margin-bottom: 1.4rem; line-height: 1.04;
+  letter-spacing: -.025em;
 }
 .hero-text h1 em {
-  color: var(--c-magec); font-style: italic;
-  display: block;
+  display: block; font-style: italic; font-weight: 500;
+  color: var(--accent);
 }
 
 .hero-lead {
-  font-size: clamp(1rem, 1.8vw, 1.12rem);
-  color: rgba(255,255,255,.68); line-height: 1.75;
-  margin-bottom: 2.5rem; max-width: 520px;
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  color: var(--ink-soft); line-height: 1.7;
+  margin-bottom: 2.25rem; max-width: 34em;
 }
 
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+.hero-actions { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-actions .btn-lg { padding-inline: 1.6rem; }
 
-.hero-orgs { border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.75rem; }
+.hero-orgs { border-top: 1px solid var(--line); padding-top: 1.5rem; }
 .hero-orgs-label {
-  font-size: .72rem; font-weight: 600; letter-spacing: .1em;
-  text-transform: uppercase; color: rgba(255,255,255,.35);
-  display: block; margin-bottom: .75rem;
+  font-size: .72rem; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-mute);
+  display: block; margin-bottom: .85rem;
 }
-.hero-org-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+.hero-org-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
 .org-pill {
-  font-size: .8rem; padding: .3rem .9rem;
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .8rem; font-weight: 600; color: var(--ink);
+  padding: .32rem .8rem .32rem .65rem;
   border-radius: var(--radius-full);
-  background: rgba(255,255,255,.07);
-  border: 1px solid var(--c);
-  color: rgba(255,255,255,.7);
+  background: var(--parchment);
+  border: 1px solid var(--line);
+}
+.org-pill-dot {
+  width: 9px; height: 9px; flex-shrink: 0; background: var(--c);
+  clip-path: polygon(0 100%, 100% 0, 62% 100%);
+}
+.org-pill-place { font-weight: 400; color: var(--ink-mute); }
+
+/* ── Constelación ─────────────────────────────────── */
+.hero-visual {
+  position: relative; width: 100%; max-width: 620px; justify-self: end;
+  aspect-ratio: var(--vb-ratio);
+}
+.hv-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hv-orbit { fill: none; stroke: rgba(20,28,46,.12); stroke-width: 1.5; stroke-dasharray: 2 9; stroke-linecap: round; }
+.hv-orbit-2 { stroke: rgba(20,28,46,.07); stroke-dasharray: none; }
+.hv-sparks { fill: var(--c-magec); opacity: .75; }
+.hv-sparks circle { fill: var(--ink); opacity: .25; }
+
+.hv-piece {
+  transform-box: fill-box; transform-origin: center;
+  animation: piece-in 1.3s var(--ease-out) backwards;
+  animation-delay: calc(var(--i) * 110ms + 150ms);
+  filter: drop-shadow(0 10px 18px rgba(20,28,46,.12));
+}
+@keyframes piece-in {
+  from { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(.9); }
 }
 
-.hero-scroll {
-  position: absolute; bottom: 2.5rem; left: 50%;
-  transform: translateX(-50%);
+.hv-member { animation: label-in .6s var(--ease-out) backwards; animation-delay: calc(var(--i) * 90ms + 1s); }
+.hv-halo { fill: var(--c); opacity: .14; transform-box: fill-box; transform-origin: center; transition: transform .3s var(--ease-out), opacity .3s; }
+.hv-dot { fill: var(--c); stroke: var(--parchment); stroke-width: 3.5; }
+
+.hv-label {
+  position: absolute; display: flex; flex-direction: column; line-height: 1.25;
+  text-decoration: none; white-space: nowrap;
+  padding: .3rem .55rem; border-radius: 8px;
+  transition: background-color .2s, box-shadow .2s;
+  animation: label-in .6s var(--ease-out) backwards;
+  animation-delay: calc(var(--i) * 90ms + 1.2s);
 }
-.scroll-line {
-  width: 1px; height: 48px;
-  background: linear-gradient(to bottom, rgba(255,255,255,.0), rgba(255,255,255,.4));
-  animation: scroll-grow 2s ease-in-out infinite;
-  margin: auto;
-}
-@keyframes scroll-grow {
-  0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
-  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
-  100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+.hv-label-r { transform: translate(10px, -50%); }
+.hv-label-l { transform: translate(calc(-100% - 10px), -50%); text-align: right; }
+.hv-label strong { font-size: .86rem; font-weight: 700; color: var(--ink); }
+.hv-label span { font-size: .76rem; color: var(--ink-mute); }
+.hv-label:hover, .hv-label:focus-visible { background: var(--parchment); box-shadow: var(--shadow-card); }
+.hv-label:hover strong { color: var(--c); }
+@keyframes label-in { from { opacity: 0; } }
+
+/* Realce del marcador al señalar su entidad */
+.hero-visual:has(.hl-eds:hover, .hl-eds:focus-visible) .hm-eds .hv-halo,
+.hero-visual:has(.hl-ema:hover, .hl-ema:focus-visible) .hm-ema .hv-halo,
+.hero-visual:has(.hl-mur:hover, .hl-mur:focus-visible) .hm-mur .hv-halo,
+.hero-visual:has(.hl-hri:hover, .hl-hri:focus-visible) .hm-hri .hv-halo,
+.hero-visual:has(.hl-edr:hover, .hl-edr:focus-visible) .hm-edr .hv-halo {
+  transform: scale(1.6); opacity: .22;
 }
 
-@media (max-width: 768px) {
-  .hero { min-height: auto; padding: 8rem 0 5rem; }
-  .hero-logo-bg { opacity: .1; right: -14%; }
+@media (max-width: 1024px) {
+  .hero { min-height: auto; padding: calc(var(--nav-offset) + 2.75rem) 0 3.5rem; }
+  .hero-inner { grid-template-columns: 1fr; gap: 1rem; }
+  .hero-text { max-width: 680px; }
+  .hero-visual { justify-self: center; max-width: 560px; margin-right: 0; }
+}
+@media (max-width: 640px) {
+  .hero { padding: calc(var(--nav-offset) + 2rem) 0 2.5rem; }
+  .hero-text h1 { letter-spacing: -.02em; }
+  .hero-actions { flex-direction: column; align-items: stretch; margin-bottom: 2.25rem; }
+  .hero-actions .btn { width: 100%; }
+  .hero-visual { max-width: 300px; margin-top: .25rem; }
+  .hero-announcement { font-size: .8rem; }
+  .hero-org-pills { gap: .4rem; }
+  .hv-label { display: none; }
+  .hv-orbit { stroke-width: 2.5; }
 }
 </style>

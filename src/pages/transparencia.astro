@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Organigrama from '../components/Organigrama.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -113,12 +114,6 @@ const imageForms = [
   },
 ];
 
-const junta = [
-  { role: 'Presidencia', name: 'Maximiliano Moreno López', org: 'Estrellas del Sur' },
-  { role: 'Secretaría', name: 'Pablo Sánchez Ruiz', org: 'Estrella Magec' },
-  { role: 'Vocalía', name: 'Nacho Fenollar', org: 'Murcia Debate' },
-];
-
 const ident = [
   ['Denominación', 'Federación Estrellas de Europa'],
   ['NIF', 'G75822320'],
@@ -166,9 +161,9 @@ const ident = [
   <section class="section docs-section">
     <div class="container">
       <div class="center-head fade-in">
-        <span class="section-label" style="justify-content:center">Documentación pública</span>
+        <span class="section-label" style="--label-c: var(--c-sur)">Documentación pública</span>
         <h2 class="section-title">Qué encontrarás en este portal</h2>
-        <div class="divider" style="margin-inline:auto"></div>
+        <div class="divider"></div>
       </div>
       <ul class="docs-list fade-in">
         {docs.map((d) => (
@@ -201,9 +196,9 @@ const ident = [
   <section class="section forms-section">
     <div class="container">
       <div class="center-head fade-in">
-        <span class="section-label" style="justify-content:center">Autorizaciones de imagen</span>
+        <span class="section-label" style="--label-c: var(--c-magec)">Autorizaciones de imagen</span>
         <h2 class="section-title">Formularios de consentimiento</h2>
-        <div class="divider" style="margin-inline:auto"></div>
+        <div class="divider"></div>
       </div>
       <p class="gobierno-intro fade-in">
         Formularios para autorizar el uso de imagen y voz en nuestras actividades, conforme al RGPD y a la
@@ -234,37 +229,29 @@ const ident = [
   <section class="section gobierno-section">
     <div class="container">
       <div class="center-head fade-in">
-        <span class="section-label" style="justify-content:center">Órganos de gobierno</span>
+        <span class="section-label" style="--label-c: var(--c-murcia)">Órganos de gobierno</span>
         <h2 class="section-title">Junta Directiva</h2>
-        <div class="divider" style="margin-inline:auto"></div>
+        <div class="divider"></div>
       </div>
       <p class="gobierno-intro fade-in">
         La federación se rige por una <strong>Asamblea General</strong>, integrada por sus organizaciones
         miembro, y por una <strong>Junta Directiva</strong> responsable de la gestión y la representación.
       </p>
-      <ul class="junta-grid fade-in">
-        {junta.map((m) => (
-          <li class="junta-card">
-            <span class="junta-role">{m.role}</span>
-            <span class="junta-name">{m.name}</span>
-            <span class="junta-org">{m.org}</span>
-          </li>
-        ))}
-      </ul>
+      <Organigrama bare />
     </div>
   </section>
 
   <section class="section ident-section">
     <div class="container">
       <div class="ident-card fade-in">
-        <span class="section-label">Datos identificativos</span>
+        <span class="section-label" style="--label-c: var(--c-magec-light)">Datos identificativos</span>
         <h2 class="section-title">Federación Estrellas de Europa</h2>
         <div class="divider"></div>
         <dl class="ident-grid">
           {ident.map(([k, v]) => (
             <div><dt>{k}</dt><dd>{v}</dd></div>
           ))}
-          <div><dt>Correo institucional</dt><dd><a href="mailto:admin@estrellaseuropa.eu">admin@estrellaseuropa.eu</a></dd></div>
+          <div><dt>Correo institucional</dt><dd><a href="mailto:admin@estrellaseuropa.eu">admin<wbr />@estrellaseuropa.eu</a></dd></div>
         </dl>
       </div>
     </div>
@@ -282,7 +269,7 @@ const ident = [
 </BaseLayout>
 
 <style>
-  .center-head { text-align: center; margin-bottom: 2.5rem; }
+  .center-head { max-width: 680px; margin-bottom: 2.5rem; }
   .notice-section { padding-bottom: 0; }
   .notice-card {
     display: flex; gap: 1.25rem; align-items: flex-start;
@@ -304,10 +291,10 @@ const ident = [
     transition: background .15s;
   }
   .doc-item:last-child { border-bottom: none; }
-  .doc-item:hover { background: rgba(196,78,42,.03); }
+  .doc-item:hover { background: var(--sand); }
   .doc-icon {
     width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
-    background: rgba(196,78,42,.1); color: var(--accent);
+    background: rgba(0,51,153,.07); color: var(--eu-blue);
     display: flex; align-items: center; justify-content: center;
   }
   .doc-content { flex-grow: 1; min-width: 0; }
@@ -330,29 +317,17 @@ const ident = [
   .doc-status.soon { color: var(--ink-mute); background: var(--sand); }
 
   .gobierno-section { background: var(--parchment); }
-  .gobierno-intro { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; color: var(--ink-soft); line-height: 1.7; }
+  .gobierno-intro { max-width: 680px; margin: -1rem 0 2.5rem; color: var(--ink-soft); line-height: 1.7; }
   .gobierno-intro strong { color: var(--ink); }
-  .junta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
-  .junta-card {
-    background: var(--parchment); border: 1px solid var(--line);
-    border-top: 3px solid var(--accent);
-    border-radius: var(--radius-md); padding: 1.5rem 1.25rem;
-    text-align: center; display: flex; flex-direction: column; gap: .35rem;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .junta-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
-  .junta-role { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); }
-  .junta-name { font-size: 1.05rem; font-weight: 600; color: var(--ink); font-family: 'DM Sans Variable', sans-serif; }
-  .junta-org { font-size: .8rem; color: var(--ink-mute); }
 
-  .ident-card { background: var(--ink); color: #fff; border-radius: var(--radius-lg); padding: 3rem; }
-  .ident-card .section-label { color: var(--c-magec); }
+  .ident-card { background: var(--night-grad); color: #fff; border-radius: var(--radius-lg); padding: 3rem; --focus: var(--eu-gold); }
+  .ident-card .section-label { color: rgba(255,255,255,.82); }
   .ident-card .section-title { color: #fff; }
-  .ident-card .divider { background: rgba(255,255,255,.25); }
+
   .ident-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem 2.5rem; }
-  .ident-grid dt { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.6); margin-bottom: .3rem; font-weight: 600; }
+  .ident-grid dt { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.72); margin-bottom: .3rem; font-weight: 600; }
   .ident-grid dd { font-size: 1rem; color: #fff; line-height: 1.5; }
-  .ident-grid a { color: var(--c-magec); text-decoration: none; }
+  .ident-grid a { color: var(--c-magec-light); text-decoration: none; }
   .ident-grid a:hover { text-decoration: underline; }
 
   .cta-section { padding-bottom: 5rem; }

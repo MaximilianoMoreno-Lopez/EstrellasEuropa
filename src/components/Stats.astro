@@ -1,58 +1,61 @@
 ---
 const stats = [
-  { n: '4',    label: 'Organizaciones miembro' },
-  { n: '4',    label: 'Comunidades y ciudades autónomas' },
-  { n: '3',    label: 'Proyectos europeos concedidos' },
-  { n: '2024',  label: 'Año de fundación' },
+  { n: '5',    label: 'Organizaciones miembro',            c: 'var(--c-sur)' },
+  { n: '5',    label: 'Comunidades y ciudades autónomas',  c: 'var(--c-magec)' },
+  { n: '3',    label: 'Proyectos europeos concedidos',     c: 'var(--c-murcia)' },
+  { n: '2024', label: 'Año de fundación',                  c: 'var(--c-blue)' },
 ];
 ---
 
 <div class="stats-bar">
-  <div class="container stats-inner">
-    {stats.map((s, i) => (
-      <>
-        <div class="stat-item fade-in" style={`transition-delay:${i * 0.08}s`}>
-          <span class="stat-n">{s.n}</span>
-          <span class="stat-l">{s.label}</span>
+  <div class="container">
+    <dl class="stats-inner">
+      {stats.map((s, i) => (
+        <div class={`stat-item fade-in fade-in-delay-${i + 1}`} style={`--c:${s.c}`}>
+          <dt class="stat-l">{s.label}</dt>
+          <dd class="stat-n">{s.n}</dd>
         </div>
-        {i < stats.length - 1 && <div class="stat-sep" aria-hidden="true"></div>}
-      </>
-    ))}
+      ))}
+    </dl>
   </div>
 </div>
 
 <style>
 .stats-bar {
   background: var(--parchment);
-  border-bottom: 1px solid var(--sand-dark);
-  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2.5rem 0;
 }
 .stats-inner {
-  display: flex; align-items: center; justify-content: center;
-  gap: 0; flex-wrap: wrap;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .stat-item {
-  display: flex; flex-direction: column; align-items: center;
-  gap: .2rem; padding: .75rem 2.5rem; text-align: center;
+  display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: .5rem;
+  padding: .35rem 1.75rem;
+  border-left: 1px solid var(--line);
 }
+.stat-item:first-child { border-left: 0; padding-left: 0; }
 .stat-n {
-  font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
-  font-size: 1.8rem; font-weight: 700; color: var(--accent);
-  line-height: 1;
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: clamp(2.25rem, 4vw, 3rem); font-weight: 600; color: var(--ink);
+  line-height: 1; letter-spacing: -.02em;
+  font-variant-numeric: lining-nums tabular-nums;
+  padding-top: .9rem;
+}
+.stat-n::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 24px; height: 3px; border-radius: 2px; background: var(--c);
 }
 .stat-l {
-  font-size: .78rem; font-weight: 500; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--ink-mute);
+  font-size: .86rem; font-weight: 500; color: var(--ink-soft); line-height: 1.4;
+  max-width: 18ch;
 }
-.stat-sep {
-  width: 1px; height: 2.5rem;
-  background: var(--sand-dark);
-  flex-shrink: 0;
-}
-@media (max-width: 640px) {
-  .stats-inner { gap: 0; }
-  .stat-item { padding: .6rem 1.25rem; }
-  .stat-sep { display: none; }
-  .stat-n { font-size: 1.5rem; }
+@media (max-width: 760px) {
+  .stats-bar { padding: 1.75rem 0; }
+  .stats-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.75rem; }
+  .stat-item { padding: .25rem 1.25rem; }
+  .stat-item:nth-child(odd) { border-left: 0; padding-left: 0; }
 }
 </style>

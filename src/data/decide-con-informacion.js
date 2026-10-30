@@ -14,7 +14,7 @@ export const proyecto = {
   programa: 'Cuerpo Europeo de Solidaridad',
   accion: 'Proyectos de Solidaridad (ESC30-SOL)',
   convocatoria: 'Convocatoria 2026 · Ronda 1',
-  agencia: 'INJUVE — Agencia Nacional Española de la Juventud (ES02)',
+  agencia: 'INJUVE, Agencia Nacional Española de la Juventud (ES02)',
   entidad: 'Federación Estrellas de Europa (OID E10387903)',
   inicio: '2026-08-01',
   fin: '2027-01-31',
@@ -50,9 +50,9 @@ export const proyecto = {
   ],
 
   destinatarios: [
-    { grupo: '3.º y 4.º de ESO', edad: '14–16 años', nota: 'Durante el periodo de elección de Bachillerato' },
-    { grupo: '1.º de Bachillerato', edad: '16–17 años', nota: 'Cuando empieza a plantearse el futuro universitario' },
-    { grupo: '2.º de Bachillerato', edad: '17–18 años', nota: 'Para informar sobre vías todavía accesibles' },
+    { grupo: '3.º y 4.º de ESO', edad: '14 a 16 años', nota: 'Durante el periodo de elección de Bachillerato' },
+    { grupo: '1.º de Bachillerato', edad: '16 a 17 años', nota: 'Cuando empieza a plantearse el futuro universitario' },
+    { grupo: '2.º de Bachillerato', edad: '17 a 18 años', nota: 'Para informar sobre vías todavía accesibles' },
     { grupo: 'Familias y profesorado', edad: 'Comunidad educativa', nota: 'Para que la información permanezca en el centro' },
   ],
 

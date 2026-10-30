@@ -60,7 +60,8 @@ const breadcrumbJsonLd = breadcrumbs && breadcrumbs.length
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="generator" content={Astro.generator} />
-  <meta name="theme-color" content="#001a6e" />
+  <meta name="theme-color" content="#0b1530" />
+  <script is:inline>document.documentElement.classList.add('js')</script>
 
   <!-- SEO -->
   <title>{pageTitle}</title>
@@ -108,11 +109,18 @@ const breadcrumbJsonLd = breadcrumbs && breadcrumbs.length
   <Footer />
 
   <script>
-    const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.12 }
-    );
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    const items = document.querySelectorAll('.fade-in');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((el) => el.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach((e) => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+        }),
+        { threshold: 0, rootMargin: '0px 0px -8% 0px' }
+      );
+      items.forEach((el) => observer.observe(el));
+    }
   </script>
 </body>
 </html>

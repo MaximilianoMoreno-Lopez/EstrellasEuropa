@@ -25,8 +25,8 @@ demasiado difícil, cara o elitista.
 
 ## Qué se va a hacer
 
-Un grupo promotor de cinco jóvenes —todos ellos con experiencia directa en
-itinerarios internacionales— intervendrá en el momento en que se decide el
+Un grupo promotor de cinco jóvenes, todos ellos con experiencia directa en
+itinerarios internacionales, intervendrá en el momento en que se decide el
 itinerario, entre 3.º de ESO y 1.º de Bachillerato:
 
 - **Sesiones en aula** con dinámicas de diagnóstico, desmontaje de mitos y

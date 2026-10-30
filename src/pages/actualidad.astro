@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StarPieces from '../components/StarPieces.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -12,7 +13,7 @@ const typeColor = {
   'Erasmus+':      'var(--eu-blue)',
   'Cooperación':   'var(--c-murcia)',
   'Acción local':  'var(--c-green)',
-  'Participación': 'var(--c-magec)',
+  'Participación': 'var(--c-magec-ink)',
   'Solidaridad':   'var(--c-green)',
 };
 
@@ -28,7 +29,8 @@ function fmtDate(d) {
   title="Actualidad"
   description="Noticias y novedades de la Federación Estrellas de Europa: proyectos Erasmus+, cooperación internacional y vida de la federación."
 >
-  <div class="page-hero">
+  <div class="page-hero" style="--ph-c: var(--logo-yellow-l)">
+    <StarPieces variant="outline" highlight={['yellow']} class="ph-star" />
     <div class="container page-hero-content">
       <span class="badge badge-eu fade-in">Actualidad</span>
       <h1 class="fade-in fade-in-delay-1">Noticias de la federación</h1>
@@ -58,7 +60,10 @@ function fmtDate(d) {
               </div>
               <h2 class="article-title">{a.data.title}</h2>
               {a.data.description && <p class="article-desc">{a.data.description}</p>}
-              <span class="article-read">Leer más →</span>
+              <span class="article-read">
+                Leer más
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
             </div>
           </a>
         ))}
@@ -71,7 +76,7 @@ function fmtDate(d) {
   .articles-section { background: var(--sand); }
   .articles-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
     gap: 1.5rem;
   }
   .article-card {
@@ -81,32 +86,45 @@ function fmtDate(d) {
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     overflow: hidden; text-decoration: none; color: inherit;
-    transition: transform .25s ease, box-shadow .25s ease;
+    transition: transform .3s var(--ease-out), box-shadow .3s ease;
   }
-  .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+  .article-card:hover, .article-card:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .article-card:focus-visible { outline-offset: 4px; }
   .article-band {
-    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 55%, #1a1200) 100%);
-    padding: 1rem 1.5rem;
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 50%, var(--night-1)) 100%);
+    padding: 1.1rem 1.5rem; min-height: 64px;
+    display: flex; align-items: flex-end;
   }
+  .article-band::after {
+    content: ''; position: absolute; right: 14px; top: -14px; width: 92px; aspect-ratio: 557 / 510;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 557 510' fill='white' fill-opacity='.16'%3E%3Cpolygon points='165,3 237,133 123,213'/%3E%3Cpolygon points='208,40 393,18 302,85'/%3E%3Cpolygon points='382,50 553,205 382,125'/%3E%3Cpolygon points='3,255 283,218 357,357'/%3E%3Cpolygon points='384,205 487,192 392,507'/%3E%3C/svg%3E") center / contain no-repeat;
+    transform: rotate(-8deg); transition: transform .5s var(--ease-out);
+  }
+  .article-card:hover .article-band::after { transform: rotate(4deg) scale(1.06); }
   .article-type {
-    font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+    position: relative;
+    font-size: .72rem; font-weight: 700; letter-spacing: .12em;
     text-transform: uppercase; color: #fff;
   }
-  .article-body { padding: 1.4rem 1.5rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
-  .article-meta { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
+  .article-body { padding: 1.4rem 1.5rem 1.35rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; }
+  .article-meta { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
   .article-date, .article-loc {
-    font-size: .76rem; color: var(--ink-mute); font-weight: 500;
+    font-size: .78rem; color: var(--ink-mute); font-weight: 500;
   }
-  .article-loc::before { content: '· '; }
+  .article-loc::before { content: '·'; margin-right: .6rem; color: var(--sand-deeper); }
   .article-title {
-    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
-    font-size: 1.18rem; color: var(--ink); line-height: 1.3;
+    font-size: 1.25rem; color: var(--ink); line-height: 1.3; letter-spacing: -.005em;
+    transition: color .2s;
   }
   .article-desc {
     font-size: .9rem; color: var(--ink-soft); line-height: 1.65; flex: 1;
   }
   .article-read {
-    font-size: .85rem; font-weight: 600; color: var(--ac); margin-top: .25rem;
+    display: inline-flex; align-items: center; gap: .4rem;
+    font-size: .86rem; font-weight: 600; color: var(--ac); margin-top: .35rem;
+    transition: gap .2s var(--ease-out);
   }
+  .article-card:hover .article-read { gap: .65rem; }
   .article-card:hover .article-title { color: var(--ac); }
 </style>

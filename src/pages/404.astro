@@ -1,6 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { PIECES, STAR_CENTER } from '../lib/star.js';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Piezas de la estrella, separadas: al cargar se reagrupan
+const pieces = PIECES.map((p, i) => {
+  const vx = p.cx - STAR_CENTER.x, vy = p.cy - STAR_CENTER.y;
+  const len = Math.hypot(vx, vy) || 1;
+  return { ...p, dx: (vx / len * 90).toFixed(1), dy: (vy / len * 90).toFixed(1), rot: i % 2 ? 14 : -14, i };
+});
 ---
 
 <BaseLayout
@@ -9,13 +17,11 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 >
   <section class="nf">
     <div class="container nf-inner">
-      <div class="nf-dots" aria-hidden="true">
-        <span style="background:var(--c-sur)"></span>
-        <span style="background:var(--c-magec)"></span>
-        <span style="background:var(--c-green)"></span>
-        <span style="background:var(--c-murcia)"></span>
-        <span style="background:var(--c-blue)"></span>
-      </div>
+      <svg class="nf-star" viewBox="-60 -60 677 630" aria-hidden="true" focusable="false">
+        {pieces.map((p) => (
+          <polygon points={p.pts} fill={p.l} style={`--dx:${p.dx}px;--dy:${p.dy}px;--rot:${p.rot}deg;--i:${p.i}`} />
+        ))}
+      </svg>
       <p class="nf-code">404</p>
       <h1>Esta página se ha perdido por Europa</h1>
       <p class="nf-text">
@@ -24,7 +30,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       </p>
       <div class="nf-actions">
         <a href={`${base}/`} class="btn btn-primary btn-lg">Ir al inicio</a>
-        <a href={`${base}/organizaciones/`} class="btn btn-outline btn-lg">Ver organizaciones</a>
+        <a href={`${base}/organizaciones/`} class="btn btn-outline-white btn-lg">Ver organizaciones</a>
       </div>
     </div>
   </section>
@@ -32,21 +38,39 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <style>
 .nf {
-  background: linear-gradient(150deg, #1a0f00 0%, #291500 45%, #1e1200 100%);
-  min-height: 78vh; display: flex; align-items: center;
-  padding: 8rem 0 5rem; text-align: center;
+  position: relative; overflow: hidden;
+  background: var(--night-grad);
+  min-height: min(82vh, 780px); display: flex; align-items: center;
+  padding: calc(var(--nav-offset) + 3.75rem) 0 5rem; text-align: center;
 }
-.nf-inner { max-width: 620px; margin: 0 auto; }
-.nf-dots { display: flex; justify-content: center; gap: .55rem; margin-bottom: 1.75rem; }
-.nf-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.nf::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, #000, transparent 75%);
+          mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, #000, transparent 75%);
+}
+.nf-inner { position: relative; max-width: 640px; margin: 0 auto; }
+.nf-star { width: 190px; height: auto; margin: 0 auto 1.25rem; display: block; overflow: visible; }
+.nf-star polygon {
+  transform-box: fill-box; transform-origin: center;
+  transform: translate(calc(var(--dx) * .16), calc(var(--dy) * .16));
+  animation: nf-regroup 1.6s cubic-bezier(.2,.8,.2,1) backwards;
+  animation-delay: calc(var(--i) * 80ms + .2s);
+}
+@keyframes nf-regroup {
+  from { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: .2; }
+}
 .nf-code {
-  font-family: 'Playfair Display Variable', Georgia, serif;
-  font-size: clamp(4rem, 12vw, 7rem); font-weight: 700;
-  color: var(--c-magec); line-height: 1; margin-bottom: .5rem;
+  font-family: var(--font-serif);
+  font-size: clamp(3.5rem, 10vw, 6rem); font-weight: 600;
+  color: rgba(255,255,255,.92); line-height: 1; margin-bottom: .75rem;
+  font-variant-numeric: lining-nums; letter-spacing: .02em;
 }
-.nf h1 { color: #fff; font-size: clamp(1.5rem, 3.5vw, 2.2rem); margin-bottom: 1rem; }
-.nf-text { color: rgba(255,255,255,.68); line-height: 1.7; margin-bottom: 2.25rem; }
-.nf-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.nf .btn-outline { color: #fff; border-color: rgba(255,255,255,.45); }
-.nf .btn-outline:hover { background: rgba(255,255,255,.1); border-color: #fff; color: #fff; }
+.nf h1 { color: #fff; font-size: clamp(1.6rem, 3.5vw, 2.4rem); margin-bottom: 1rem; }
+.nf-text { color: rgba(255,255,255,.76); line-height: 1.7; margin-bottom: 2.25rem; font-size: 1.05rem; }
+.nf-actions { display: flex; gap: .85rem; justify-content: center; flex-wrap: wrap; }
+@media (max-width: 480px) {
+  .nf-actions { flex-direction: column; align-items: stretch; }
+}
 </style>

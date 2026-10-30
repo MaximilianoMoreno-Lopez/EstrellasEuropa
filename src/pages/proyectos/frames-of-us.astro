@@ -226,7 +226,7 @@ const breadcrumbs = [
   </section>
 
   <!-- ── CTA ─────────────────────────────────────────────── -->
-  <section class="proj-cta">
+  <section class="proj-cta cta-band">
     <div class="container cta-inner">
       <div class="fade-in">
         <h2>¿Eres una entidad juvenil y quieres formar parte?</h2>
@@ -265,22 +265,24 @@ const breadcrumbs = [
   }
 
   /* ── Portada ── */
-  .back-bar {
-    background: var(--ink);
-    border-bottom: 1px solid rgba(255,255,255,.07);
-    padding: calc(68px + .65rem) 0 .65rem;
-  }
-  .back-link {
-    display: inline-flex; align-items: center; gap: .4rem;
-    font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.7);
-    text-decoration: none; transition: color .2s, gap .2s;
-  }
-  .back-link:hover { color: var(--c-magec); gap: .55rem; }
 
   .proj-hero {
-    background: linear-gradient(135deg, var(--ac) 0%, color-mix(in srgb, var(--ac) 42%, #0d1220) 100%);
-    padding: 3.25rem 0 3rem;
+    position: relative; overflow: hidden; isolation: isolate;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--ac) 82%, var(--night-1)) 0%, color-mix(in srgb, var(--ac) 42%, var(--night-1)) 100%);
+    padding: 3.5rem 0 3.5rem;
   }
+  .proj-hero::before {
+    content: ''; position: absolute; z-index: -1; pointer-events: none;
+    right: max(1rem, calc((100vw - 1200px) / 2)); top: 50%;
+    width: clamp(150px, 24vw, 300px); aspect-ratio: 557 / 510;
+    transform: translateY(-50%) rotate(-8deg);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-10 -10 577 530' fill='white' fill-opacity='.08' stroke='white' stroke-opacity='.28' stroke-width='3' stroke-linejoin='round'%3E%3Cpolygon points='165,3 237,133 123,213'/%3E%3Cpolygon points='208,40 393,18 302,85'/%3E%3Cpolygon points='382,50 553,205 382,125'/%3E%3Cpolygon points='3,255 283,218 357,357'/%3E%3Cpolygon points='384,205 487,192 392,507'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .proj-hero::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--fed-band);
+  }
+  @media (max-width: 768px) { .proj-hero::before { opacity: .5; right: -40px; } }
+  @media (max-width: 640px) { .proj-hero::before { width: 112px; right: -24px; top: 1.25rem; transform: rotate(-8deg); opacity: .35; } }
   .hero-badge {
     display: inline-block; font-size: .72rem; font-weight: 700;
     letter-spacing: .12em; text-transform: uppercase; color: #fff;
@@ -289,7 +291,7 @@ const breadcrumbs = [
   }
   .hero-title { font-size: clamp(1.9rem, 4.2vw, 3rem); color: #fff; line-height: 1.1; }
   .hero-en {
-    font-size: .95rem; color: rgba(255,255,255,.6); font-style: italic;
+    font-size: .95rem; color: rgba(255,255,255,.88); font-style: italic;
     margin: .3rem 0 1rem;
   }
   .hero-lead {
@@ -306,7 +308,7 @@ const breadcrumbs = [
   }
   .fact strong { color: #fff; font-weight: 600; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.75rem; }
-  .hero-note { font-size: .82rem; color: rgba(255,255,255,.6); margin-top: .85rem; }
+  .hero-note { font-size: .82rem; color: rgba(255,255,255,.88); margin-top: .85rem; }
 
   /* ── Ficha ── */
   .ficha-strip { background: var(--parchment); border-bottom: 1px solid var(--line); padding: 2rem 0; }
@@ -322,6 +324,7 @@ const breadcrumbs = [
   .texto { color: var(--ink-soft); line-height: 1.8; margin-bottom: 1rem; }
   .req-nota { margin-top: 1.5rem; font-size: .92rem; }
   .check-list { display: flex; flex-direction: column; gap: .7rem; }
+  .check-list + p { margin-top: 1.25rem; }
   .check-list li {
     display: flex; align-items: flex-start; gap: .6rem;
     color: var(--ink-soft); line-height: 1.6;
