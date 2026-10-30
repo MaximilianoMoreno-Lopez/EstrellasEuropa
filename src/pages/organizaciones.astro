@@ -12,8 +12,8 @@ const orgs = [
     location: 'Córdoba, Andalucía',
     founded: '2020',
     color: 'var(--c-sur)',
-    colorRgb: '196,78,42',
-    flag: `<svg ${ICON}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>`,
+    colorRgb: '31,79,168',
+    flag: `<img class="sq" src="${base}/orgs/estrellas-del-sur.png" alt="" width="256" height="256" />`,
     description:
       'Asociación juvenil con sede en Córdoba que lleva desde 2019 promoviendo la movilidad europea entre jóvenes del sur de España. Fue la impulsora de la creación de la Federación Estrellas de Europa en 2024.',
     activities: [
@@ -32,7 +32,7 @@ const orgs = [
     founded: '2022',
     color: 'var(--c-magec)',
     colorRgb: '217,167,39',
-    flag: `<svg ${ICON}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    flag: `<img class="sq" src="${base}/orgs/estrella-magec.png" alt="" width="256" height="256" />`,
     description:
       'Organización canaria que trabaja por la inclusión y la participación activa de jóvenes en proyectos europeos, con especial atención a colectivos con menos oportunidades.',
     activities: [
@@ -68,9 +68,9 @@ const orgs = [
     name: 'Estrella del Rif',
     location: 'Melilla',
     founded: '2024',
-    color: 'var(--c-blue)',
-    colorRgb: '43,82,168',
-    flag: `<svg ${ICON}><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+    color: 'var(--c-rif)',
+    colorRgb: '47,125,66',
+    flag: `<img class="sq" src="${base}/orgs/estrella-del-rif.svg" alt="" width="256" height="256" />`,
     description:
       'Asociación juvenil de Melilla, formada íntegramente por voluntariado. Trabaja con educación no formal para que la juventud de una ciudad sin conexión terrestre con Europa continental participe en la vida democrática y acceda a las oportunidades europeas, con un enfoque intercultural que refleja la diversidad de la ciudad.',
     activities: [
@@ -88,7 +88,7 @@ const orgs = [
     location: 'La Rioja',
     founded: '2025',
     color: 'var(--c-rioja)',
-    colorRgb: '91,26,51',
+    colorRgb: '184,58,68',
     flag: `<img src="${base}/orgs/horizonte-rioja.svg" alt="" width="260" height="168" />`,
     description:
       'Asociación juvenil fundada a finales de 2025 por jóvenes con raíces en los pueblos de La Rioja. Trabaja para que la juventud del medio rural, sobre todo la de zonas despobladas o con menos recursos, tenga acceso a información, formación y experiencias europeas, con especial atención a la igualdad de género y a la diversidad LGTBIQ+. Coordina Rural Identities, su primer proyecto Erasmus+.',
@@ -128,7 +128,7 @@ const orgs = [
     <div class="container">
       <div class="orgs-list">
         {orgs.map((org, i) => (
-          <article id={org.id} class={`org-detail fade-in ${org.id === 'ema' ? 'org-light' : ''}`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}; --org-text: ${org.id === 'ema' ? 'var(--c-magec-ink)' : org.id === 'eds' ? 'var(--accent-text)' : org.color}`}>
+          <article id={org.id} class={`org-detail fade-in ${org.id === 'ema' ? 'org-light' : ''}`} style={`--org-color: ${org.color}; --org-rgb: ${org.colorRgb}; --org-text: ${org.id === 'ema' ? 'var(--c-magec-ink)' : org.color}`}>
             <div class="org-detail-side">
               <div class={`org-detail-flag ${org.id === 'hri' ? 'org-detail-logo' : ''}`} set:html={org.flag} />
               <span class="org-detail-badge">{org.id.toUpperCase()}</span>
@@ -220,6 +220,8 @@ const orgs = [
 .org-detail-flag :global(svg) { width: 30px; height: 30px; flex-shrink: 0; }
 .org-detail-logo { width: auto; padding: 0 .75rem; }
 .org-detail-flag :global(img) { height: 38px; width: auto; max-width: 80px; }
+.org-detail-flag :global(img.sq) { height: 52px; width: 52px; }
+@media (max-width: 760px) { .org-detail-flag :global(img.sq) { height: 46px; width: 46px; } }
 .org-detail-badge {
   display: inline-block; padding: .25rem .8rem;
   border-radius: var(--radius-full);

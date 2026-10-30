@@ -1,7 +1,7 @@
 // Las cinco piezas de la estrella del logo (viewBox 0 0 557 510), trazadas sobre
 // public/logo-star.png y pintadas con los colores originales del logo.
-// Las piezas no representan a ninguna entidad: los colores de cada organización
-// se usan solo en etiquetas, pastillas y tarjetas.
+// Cada entidad lleva el color de una pieza: azul Estrellas del Sur, rojo Horizonte
+// Rioja, amarillo Estrella Magec, verde Estrella del Rif y morado Murcia Debate.
 // Ilustración decorativa: el logo oficial (PNG) no se modifica.
 export const PIECES = [
   { id: 'blue',   pts: '165,3 237,133 123,213',   c: 'var(--logo-blue)',   l: 'var(--logo-blue-l)',   cx: 175, cy: 116 },

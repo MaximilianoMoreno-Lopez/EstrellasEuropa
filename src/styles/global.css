@@ -25,29 +25,31 @@
   --accent-dark: #a83e20;
   --accent-text: #ad4320;   /* terracota para texto pequeño (AA sobre arena) */
 
-  /* Colores de entidad (los cinco triángulos de la estrella) */
-  --c-sur:    #c44e2a;   /* terracota, Estrellas del Sur */
-  --c-magec:  #d9a727;   /* ámbar, Estrella Magec        */
-  --c-murcia: #6b3a8a;   /* violeta, Murcia Debate       */
-  --c-blue:   #2b52a8;   /* azul, Estrella del Rif       */
-  --c-rioja:  #5b1a33;   /* granate, Horizonte Rioja     */
+  /* Colores de entidad: cada una lleva el color de una pieza de la estrella */
+  --c-sur:    #1f4fa8;   /* azul, Estrellas del Sur      */
+  --c-magec:  #d9a727;   /* amarillo, Estrella Magec     */
+  --c-murcia: #6b3a8a;   /* morado, Murcia Debate        */
+  --c-rif:    #2f7d42;   /* verde, Estrella del Rif      */
+  --c-rioja:  #b83a44;   /* rojo, Horizonte Rioja        */
+  --c-blue:   #2b52a8;   /* azul genérico (UI, enlaces)  */
   --c-green:  #3d7848;   /* verde (Solidaridad, estados) */
 
   /* Tonos derivados: texto sobre claro y gráficos sobre oscuro */
   --c-magec-ink:    #8a6410;
-  --c-sur-light:    #ea8463;
+  --c-sur-light:    #7fa3e8;
   --c-magec-light:  #f0c24e;
   --c-murcia-light: #b892d6;
   --c-blue-light:   #8fa8e6;
-  --c-rioja-light:  #b86a83;   /* vino apagado: sigue leyéndose granate sobre noche */
+  --c-rif-light:    #6dbb78;
+  --c-rioja-light:  #ef6f78;
 
   /* Franja federal: cinco piezas, cortes netos */
   --fed-band: linear-gradient(90deg,
     var(--c-sur) 0 20%, var(--c-magec) 20% 40%, var(--c-murcia) 40% 60%,
-    var(--c-blue) 60% 80%, var(--c-rioja) 80% 100%);
+    var(--c-rif) 60% 80%, var(--c-rioja) 80% 100%);
   --fed-band-light: linear-gradient(90deg,
     var(--c-sur-light) 0 20%, var(--c-magec-light) 20% 40%, var(--c-murcia-light) 40% 60%,
-    var(--c-blue-light) 60% 80%, var(--c-rioja-light) 80% 100%);
+    var(--c-rif-light) 60% 80%, var(--c-rioja-light) 80% 100%);
 
   /* Colores originales del logo (public/logo-star.png), para la estrella ilustrada */
   --logo-blue:   #004aad;

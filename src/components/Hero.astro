@@ -6,17 +6,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Caja de la ilustración (unidades del viewBox de la estrella, 557 x 510)
 const VB = { x: -125, y: -72, w: 850, h: 640 };
 
-// Las cinco entidades orbitan alrededor de la estrella. Las piezas mantienen los
-// colores originales del logo y no se asignan a ninguna entidad: el color de cada
-// organización aparece solo en su marcador y su etiqueta.
-// Datos (nombre y lugar) de organizaciones.astro.
+// Las cinco entidades orbitan alrededor de la estrella, cada una junto a la pieza
+// de su color: azul Estrellas del Sur, amarillo Magec, morado Murcia Debate,
+// verde Rif y rojo Horizonte Rioja. Datos (nombre, lugar y web) de organizaciones.astro.
 const ORBIT = { cx: 285, cy: 258, r: 318 };
 const members = [
-  { id: 'eds', name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)',    deg: -97,  side: 'l' },
-  { id: 'ema', name: 'Estrella Magec',    place: 'Canarias', c: 'var(--c-magec)',  deg: -46,  side: 'r' },
-  { id: 'mur', name: 'Murcia Debate',     place: 'Murcia',   c: 'var(--c-murcia)', deg: 47,   side: 'r' },
-  { id: 'hri', name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)',  deg: 129,  side: 'l' },
-  { id: 'edr', name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-blue)',   deg: -134, side: 'l' },
+  { id: 'eds', name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)',    deg: -130, side: 'l', web: 'https://estrellasdelsur.eu' },
+  { id: 'hri', name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)',  deg: -82,  side: 'r', web: 'https://www.horizonterioja.eu' },
+  { id: 'ema', name: 'Estrella Magec',    place: 'Canarias', c: 'var(--c-magec)',  deg: -36,  side: 'r' },
+  { id: 'mur', name: 'Murcia Debate',     place: 'Murcia',   c: 'var(--c-murcia)', deg: 38,   side: 'r' },
+  { id: 'edr', name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-rif)',    deg: 163,  side: 'l', web: 'https://estrelladelrif.eu' },
 ].map((m, i) => {
   const rad = (m.deg * Math.PI) / 180;
   return { ...m, i, x: +(ORBIT.cx + ORBIT.r * Math.cos(rad)).toFixed(1), y: +(ORBIT.cy + ORBIT.r * Math.sin(rad)).toFixed(1) };
@@ -40,11 +39,11 @@ const pct = (x: number, y: number) =>
   `left:${(((x - VB.x) / VB.w) * 100).toFixed(2)}%;top:${(((y - VB.y) / VB.h) * 100).toFixed(2)}%`;
 
 const pills = [
-  { name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)' },
+  { name: 'Estrellas del Sur', place: 'Córdoba',  c: 'var(--c-sur)',    web: 'https://estrellasdelsur.eu' },
   { name: 'Estrella Magec',    place: 'Canarias', c: 'var(--c-magec)' },
   { name: 'Murcia Debate',     place: 'Murcia',   c: 'var(--c-murcia)' },
-  { name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-blue)' },
-  { name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)' },
+  { name: 'Estrella del Rif',  place: 'Melilla',  c: 'var(--c-rif)',    web: 'https://estrelladelrif.eu' },
+  { name: 'Horizonte Rioja',   place: 'La Rioja', c: 'var(--c-rioja)',  web: 'https://www.horizonterioja.eu' },
 ];
 ---
 
@@ -89,8 +88,17 @@ const pills = [
         <ul class="hero-org-pills">
           {pills.map((o) => (
             <li class="org-pill" style={`--c:${o.c}`}>
-              <span class="org-pill-dot" aria-hidden="true"></span>
-              {o.name}<span class="org-pill-place"> · {o.place}</span>
+              {o.web
+                ? <a href={o.web} target="_blank" rel="noopener" class="org-pill-in">
+                    <span class="org-pill-dot" aria-hidden="true"></span>
+                    {o.name}<span class="org-pill-place"> · {o.place}</span>
+                    <svg class="org-pill-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+                    <span class="sr-only">(web, se abre en otra pestaña)</span>
+                  </a>
+                : <span class="org-pill-in">
+                    <span class="org-pill-dot" aria-hidden="true"></span>
+                    {o.name}<span class="org-pill-place"> · {o.place}</span>
+                  </span>}
             </li>
           ))}
         </ul>
@@ -132,7 +140,8 @@ const pills = [
 
       {members.map((m) => (
         <a
-          href={`${base}/organizaciones/#${m.id}`}
+          href={m.web ?? `${base}/organizaciones/#${m.id}`}
+          {...(m.web ? { target: '_blank', rel: 'noopener' } : {})}
           class={`hv-label hv-label-${m.side} hl-${m.id}`}
           style={`${pct(m.x, m.y)};--c:${m.c};--i:${m.i}`}
         >
@@ -226,13 +235,20 @@ const pills = [
 }
 .hero-org-pills { display: flex; flex-wrap: wrap; gap: .45rem; }
 .org-pill {
-  display: inline-flex; align-items: center; gap: .45rem;
+  display: inline-flex;
   font-size: .8rem; font-weight: 600; color: var(--ink);
-  padding: .32rem .8rem .32rem .65rem;
   border-radius: var(--radius-full);
   background: var(--parchment);
   border: 1px solid var(--line);
+  transition: border-color .2s, box-shadow .2s;
 }
+.org-pill-in {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .32rem .8rem .32rem .65rem;
+  color: inherit; text-decoration: none; border-radius: inherit;
+}
+.org-pill:has(a):hover { border-color: var(--c); box-shadow: 0 2px 8px rgba(20,30,50,.08); }
+.org-pill-ext { color: var(--ink-mute); margin-left: -.1rem; }
 .org-pill-dot {
   width: 9px; height: 9px; flex-shrink: 0; background: var(--c);
   clip-path: polygon(0 100%, 100% 0, 62% 100%);

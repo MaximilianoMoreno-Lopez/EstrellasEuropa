@@ -7,8 +7,8 @@ const orgs = [
     id: 'EDS',
     name: 'Estrellas del Sur',
     location: 'Córdoba, Andalucía',
-    color: '#c44e2a',
-    flag: `<svg ${ICON}><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>`,
+    color: '#1f4fa8',
+    flag: `<img class="sq" src="${base}/orgs/estrellas-del-sur.png" alt="" width="256" height="256" />`,
     description: 'Asociación juvenil cordobesa promotora de la movilidad Erasmus+ y el aprendizaje no formal. Sede fundadora de la federación.',
     tags: ['Intercambios juveniles', 'Voluntariado ESC', 'Formación'],
     website: 'https://estrellasdelsur.eu',
@@ -19,7 +19,7 @@ const orgs = [
     location: 'Islas Canarias',
     color: '#d9a727',
     text: '#8a6410',
-    flag: `<svg ${ICON}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    flag: `<img class="sq" src="${base}/orgs/estrella-magec.png" alt="" width="256" height="256" />`,
     description: 'Asociación canaria dedicada a la inclusión juvenil y la participación activa en proyectos europeos de educación no formal.',
     tags: ['Inclusión juvenil', 'Erasmus+', 'Educación no formal'],
     website: null,
@@ -38,8 +38,8 @@ const orgs = [
     id: 'EDR',
     name: 'Estrella del Rif',
     location: 'Melilla',
-    color: '#2b52a8',
-    flag: `<svg ${ICON}><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>`,
+    color: '#2f7d42',
+    flag: `<img class="sq" src="${base}/orgs/estrella-del-rif.svg" alt="" width="256" height="256" />`,
     description: 'Asociación juvenil melillense que acerca las oportunidades europeas a la juventud de una región periférica, con un enfoque intercultural e inclusivo.',
     tags: ['Participación juvenil', 'Diálogo intercultural', 'Inclusión'],
     website: 'https://estrelladelrif.eu',
@@ -48,7 +48,7 @@ const orgs = [
     id: 'HRI',
     name: 'Horizonte Rioja',
     location: 'La Rioja',
-    color: '#5b1a33',
+    color: '#b83a44',
     flag: `<img src="${base}/orgs/horizonte-rioja.svg" alt="" width="260" height="168" />`,
     description: 'Asociación juvenil riojana creada por jóvenes de pueblo para que vivir en el medio rural no signifique tener menos oportunidades, en su territorio y en Europa.',
     tags: ['Juventud rural', 'Igualdad y diversidad', 'Erasmus+'],
@@ -78,7 +78,9 @@ const orgs = [
             <span class="org-id">{org.id}</span>
           </div>
           <div class="org-body">
-            <h3>{org.name}</h3>
+            <h3>{org.website
+              ? <a href={org.website} target="_blank" rel="noopener" class="org-name-link">{org.name}</a>
+              : org.name}</h3>
             <p class="org-loc">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
               {org.location}
@@ -149,6 +151,7 @@ const orgs = [
 .org-flag :global(svg) { width: 26px; height: 26px; flex-shrink: 0; }
 .org-flag-logo { width: auto; padding: 0 .55rem; }
 .org-flag :global(img) { height: 30px; width: auto; max-width: 64px; }
+.org-flag :global(img.sq) { height: 42px; width: 42px; }
 .org-id {
   position: relative; align-self: flex-start; margin-top: 1rem;
   font-size: .68rem; font-weight: 700; letter-spacing: .12em;
@@ -158,6 +161,8 @@ const orgs = [
 .org-card[style*="d9a727"] .org-id { color: var(--ink); }
 .org-body { padding: 1.35rem 1.4rem 1.25rem; flex: 1; }
 .org-body h3 { font-size: var(--fs-h3); color: var(--ink); margin-bottom: .3rem; }
+.org-name-link { color: inherit; text-decoration: none; }
+.org-name-link:hover { color: var(--c-text); text-decoration: underline; text-underline-offset: 4px; }
 .org-loc {
   display: flex; align-items: center; gap: .3rem;
   font-size: .82rem; color: var(--ink-mute); margin-bottom: .9rem;
