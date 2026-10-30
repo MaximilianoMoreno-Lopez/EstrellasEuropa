@@ -81,12 +81,31 @@ const orgs = [
     website: 'https://estrelladelrif.eu',
     email: 'asoc.estrelladelrif@gmail.com',
   },
+  {
+    id: 'hri',
+    name: 'Horizonte Rioja',
+    location: 'La Rioja',
+    founded: '2025',
+    color: 'var(--c-rioja)',
+    colorRgb: '91,26,51',
+    flag: `<img src="${base}/orgs/horizonte-rioja.svg" alt="" width="260" height="168" />`,
+    description:
+      'Asociación juvenil fundada a finales de 2025 por jóvenes con raíces en los pueblos de La Rioja. Trabaja para que la juventud del medio rural, sobre todo la de zonas despobladas o con menos recursos, tenga acceso a información, formación y experiencias europeas, con especial atención a la igualdad de género y a la diversidad LGTBIQ+. Coordina Rural Identities, su primer proyecto Erasmus+.',
+    activities: [
+      'Talleres y charlas en los pueblos',
+      'Espacios seguros de diálogo para jóvenes',
+      'Movilidad europea para la juventud rural',
+      'Rural Identities, asociación a pequeña escala Erasmus+ (KA210)',
+    ],
+    website: 'https://www.horizonterioja.eu',
+    email: 'horizonterioja@gmail.com',
+  },
 ];
 ---
 
 <BaseLayout
   title="Organizaciones Miembro · Asociaciones Juveniles"
-  description="Descubre las asociaciones juveniles que forman la Federación Estrellas de Europa: Estrellas del Sur (Córdoba), Estrella Magec (Canarias), Murcia Debate (Murcia) y Estrella del Rif (Melilla)."
+  description="Descubre las asociaciones juveniles que forman la Federación Estrellas de Europa: Estrellas del Sur (Córdoba), Estrella Magec (Canarias), Murcia Debate (Murcia), Estrella del Rif (Melilla) y Horizonte Rioja (La Rioja)."
 >
 
   <div class="page-hero">
@@ -97,7 +116,7 @@ const orgs = [
       </span>
       <h1 class="fade-in fade-in-delay-1">Las asociaciones que forman la federación</h1>
       <p class="fade-in fade-in-delay-2">
-        Cuatro entidades de distintas regiones de España, unidas por el compromiso con
+        Cinco entidades de distintas regiones de España, unidas por el compromiso con
         la juventud y los valores europeos.
       </p>
     </div>
@@ -187,6 +206,7 @@ const orgs = [
 }
 .org-detail-flag { margin-bottom: .5rem; color: var(--org-color); }
 .org-detail-flag svg { width: 40px; height: 40px; }
+.org-detail-flag img { height: 40px; width: auto; }
 .org-detail-badge {
   display: inline-block; padding: .25rem .8rem;
   border-radius: var(--radius-full);
